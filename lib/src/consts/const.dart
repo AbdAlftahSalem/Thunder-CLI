@@ -1,3 +1,5 @@
+import '../extensions/string_extensions.dart';
+
 class ConstStrings {
   // create singleton for ConstStrings
   static final ConstStrings instance = ConstStrings._internal();
@@ -441,7 +443,10 @@ class BaseClient {
 }
     ''';
 
-  String binding(String bindingName) => '''
+  String binding(String bindingName) {
+    bindingName = bindingName.toCamelCase();
+
+    return '''
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -455,8 +460,11 @@ class $bindingName extends Bindings {
   }
 }
 ''';
+  }
 
-  String controller(String controllerName) => '''
+  String controller(String controllerName) {
+    controllerName = controllerName.toCamelCase();
+    return '''
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
@@ -505,13 +513,16 @@ class $controllerName extends GetxController {
   }
 }
 ''';
+  }
 
-  String view(String viewName) => '''
+  String view(String viewName) {
+    viewName = viewName.toCamelCase();
+    return '''
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metro/controller/top_nav_controller.dart';
 
-class TopNavScreen extends StatelessWidget {
+class $viewName extends StatelessWidget {
   const TopNavScreen({super.key});
 
   @override
@@ -528,6 +539,7 @@ class TopNavScreen extends StatelessWidget {
   }
 }
     ''';
+  }
 
   String apiErrorWidget = '''
     import 'package:flutter/material.dart';
