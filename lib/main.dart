@@ -1,10 +1,10 @@
 import 'package:args/args.dart';
 
-import './files_creator/create_binding.dart';
-import './files_creator/create_controller.dart';
-import './files_creator/create_view.dart';
-import './files_creator/generate_all_files.dart';
-import './files_creator/init_folders.dart';
+import 'files_creator/create_binding.dart';
+import 'files_creator/create_controller.dart';
+import 'files_creator/create_view.dart';
+import 'files_creator/generate_all_files.dart';
+import 'files_creator/init_folders.dart';
 
 void main(List<String> arguments) {
   final parser = ArgParser();

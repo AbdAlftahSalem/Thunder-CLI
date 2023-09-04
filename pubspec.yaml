@@ -1,8 +1,8 @@
 name: thunder_creator
-description: A starting point for Dart libraries or applications
-version: 1.0.0
-repository: https://github.com/AbdAlftahSalem/dart-tradingview-ta
-homepage: https://github.com/AbdAlftahSalem/dart-tradingview-ta
+description: This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
+version: 1.0.2
+repository: https://github.com/AbdAlftahSalem/Thunder-Creator.git
+homepage: https://github.com/AbdAlftahSalem/Thunder-Creator.git
 
 environment:
   sdk: ^3.0.6
@@ -10,6 +10,11 @@ environment:
 # Add regular dependencies here.
 dependencies:
   args: ^2.2.2
+  get: ^4.6.5
+  logger: ^2.0.2
+
+executables:
+  thunder_creator:
 
 dev_dependencies:
   lints: ^2.0.0
