@@ -449,13 +449,13 @@ class BaseClient {
     return '''
 import 'package:get/get.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/${bindingName}_controller.dart';
 
 class $bindingName extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(
-      () => HomeController(),
+    Get.lazyPut<${bindingName}Controller>(
+      () => ${bindingName}Controller(),
     );
   }
 }
@@ -531,7 +531,7 @@ class $viewName extends StatelessWidget {
       body: GetBuilder<TopNavController>(
         builder: (controller) {
           return Container(
-            child: Text("TopNavScreen"),
+            child: Text("$viewName"),
           );
         },
       ),
