@@ -5,7 +5,7 @@ import '../services/run_cmd.dart';
 class InitFolders {
   void initFolders() async {
     // add packages
-    _addPackages();
+    await _addPackages();
 
     // setUp all folders
     await _setUpAllFolders();
@@ -29,45 +29,59 @@ class InitFolders {
   Future<void> _addPackages() async {
     // add get package
     await RunCmd.runInCmd('flutter pub add get');
+    print("Add get package 🚀🚀");
 
     // add logger
     await RunCmd.runInCmd('flutter pub add logger');
+    print("Add logger package 🚀🚀");
 
     // add flutter_screenutil
     await RunCmd.runInCmd('flutter pub add flutter_screenutil');
+    print("Add flutter_screenutil package 🚀🚀");
 
     // add dio
     await RunCmd.runInCmd('flutter pub add dio');
+    print("Add dio package 🚀🚀");
 
     // add hive
     await RunCmd.runInCmd('flutter pub add hive');
+    print("Add hive package 🚀🚀");
 
     // add hive_flutter
     await RunCmd.runInCmd('flutter pub add hive_flutter');
+    print("Add hive_flutter package 🚀🚀");
 
     // add shared_preferences
     await RunCmd.runInCmd('flutter pub add shared_preferences');
+    print("Add shared_preferences package 🚀🚀");
 
     // add firebase_core
     await RunCmd.runInCmd('flutter pub add firebase_core');
+    print("Add firebase_core package 🚀🚀");
 
     // add firebase_messaging
     await RunCmd.runInCmd('flutter pub add firebase_messaging');
+    print("Add firebase_messaging package 🚀🚀");
 
     // add awesome_notifications
     await RunCmd.runInCmd('flutter pub add awesome_notifications');
+    print("Add awesome_notifications package 🚀🚀");
 
     // add flutter_launcher_icons
     await RunCmd.runInCmd('flutter pub add flutter_launcher_icons');
+    print("Add flutter_launcher_icons package 🚀🚀");
 
     // add change_app_package_name
     await RunCmd.runInCmd('flutter pub add change_app_package_name');
+    print("Add change_app_package_name package 🚀🚀");
 
     // add rename_app
     await RunCmd.runInCmd('flutter pub add rename_app');
+    print("Add rename_app package 🚀🚀");
 
     // add flutter_svg
     await RunCmd.runInCmd('flutter pub add flutter_svg');
+    print("Add flutter_svg package 🚀🚀");
   }
 
   Future<void> _setUpAllFolders() async {

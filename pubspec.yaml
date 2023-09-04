@@ -1,4 +1,4 @@
-name: mvc_getx_generator
+name: thunder_creator
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
@@ -10,7 +10,6 @@ environment:
 dependencies:
   args: ^2.2.2
   dart: ^2.15.0
-  get:
 
 
 dev_dependencies:
