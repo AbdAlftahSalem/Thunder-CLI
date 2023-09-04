@@ -1,7 +1,8 @@
 name: thunder_creator
-description: A starting point for Dart libraries or applications.
+description: A starting point for Dart libraries or applications
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/AbdAlftahSalem/dart-tradingview-ta
+homepage: https://github.com/AbdAlftahSalem/dart-tradingview-ta
 
 environment:
   sdk: ^3.0.6
@@ -9,8 +10,6 @@ environment:
 # Add regular dependencies here.
 dependencies:
   args: ^2.2.2
-  dart: ^2.15.0
-
 
 dev_dependencies:
   lints: ^2.0.0

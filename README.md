@@ -1,39 +1,63 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Flutter GetX MVC Project
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## Project Structure
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+The project structure is organized as follows:
 
-## Features
+```
+app/
+├── components/
+│   ├── api_error_widget.dart
+│   ├── custom_snackbar.dart
+│   └── animated_widget.dart
+├── data/
+│   ├── local/
+│   │   ├── my_shared_pref.dart
+│   │   └── hive.dart
+├── modules/
+│   ├── binding/
+│   │   └── home_binding.dart
+│   ├── controller/
+│   │   └── home_controller.dart
+│   └── view/
+│    └── home_view.dart
+utils/
+    ├── constants.dart
+    ├── awesome_notifications_helper.dart
+    └── fcm_helper.dart
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+config/
+└── translations/
+    ├── localization_service.dart
+    ├── strings.dart
+    ├── ar_ar_translation.dart
+    └── en_us_translation.dart
 ```
 
-## Additional information
+### Key Directories
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+- **`app/`**: The main application directory.
+    - **`components/`**: Contains custom UI components like `api_error_widget.dart`, `custom_snackbar.dart`,
+      and `animated_widget.dart`.
+    - **`data/`**: Handles data operations, including local data storage.
+        - **`local/`**: Manages local data with `my_shared_pref.dart` and `hive.dart`.
+    - **`modules/`**: Follows the MVC pattern for organizing code.
+        - **`binding/`**: Contains GetX bindings. For example, `home_binding.dart`.
+        - **`controller/`**: Contains controller logic, such as `home_controller.dart`.
+        - **`view/`**: Contains view classes, like `home_view.dart`.
+- **`utils/`**: Houses utility functions and constants used throughout the project.
+- **`config/translations/`**: Contains localization-related files.
+    - **`localization_service.dart`**: Manages localization.
+    - **`strings.dart`**: Stores translation keys.
+    - **`ar_ar_translation.dart`**: Arabic translations.
+    - **`en_us_translation.dart`**: English translations.
+
+## Setup and Running
+
+1. **Clone the Repository**:
+
+   ```shell
+   https://github.com/AbdAlftahSalem/Thunder-Creator.git
+   ```
