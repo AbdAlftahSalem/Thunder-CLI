@@ -1,8 +1,12 @@
 import '../consts/const.dart';
 import '../services/create_folder_files.dart';
+import '../services/run_cmd.dart';
 
 class InitFolders {
   void initFolders() async {
+    // add packages
+    _addPackages();
+
     // setUp all folders
     await _setUpAllFolders();
 
@@ -20,6 +24,50 @@ class InitFolders {
       'lib/main.dart',
       ConstStrings.instance.main,
     );
+  }
+
+  Future<void> _addPackages() async {
+    // add get package
+    await RunCmd.runInCmd('flutter pub add get');
+
+    // add logger
+    await RunCmd.runInCmd('flutter pub add logger');
+
+    // add flutter_screenutil
+    await RunCmd.runInCmd('flutter pub add flutter_screenutil');
+
+    // add dio
+    await RunCmd.runInCmd('flutter pub add dio');
+
+    // add hive
+    await RunCmd.runInCmd('flutter pub add hive');
+
+    // add hive_flutter
+    await RunCmd.runInCmd('flutter pub add hive_flutter');
+
+    // add shared_preferences
+    await RunCmd.runInCmd('flutter pub add shared_preferences');
+
+    // add firebase_core
+    await RunCmd.runInCmd('flutter pub add firebase_core');
+
+    // add firebase_messaging
+    await RunCmd.runInCmd('flutter pub add firebase_messaging');
+
+    // add awesome_notifications
+    await RunCmd.runInCmd('flutter pub add awesome_notifications');
+
+    // add flutter_launcher_icons
+    await RunCmd.runInCmd('flutter pub add flutter_launcher_icons');
+
+    // add change_app_package_name
+    await RunCmd.runInCmd('flutter pub add change_app_package_name');
+
+    // add rename_app
+    await RunCmd.runInCmd('flutter pub add rename_app');
+
+    // add flutter_svg
+    await RunCmd.runInCmd('flutter pub add flutter_svg');
   }
 
   Future<void> _setUpAllFolders() async {
