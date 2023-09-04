@@ -14,6 +14,12 @@ class InitFolders {
 
     // set up app files
     _setUpAppFiles();
+
+    // set up main file
+    CreateFolderAndFiles().createFile(
+      'lib/main.dart',
+      ConstStrings.instance.main,
+    );
   }
 
   Future<void> _setUpAllFolders() async {

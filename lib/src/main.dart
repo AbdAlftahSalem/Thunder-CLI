@@ -1,29 +1,33 @@
 import 'package:args/args.dart';
 
+import './files_creator/create_binding.dart';
 import './files_creator/create_controller.dart';
 import './files_creator/create_view.dart';
-import './files_creator/create_binding.dart';
+import './files_creator/generate_all_files.dart';
 import './files_creator/init_folders.dart';
 
 void main(List<String> arguments) {
   final parser = ArgParser();
 
   // create flags
-  parser.addFlag('init', help: 'Initialize project with GetX and mvc');
-  parser.addFlag('controller', help: 'Generate controller file');
-  parser.addFlag('view', help: 'Generate view file');
-  parser.addFlag('binding', help: 'Generate Binding file');
+  parser.addFlag('i', help: 'Initialize project with GetX and mvc');
+  parser.addFlag('a', help: 'Generate View Controller and Binding files');
+  parser.addFlag('c', help: 'Generate controller file');
+  parser.addFlag('v', help: 'Generate view file');
+  parser.addFlag('b', help: 'Generate Binding file');
 
   final results = parser.parse(arguments);
 
-  if (results['controller']) {
+  if (results['c']) {
     CreateController().createController();
-  } else if (results['init']) {
+  } else if (results['i']) {
     InitFolders().initFolders();
-  } else if (results['view']) {
+  } else if (results['v']) {
     CreateView().createView();
-  } else if (results['binding']) {
+  } else if (results['b']) {
     CreateBinding().createBinding();
+  } else if (results['a']) {
+    CreateAllFiles().createFiles();
   } else {
     print("Please enter a valid command");
   }
