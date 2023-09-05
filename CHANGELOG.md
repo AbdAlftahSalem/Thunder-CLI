@@ -1,4 +1,3 @@
-## 2.0.0
+## 2.0.2
 
-- Update initial project structure
-- Create module [ view / binding / controller ] for each screen
+- Fix some bugs

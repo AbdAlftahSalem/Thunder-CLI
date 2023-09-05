@@ -4,9 +4,11 @@ import '../services/run_cmd.dart';
 import './create_module_files.dart';
 
 class InitFolders {
-  void initFolders() async {
-    // // add packages
-    await _addPackages();
+  void initFolders({bool setUpPackage = false}) async {
+    // add packages
+    if (setUpPackage) {
+      await _addPackages();
+    }
 
     // setUp all folders
     await _setUpAllFolders();
@@ -76,7 +78,6 @@ class InitFolders {
 
     // set up modules folder
     CreateModuleFiles().createFiles();
-
   }
 
   Future<void> _setUpDateFolder() async {
