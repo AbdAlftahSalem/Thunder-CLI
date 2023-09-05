@@ -6,7 +6,7 @@ import './create_module_files.dart';
 class InitFolders {
   void initFolders() async {
     // // add packages
-    // await _addPackages();
+    await _addPackages();
 
     // setUp all folders
     await _setUpAllFolders();
