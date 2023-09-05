@@ -30,11 +30,15 @@ class CreateModuleFiles {
     // set up files module
     _setupFilesModule(name);
 
-    // reading routes file
-    RoutesCreator(nameFolder: name).addInRoutesFile();
+    // // reading routes file
+    // RoutesCreator(nameFolder: name).addInRoutesFile();
+    //
+    // // Create routes for module
+    // RoutesCreator(nameFolder: name).addInAppRoutesFile();
 
-    // Create routes for module
-    RoutesCreator(nameFolder: name).addInAppRoutesFile();
+    if (withModel) {
+      createModelFile();
+    }
 
     print("Create module files successfully 🚀🚀");
   }
@@ -42,47 +46,47 @@ class CreateModuleFiles {
   void _setupFoldersModule(String name) {
     // create modules folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/app/modules');
+        .createFolder('E:/Flutter new/crypto_new/lib/app/modules');
 
     // create home folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}');
+        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}');
 
     // create binding folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/binding');
+        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding');
 
     // controller folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/controller');
+        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller');
 
     // create view folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/view');
+        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view');
 
     // create model folder
     if (withModel) {
       CreateFolderAndFiles().createFolder(
-          'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/model');
+          'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/model');
     }
   }
 
   void _setupFilesModule(String name) {
     // create home binding file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
+      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
       ConstStrings.instance.binding(name),
     );
 
     // create home controller file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
+      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
     // create home view file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
+      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
       ConstStrings.instance.view(name),
     );
   }
@@ -98,8 +102,15 @@ class CreateModuleFiles {
         headers: data[1]["headers"],
         data: data[1]["body"],
         queryParameters: data[1]["params"],
-        onSuccess: (data) {
-          print(data);
+        onSuccess: (res) {
+          // check if data is Map
+          if (res.data is Map) {
+            // convert Map to class model
+            final model = convertMapToClassModel(res.data, data[1]["name"]);
+            print(model);
+          } else {
+            print("Data is not Map !!");
+          }
         },
       );
     }
@@ -156,5 +167,60 @@ class CreateModuleFiles {
     } else {
       return RequestType.get;
     }
+  }
+
+  String convertMapToClassModel(Map data, String name) {
+    String content = "class ${name.toCamelCase()}Model {\n";
+
+    List<String> mapKeys = [];
+
+    // add variables
+    data.forEach((key, value) {
+      if (value is String) {
+        content += "  String? $key;\n";
+      } else if (value is int) {
+        content += "  int? $key;\n";
+      } else if (value is double) {
+        content += "  double? $key;\n";
+      } else if (value is bool) {
+        content += "  bool? $key;\n";
+      } else if (value is List) {
+        content += "  List? $key;\n";
+      } else if (value is Map) {
+        content +=
+            "  ${name.toCamelCase()}Model? ${key.toString().toLowerCase()};\n";
+        mapKeys.add(key);
+      } else {
+        content += "  dynamic $key;\n";
+      }
+    });
+
+    // add optional constructor
+    content += "\n  ${name.toCamelCase()}Model({\n";
+    data.forEach((key, value) {
+      content += "    this.$key,\n";
+    });
+    content += "  })\n";
+
+    // add fromJson method
+    content +=
+        "\n\n  factory ${name.toCamelCase()}Model.fromJson(Map<String, dynamic> json) => ${name.toCamelCase()}Model(\n";
+    data.forEach((key, value) {
+      content += "    $key: json['$key'],\n";
+    });
+
+    // add toJson method
+    content += "  );\n\n  Map<String, dynamic> toJson() => {\n";
+    data.forEach((key, value) {
+      content += "    '$key': $key,\n";
+    });
+    content += "  };\n\n}\n\n";
+
+    // add map keys
+    for (var key in mapKeys) {
+      content += convertMapToClassModel(data[key], key);
+    }
+
+    return content;
   }
 }
