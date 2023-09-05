@@ -268,6 +268,24 @@ class InitFolders {
       "E:/Flutter new/crypto_new/lib/config/theme/light_theme_colors.dart",
       ConstStrings.instance.lightTheme,
     );
+
+    // create my_fonts
+    CreateFolderAndFiles().createFile(
+      "E:/Flutter new/crypto_new/lib/config/theme/my_fonts.dart",
+      ConstStrings.instance.myFonts,
+    );
+
+    // create myStyle
+    CreateFolderAndFiles().createFile(
+      "E:/Flutter new/crypto_new/lib/config/theme/my_styles.dart",
+      ConstStrings.instance.myStyle,
+    );
+
+    // create myTheme
+    CreateFolderAndFiles().createFile(
+      "E:/Flutter new/crypto_new/lib/config/theme/my_theme.dart",
+      ConstStrings.instance.myTheme,
+    );
   }
 
   void _setUpTranslations() {

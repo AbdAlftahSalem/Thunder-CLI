@@ -9,13 +9,14 @@ class ConstStrings {
   ConstStrings._internal();
 
   String main = '''
-import 'package:crypto_new/app/modules/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'app/data/local/hive.dart';
 import 'app/data/local/my_shared_pref.dart';
+import 'app/modules/view/home_view.dart';
+import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
 import 'utils/awesome_notifications_helper.dart';
 import 'utils/fcm_helper.dart';
@@ -1174,6 +1175,371 @@ class LightThemeColors
   static const Color employeeListItemIconsColor = Color(0xFFA1A4B1);
 }        
         ''';
+
+  String myFonts = '''
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../app/data/local/my_shared_pref.dart';
+import '../translations/localization_service.dart';
+
+// todo configure text family and size
+class MyFonts{
+  // return the right font depending on app language
+  static TextStyle get getAppFontType => LocalizationService.supportedLanguagesFontsFamilies[MySharedPref.getCurrentLocal().languageCode]!;
+
+  // headlines text font
+  static TextStyle get displayTextStyle => getAppFontType;
+
+  // body text font
+  static TextStyle get bodyTextStyle => getAppFontType;
+
+  // button text font
+  static TextStyle get buttonTextStyle => getAppFontType;
+
+  // app bar text font
+  static TextStyle get appBarTextStyle  => getAppFontType;
+
+  // chips text font
+  static TextStyle get chipTextStyle  => getAppFontType;
+
+  // appbar font size
+  static double get appBarTittleSize => 18.sp;
+
+  // body font size
+  static double get bodySmallTextSize => 11.sp;
+  static double get bodyMediumSize => 13.sp; // default font
+  static double get bodyLargeSize => 16.sp;
+  // display font size
+  static double get displayLargeSize => 20.sp;
+  static double get displayMediumSize => 17.sp;
+  static double get displaySmallSize => 14.sp;
+
+  //button font size
+  static double get buttonTextSize => 16.sp;
+
+  //chip font size
+  static double get chipTextSize => 10.sp;
+
+  // list tile fonts sizes
+  static double get listTileTitleSize => 13.sp;
+  static double get listTileSubtitleSize => 12.sp;
+
+  // custom themes (extensions)
+  static double get employeeListItemNameSize => 13.sp;
+  static double get employeeListItemSubtitleSize => 13.sp;
+}
+  ''';
+
+  String myStyle = '''
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'dark_theme_colors.dart';
+import 'light_theme_colors.dart';
+import 'my_fonts.dart';
+
+class MyStyles {
+  ///icons theme
+  static IconThemeData getIconTheme({required bool isLightTheme}) =>
+      IconThemeData(
+        color: isLightTheme
+            ? LightThemeColors.iconColor
+            : DarkThemeColors.iconColor,
+      );
+
+  ///app bar theme
+  static AppBarTheme getAppBarTheme({required bool isLightTheme}) =>
+      AppBarTheme(
+        elevation: 0,
+        titleTextStyle:
+            getTextTheme(isLightTheme: isLightTheme).bodyMedium!.copyWith(
+                  color: Colors.white,
+                  fontSize: MyFonts.appBarTittleSize,
+                ),
+        iconTheme: IconThemeData(
+            color: isLightTheme
+                ? LightThemeColors.appBarIconsColor
+                : DarkThemeColors.appBarIconsColor),
+        backgroundColor: isLightTheme
+            ? LightThemeColors.appBarColor
+            : DarkThemeColors.appbarColor,
+      );
+
+  ///text theme
+  static TextTheme getTextTheme({required bool isLightTheme}) => TextTheme(
+        labelLarge: MyFonts.buttonTextStyle.copyWith(
+          fontSize: MyFonts.buttonTextSize,
+        ),
+        bodyLarge: (MyFonts.bodyTextStyle).copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: MyFonts.bodyLargeSize,
+          color: isLightTheme
+              ? LightThemeColors.bodyTextColor
+              : DarkThemeColors.bodyTextColor,
+        ),
+        bodyMedium: (MyFonts.bodyTextStyle).copyWith(
+          fontSize: MyFonts.bodyMediumSize,
+          color: isLightTheme
+              ? LightThemeColors.bodyTextColor
+              : DarkThemeColors.bodyTextColor,
+        ),
+        displayLarge: (MyFonts.displayTextStyle).copyWith(
+          fontSize: MyFonts.displayLargeSize,
+          fontWeight: FontWeight.bold,
+          color: isLightTheme
+              ? LightThemeColors.displayTextColor
+              : DarkThemeColors.displayTextColor,
+        ),
+        bodySmall: TextStyle(
+            color: isLightTheme
+                ? LightThemeColors.bodySmallTextColor
+                : DarkThemeColors.bodySmallTextColor,
+            fontSize: MyFonts.bodySmallTextSize),
+        displayMedium: (MyFonts.displayTextStyle).copyWith(
+            fontSize: MyFonts.displayMediumSize,
+            fontWeight: FontWeight.bold,
+            color: isLightTheme
+                ? LightThemeColors.displayTextColor
+                : DarkThemeColors.displayTextColor),
+        displaySmall: (MyFonts.displayTextStyle).copyWith(
+          fontSize: MyFonts.displaySmallSize,
+          fontWeight: FontWeight.bold,
+          color: isLightTheme
+              ? LightThemeColors.displayTextColor
+              : DarkThemeColors.displayTextColor,
+        ),
+      );
+
+  static ChipThemeData getChipTheme({required bool isLightTheme}) {
+    return ChipThemeData(
+      backgroundColor: isLightTheme
+          ? LightThemeColors.chipBackground
+          : DarkThemeColors.chipBackground,
+      brightness: Brightness.light,
+      labelStyle: getChipTextStyle(isLightTheme: isLightTheme),
+      secondaryLabelStyle: getChipTextStyle(isLightTheme: isLightTheme),
+      selectedColor: Colors.black,
+      disabledColor: Colors.green,
+      padding: const EdgeInsets.all(5),
+      secondarySelectedColor: Colors.purple,
+    );
+  }
+
+  ///Chips text style
+  static TextStyle getChipTextStyle({required bool isLightTheme}) {
+    return MyFonts.chipTextStyle.copyWith(
+      fontSize: MyFonts.chipTextSize,
+      color: isLightTheme
+          ? LightThemeColors.chipTextColor
+          : DarkThemeColors.chipTextColor,
+    );
+  }
+
+  // elevated button text style
+  static MaterialStateProperty<TextStyle?>? getElevatedButtonTextStyle(
+      bool isLightTheme,
+      {bool isBold = true,
+      double? fontSize}) {
+    return MaterialStateProperty.resolveWith<TextStyle>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.pressed)) {
+          return MyFonts.buttonTextStyle.copyWith(
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            fontSize: fontSize ?? MyFonts.buttonTextSize,
+            color: isLightTheme
+                ? LightThemeColors.buttonTextColor
+                : DarkThemeColors.buttonTextColor,
+          );
+        } else if (states.contains(MaterialState.disabled)) {
+          return MyFonts.buttonTextStyle.copyWith(
+            fontSize: fontSize ?? MyFonts.buttonTextSize,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            color: isLightTheme
+                ? LightThemeColors.buttonDisabledTextColor
+                : DarkThemeColors.buttonDisabledTextColor,
+          );
+        }
+        return MyFonts.buttonTextStyle.copyWith(
+          fontSize: fontSize ?? MyFonts.buttonTextSize,
+          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          color: isLightTheme
+              ? LightThemeColors.buttonTextColor
+              : DarkThemeColors.buttonTextColor,
+        ); // Use the component's default.
+      },
+    );
+  }
+
+  //elevated button theme data
+  static ElevatedButtonThemeData getElevatedButtonTheme(
+          {required bool isLightTheme}) =>
+      ElevatedButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6.r),
+              //side: BorderSide(color: Colors.teal, width: 2.0),
+            ),
+          ),
+          elevation: MaterialStateProperty.all(0),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(vertical: 8.h)),
+          textStyle: getElevatedButtonTextStyle(isLightTheme),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return isLightTheme
+                    ? LightThemeColors.buttonColor.withOpacity(0.5)
+                    : DarkThemeColors.buttonColor.withOpacity(0.5);
+              } else if (states.contains(MaterialState.disabled)) {
+                return isLightTheme
+                    ? LightThemeColors.buttonDisabledColor
+                    : DarkThemeColors.buttonDisabledColor;
+              }
+              return isLightTheme
+                  ? LightThemeColors.buttonColor
+                  : DarkThemeColors.buttonColor; // Use the component's default.
+            },
+          ),
+        ),
+      );
+
+  /// list tile theme data
+  static ListTileThemeData getListTileThemeData({required bool isLightTheme}) {
+    return ListTileThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      iconColor: isLightTheme
+          ? LightThemeColors.listTileIconColor
+          : DarkThemeColors.listTileIconColor,
+      tileColor: isLightTheme
+          ? LightThemeColors.listTileBackgroundColor
+          : DarkThemeColors.listTileBackgroundColor,
+      titleTextStyle: TextStyle(
+        fontSize: MyFonts.listTileTitleSize,
+        color: isLightTheme
+            ? LightThemeColors.listTileTitleColor
+            : DarkThemeColors.listTileTitleColor,
+      ),
+      subtitleTextStyle: TextStyle(
+        fontSize: MyFonts.listTileSubtitleSize,
+        color: isLightTheme
+            ? LightThemeColors.listTileSubtitleColor
+            : DarkThemeColors.listTileSubtitleColor,
+      ),
+    );
+  }
+}
+
+  ''';
+
+  String myTheme = '''
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../app/data/local/my_shared_pref.dart';
+import 'dark_theme_colors.dart';
+import 'light_theme_colors.dart';
+import 'my_styles.dart';
+
+class MyTheme {
+  static getThemeData({required bool isLight}) {
+    return ThemeData(
+      // main color (app bar,tabs..etc)
+      primaryColor: isLight
+          ? LightThemeColors.primaryColor
+          : DarkThemeColors.primaryColor,
+
+      // secondary & background color
+      colorScheme: ColorScheme.fromSwatch(
+        accentColor: isLight
+            ? LightThemeColors.accentColor
+            : DarkThemeColors.accentColor,
+        backgroundColor: isLight
+            ? LightThemeColors.backgroundColor
+            : DarkThemeColors.backgroundColor,
+        brightness: isLight ? Brightness.light : Brightness.dark,
+      ).copyWith(
+        secondary: isLight
+            ? LightThemeColors.accentColor
+            : DarkThemeColors.accentColor,
+      ),
+
+      // color contrast (if the theme is dark text should be white for example)
+      brightness: isLight ? Brightness.light : Brightness.dark,
+
+      // card widget background color
+      cardColor:
+          isLight ? LightThemeColors.cardColor : DarkThemeColors.cardColor,
+
+      // hint text color
+      hintColor: isLight
+          ? LightThemeColors.hintTextColor
+          : DarkThemeColors.hintTextColor,
+
+      // divider color
+      dividerColor: isLight
+          ? LightThemeColors.dividerColor
+          : DarkThemeColors.dividerColor,
+
+      // app background color
+      scaffoldBackgroundColor: isLight
+          ? LightThemeColors.scaffoldBackgroundColor
+          : DarkThemeColors.scaffoldBackgroundColor,
+
+      // progress bar theme
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: isLight
+            ? LightThemeColors.primaryColor
+            : DarkThemeColors.primaryColor,
+      ),
+
+      // appBar theme
+      appBarTheme: MyStyles.getAppBarTheme(isLightTheme: isLight),
+
+      // elevated button theme
+      elevatedButtonTheme:
+          MyStyles.getElevatedButtonTheme(isLightTheme: isLight),
+
+      // text theme
+      textTheme: MyStyles.getTextTheme(isLightTheme: isLight),
+
+      // chip theme
+      chipTheme: MyStyles.getChipTheme(isLightTheme: isLight),
+
+      // icon theme
+      iconTheme: MyStyles.getIconTheme(isLightTheme: isLight),
+
+      // list tile theme
+      listTileTheme: MyStyles.getListTileThemeData(isLightTheme: isLight),
+
+      // custom themes
+      extensions: const [
+        // *) add custom themes here
+      ],
+    );
+  }
+
+  /// update app theme and save theme type to shared pref
+  /// (so when the app is killed and up again theme will remain the same)
+  static changeTheme() {
+    // *) check if the current theme is light (default is light)
+    bool isLightTheme = MySharedPref.getThemeIsLight();
+
+    // *) store the new theme mode on get storage
+    MySharedPref.setThemeIsLight(!isLightTheme);
+
+    // *) let GetX change theme
+    Get.changeThemeMode(!isLightTheme ? ThemeMode.light : ThemeMode.dark);
+  }
+
+  /// check if the theme is light or dark
+  bool get getThemeIsLight => MySharedPref.getThemeIsLight();
+}
+
+  ''';
 
   String localizationService = '''
 import 'package:flutter/material.dart';
