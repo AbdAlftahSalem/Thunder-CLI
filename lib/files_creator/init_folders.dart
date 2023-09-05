@@ -167,7 +167,7 @@ class InitFolders {
     // create home binding file
     CreateFolderAndFiles().createFile(
       'E:/Flutter new/crypto_new/lib/app/modules/binding/home_binding.dart',
-      ConstStrings.instance.binding("HomeBinding"),
+      ConstStrings.instance.binding("Home"),
     );
 
     // controller folder
@@ -256,7 +256,8 @@ class InitFolders {
 
   void _setUpTheme() {
     // create dark_theme_colors
-    CreateFolderAndFiles().createFolder("E:/Flutter new/crypto_new/config/theme");
+    CreateFolderAndFiles()
+        .createFolder("E:/Flutter new/crypto_new/config/theme");
     CreateFolderAndFiles().createFile(
       "E:/Flutter new/crypto_new/lib/config/theme/dark_theme_colors.dart",
       ConstStrings.instance.darkTheme,
@@ -270,7 +271,8 @@ class InitFolders {
   }
 
   void _setUpTranslations() {
-    CreateFolderAndFiles().createFolder("E:/Flutter new/crypto_new/lib/config/translations");
+    CreateFolderAndFiles()
+        .createFolder("E:/Flutter new/crypto_new/lib/config/translations");
 
     // create localization_service
     CreateFolderAndFiles().createFile(

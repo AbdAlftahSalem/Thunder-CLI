@@ -470,14 +470,14 @@ class BaseClient {
   ''';
 
   String binding(String bindingName) {
-    bindingName = bindingName.toCamelCase();
+    String bindingClassName = bindingName.toCamelCase();
 
     return '''
 import 'package:get/get.dart';
 
-import '../controllers/${bindingName}_controller.dart';
+import '../controller/${bindingName}_controller.dart';
 
-class $bindingName extends Bindings {
+class ${"${bindingClassName}Binding"} extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<${bindingName}Controller>(
@@ -493,13 +493,13 @@ class $bindingName extends Bindings {
     return '''
 import 'package:get/get.dart';
 
-import '../../../../utils/constants.dart';
-import '../../../services/api_call_status.dart';
-import '../../../services/base_client.dart';
+import '../../data/remote/api_call_status.dart';
+import '../../data/remote/base_client.dart';
 
-class $controllerName extends GetxController {
+class HomeController extends GetxController {
   // hold data coming from api
   List<dynamic>? data;
+
   // api call status
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 
@@ -514,7 +514,8 @@ class $controllerName extends GetxController {
         apiCallStatus = ApiCallStatus.loading;
         update();
       },
-      onSuccess: (response){ // api done successfully
+      onSuccess: (response) {
+        // api done successfully
         data = List.from(response.data);
         // *) indicate success state
         apiCallStatus = ApiCallStatus.success;
@@ -522,7 +523,7 @@ class $controllerName extends GetxController {
       },
       // if you don't pass this method base client
       // will automaticly handle error and show message to user
-      onError: (error){
+      onError: (error) {
         // show error message to user
         BaseClient.handleApiError(error);
         // *) indicate error status
@@ -542,23 +543,23 @@ class $controllerName extends GetxController {
   }
 
   String view(String viewName) {
-    viewName = viewName.toCamelCase();
+    String viewClassName = viewName.toCamelCase();
+
     return '''
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metro/controller/top_nav_controller.dart';
 
-class $viewName extends StatelessWidget {
-  const TopNavScreen({super.key});
+import '../controller/home_controller.dart';
+
+class $viewClassName extends StatelessWidget {
+  const $viewClassName({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<${viewName}Controller>(
+      body: GetBuilder<${viewName.replaceAll("Screen", "")}Controller>(
         builder: (controller) {
-          return Container(
-            child: Text("$viewName"),
-          );
+          return const Text("$viewName");
         },
       ),
     );
