@@ -9,18 +9,15 @@ class ConstStrings {
   ConstStrings._internal();
 
   String main = '''
+import 'package:crypto_new/app/modules/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-import 'package:getx_skeleton/utils/awesome_notifications_helper.dart';
 
-import 'app/data/local/my_hive.dart';
+import 'app/data/local/hive.dart';
 import 'app/data/local/my_shared_pref.dart';
-import 'app/data/models/user_model.dart';
-import 'app/routes/app_pages.dart';
-import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
+import 'utils/awesome_notifications_helper.dart';
 import 'utils/fcm_helper.dart';
 
 Future<void> main() async {
@@ -28,12 +25,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // initialize local db (hive) and register our custom adapters
-  await MyHive.init(
-      registerAdapters: (hive) {
-        hive.registerAdapter(UserModelAdapter());
-        //myHive.registerAdapter(OtherAdapter());
-      }
-  );
+  await MyHive.init(registerAdapters: (hive) {});
 
   // init shared preference
   await MySharedPref.init();
@@ -54,35 +46,41 @@ Future<void> main() async {
       rebuildFactor: (old, data) => true,
       builder: (context, widget) {
         return GetMaterialApp(
-              // todo add your app name
-              title: "GetXSkeleton",
-              useInheritedMediaQuery: true,
-              debugShowCheckedModeBanner: false,
-              builder: (context,widget) {
-                bool themeIsLight = MySharedPref.getThemeIsLight();
-                return Theme(
-                  data: MyTheme.getThemeData(isLight: themeIsLight),
-                  child: MediaQuery(
-                    // prevent font from scalling (some people use big/small device fonts)
-                    // but we want our app font to still the same and dont get affected
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                    child: widget!,
-                  ),
-                );
-              },
-              initialRoute: AppPages.INITIAL, // first screen to show when app is running
-              getPages: AppPages.routes, // app screens
-              locale: MySharedPref.getCurrentLocal(), // app language
-              translations: LocalizationService.getInstance(), // localization services in app (controller app language)
+          // todo add your app name
+          title: "GetXSkeleton",
+          useInheritedMediaQuery: true,
+          debugShowCheckedModeBanner: false,
+          builder: (context, widget) {
+            bool themeIsLight = MySharedPref.getThemeIsLight();
+            return Theme(
+              data: MyTheme.getThemeData(isLight: themeIsLight),
+              child: MediaQuery(
+                // prevent font from scalling (some people use big/small device fonts)
+                // but we want our app font to still the same and dont get affected
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: widget!,
+              ),
             );
+          },
+          // app screens
+          locale: MySharedPref.getCurrentLocal(),
+          // app language
+          translations: LocalizationService.getInstance(),
+          // localization services in app (controller app language)
+          home: const HomeScreen(),
+        );
       },
     ),
   );
-}''';
+}
+
+  ''';
 
   String sharedPrefs = '''
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../config/translations/localization_service.dart';
 
 class MySharedPref {
   // prevent making instance
@@ -228,6 +226,7 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../config/translations/strings.dart';
 import 'api_exceptions.dart';
 
 enum RequestType {
@@ -466,8 +465,8 @@ class BaseClient {
     CustomSnackBar.showCustomErrorToast(message: msg);
   }
 }
-
-  ''';
+ 
+ ''';
 
   String binding(String bindingName) {
     String bindingClassName = bindingName.toCamelCase();
@@ -493,10 +492,12 @@ class ${"${bindingClassName}Binding"} extends Bindings {
     return '''
 import 'package:get/get.dart';
 
+import '../../../utils/constants.dart';
 import '../../data/remote/api_call_status.dart';
 import '../../data/remote/base_client.dart';
 
-class HomeController extends GetxController {
+
+class $controllerName extends GetxController {
   // hold data coming from api
   List<dynamic>? data;
 
@@ -573,10 +574,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../config/translations/strings_enum.dart';
+import '../../config/translations/strings.dart';
 
 class ApiErrorWidget extends StatelessWidget {
-  const ApiErrorWidget({super.key, required this.message, required this.retryAction, this.padding});
+  const ApiErrorWidget(
+      {super.key,
+      required this.message,
+      required this.retryAction,
+      this.padding});
 
   final String message;
   final Function retryAction;
@@ -593,13 +598,19 @@ class ApiErrorWidget extends StatelessWidget {
           children: [
             Text(message),
             10.verticalSpace,
-            SizedBox(width: double.infinity,child: ElevatedButton(onPressed: () => retryAction(), child: Text(Strings.retry.tr),)),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => retryAction(),
+                  child: Text(Strings.retry.tr),
+                )),
           ],
         ),
       ),
     );
   }
 }
+
   ''';
 
   String snackbar = '''
@@ -928,36 +939,36 @@ class NotificationChannels {
 
   String fcmHelper = '''
 import 'package:firebase_core/firebase_core.dart';
-    import 'package:firebase_messaging/firebase_messaging.dart';
-    import 'package:logger/logger.dart';
-    import '../app/data/local/my_shared_pref.dart';
-    import 'awesome_notifications_helper.dart';
-    
-    class FcmHelper {
-      // prevent making instance
-      FcmHelper._();
-    
-      // FCM Messaging
-      static late FirebaseMessaging messaging;
-    
-      /// this function will initialize firebase and fcm instance
-      static Future<void> initFcm() async {
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:logger/logger.dart';
+import '../app/data/local/my_shared_pref.dart';
+import 'awesome_notifications_helper.dart';
+
+class FcmHelper {
+  // prevent making instance
+  FcmHelper._();
+
+  // FCM Messaging
+  static late FirebaseMessaging messaging;
+
+  /// this function will initialize firebase and fcm instance
+  static Future<void> initFcm() async {
     try {
       // initialize fcm and firebase core
       await Firebase.initializeApp(
-        // TODO: uncomment this line if you connected to firebase via cli
-        //options: DefaultFirebaseOptions.currentPlatform,
-      );
-    
+          // TODO: uncomment this line if you connected to firebase via cli
+          //options: DefaultFirebaseOptions.currentPlatform,
+          );
+
       // initialize firebase
       messaging = FirebaseMessaging.instance;
-    
+
       // notification settings handler
       await _setupFcmNotificationSettings();
-    
+
       // generate token if it not already generated and store it on shared pref
       await _generateFcmToken();
-    
+
       // background and foreground handlers
       FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
       FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
@@ -967,17 +978,17 @@ import 'package:firebase_core/firebase_core.dart';
       // or stop fcm service from main.dart class
       Logger().e(error);
     }
-      }
-    
-      ///handle fcm notification settings (sound,badge..etc)
-      static Future<void> _setupFcmNotificationSettings() async {
+  }
+
+  ///handle fcm notification settings (sound,badge..etc)
+  static Future<void> _setupFcmNotificationSettings() async {
     //show notification with sound and badge
     messaging.setForegroundNotificationPresentationOptions(
       alert: true,
       sound: true,
       badge: true,
     );
-    
+
     //NotificationSettings settings
     await messaging.requestPermission(
       alert: true,
@@ -985,16 +996,16 @@ import 'package:firebase_core/firebase_core.dart';
       sound: true,
       provisional: true,
     );
-      }
-    
-      /// generate and save fcm token if its not already generated (generate only for 1 time)
-      static Future<void> _generateFcmToken() async {
+  }
+
+  /// generate and save fcm token if its not already generated (generate only for 1 time)
+  static Future<void> _generateFcmToken() async {
     try {
       var token = await messaging.getToken();
-      if(token != null){
+      if (token != null) {
         MySharedPref.setFcmToken(token);
         _sendFcmTokenToServer();
-      }else {
+      } else {
         // retry generating token
         await Future.delayed(const Duration(seconds: 5));
         _generateFcmToken();
@@ -1002,39 +1013,42 @@ import 'package:firebase_core/firebase_core.dart';
     } catch (error) {
       Logger().e(error);
     }
-      }
-    
-      /// this method will be triggered when the app generate fcm
-      /// token successfully
-      static _sendFcmTokenToServer(){
+  }
+
+  /// this method will be triggered when the app generate fcm
+  /// token successfully
+  static _sendFcmTokenToServer() {
     var token = MySharedPref.getFcmToken();
     // TODO SEND FCM TOKEN TO SERVER
-      }
-    
-      ///handle fcm notification when app is closed/terminated
-      /// if you are wondering about this annotation read the following
-      /// https://stackoverflow.com/a/67083337
-      @pragma('vm:entry-point')
-      static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
+  }
+
+  ///handle fcm notification when app is closed/terminated
+  /// if you are wondering about this annotation read the following
+  /// https://stackoverflow.com/a/67083337
+  @pragma('vm:entry-point')
+  static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
     AwesomeNotificationsHelper.showNotification(
       id: 1,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
-      payload: message.data.cast(), // pass payload to the notification card so you can use it (when user click on notification)
+      payload: message.data
+          .cast(), // pass payload to the notification card so you can use it (when user click on notification)
     );
-      }
-    
-      //handle fcm notification when app is open
-      static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
+  }
+
+  //handle fcm notification when app is open
+  static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
     AwesomeNotificationsHelper.showNotification(
       id: 1,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
-      payload: message.data.cast(), // pass payload to the notification card so you can use it (when user click on notification)
+      payload: message.data
+          .cast(), // pass payload to the notification card so you can use it (when user click on notification)
     );
-      }
-    }        
-        ''';
+  }
+}
+
+  ''';
 
   String darkTheme = '''
 import 'package:flutter/material.dart';
@@ -1166,8 +1180,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app/data/local/my_shared_pref.dart';
-import 'ar_AR/ar_ar_translation.dart';
-import 'en_US/en_us_translation.dart';
+import 'ar_Ar_translation.dart';
+import 'ar_En_translation.dart';
 
 class LocalizationService extends Translations {
   // prevent creating instance
@@ -1185,36 +1199,35 @@ class LocalizationService extends Translations {
   static Locale defaultLanguage = supportedLanguages['en']!;
 
   // supported languages
-  static Map<String,Locale> supportedLanguages = {
-    'en' : const Locale('en', 'US'),
-    'ar' : const Locale('ar', 'AR'),
+  static Map<String, Locale> supportedLanguages = {
+    'en': const Locale('en', 'US'),
+    'ar': const Locale('ar', 'AR'),
   };
 
   // supported languages fonts family (must be in assets & pubspec yaml) or you can use google fonts
-  static Map<String,TextStyle> supportedLanguagesFontsFamilies = {
+  static Map<String, TextStyle> supportedLanguagesFontsFamilies = {
     // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
-    'en' : const TextStyle(fontFamily: 'Poppins'),
+    'en': const TextStyle(fontFamily: 'Poppins'),
     'ar': const TextStyle(fontFamily: 'Cairo'),
   };
 
   @override
   Map<String, Map<String, String>> get keys => {
-    'en_US': enUs,
-    'ar_AR': arAR,
-  };
+        'en_US': enUs,
+        'ar_AR': arAR,
+      };
 
   /// check if the language is supported
   static isLanguageSupported(String languageCode) =>
-    supportedLanguages.keys.contains(languageCode);
-
+      supportedLanguages.keys.contains(languageCode);
 
   /// update app language by code language for example (en,ar..etc)
   static updateLanguage(String languageCode) async {
     // check if the language is supported
-    if(!isLanguageSupported(languageCode)) return;
+    if (!isLanguageSupported(languageCode)) return;
     // update current language in shared pref
     await MySharedPref.setCurrentLanguage(languageCode);
-    if(!Get.testMode) {
+    if (!Get.testMode) {
       Get.updateLocale(supportedLanguages[languageCode]!);
     }
   }
@@ -1224,27 +1237,38 @@ class LocalizationService extends Translations {
       MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
 
   /// get current locale
-  static Locale getCurrentLocal () => MySharedPref.getCurrentLocal();
+  static Locale getCurrentLocal() => MySharedPref.getCurrentLocal();
 }
-        ''';
+
+  ''';
 
   String strings = '''
 class Strings {
-    static const String hello = 'hello';
+  static const String hello = 'Hello';
+  static const String retry = 'Retry';
+  static const String serverNotResponding = 'Server not responding';
+  static const String noInternetConnection = 'No internet connection';
+  static const String urlNotFound = 'Url not found';
+  static const String serverError = "Server error";
 }
-    ''';
+
+  ''';
 
   String enUs = '''
-final Map<String, String> enUs =
-    {
-      Strings.hello : 'Hello!',
-    };
+import 'strings.dart';
+
+final Map<String, String> enUs = {
+  Strings.hello: 'Hello!',
+};
+
+
         ''';
 
   String arAr = '''
-final Map<String, String> arAR =
-    {
-      Strings.hello : 'مرحباً!',
-    };
+import 'strings.dart';
+  
+final Map<String, String> arAR = {
+  Strings.hello : 'مرحباً!',
+};
         ''';
 }

@@ -14,7 +14,7 @@ class InitFolders {
     _setUpUtilFiles();
 
     // setUp config files
-    // _setUpConfigFiles();
+    _setUpConfigFiles();
 
     // set up app files
     _setUpAppFiles();
@@ -257,7 +257,7 @@ class InitFolders {
   void _setUpTheme() {
     // create dark_theme_colors
     CreateFolderAndFiles()
-        .createFolder("E:/Flutter new/crypto_new/config/theme");
+        .createFolder("E:/Flutter new/crypto_new/lib/config/theme");
     CreateFolderAndFiles().createFile(
       "E:/Flutter new/crypto_new/lib/config/theme/dark_theme_colors.dart",
       ConstStrings.instance.darkTheme,
@@ -288,13 +288,13 @@ class InitFolders {
 
     // create en_us_translation
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/ar_ar_translation.dart",
+      "E:/Flutter new/crypto_new/lib/config/translations/ar_Ar_translation.dart",
       ConstStrings.instance.arAr,
     );
 
     // create ar_ar_translation
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/ar_ar_translation.dart",
+      "E:/Flutter new/crypto_new/lib/config/translations/ar_En_translation.dart",
       ConstStrings.instance.enUs,
     );
   }
