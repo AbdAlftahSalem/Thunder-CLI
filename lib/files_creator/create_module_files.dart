@@ -19,39 +19,39 @@ class CreateModuleFiles {
   _generateFiles(String name) {
     // create modules folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules');
+        .createFolder('app/modules');
 
     // create home folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}');
+        'app/modules/${name.toLowerCase()}');
 
     // create binding folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding');
+        'app/modules/${name.toLowerCase()}/binding');
 
     // create home binding file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
+      'app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
       ConstStrings.instance.binding(name),
     );
 
     // controller folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller');
+        'app/modules/${name.toLowerCase()}/controller');
 
     // create home controller file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
+      'app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
     // create view folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view');
+        'app/modules/${name.toLowerCase()}/view');
 
     // create home view file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
+      'app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
       ConstStrings.instance.view(name),
     );
 
@@ -69,7 +69,7 @@ class CreateModuleFiles {
 
     // reading routes file
     final routesFile =
-        File('E:/Flutter new/crypto_new/lib/app/routes/routes.dart');
+        File('app/routes/routes.dart');
 
     // reading routes file content
     String routesContent = routesFile.readAsStringSync();
@@ -106,7 +106,7 @@ class Routes {
   void _addAppRout(String name) {
     // reading app_routes.dart file
     final file =
-        File('E:/Flutter new/crypto_new/lib/app/routes/app_routes.dart');
+        File('app/routes/app_routes.dart');
     String content = file.readAsStringSync();
 
     // extract all imports from code

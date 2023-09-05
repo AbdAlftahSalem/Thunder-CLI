@@ -24,7 +24,7 @@ class InitFolders {
 
     // set up main file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/main.dart',
+      'main.dart',
       ConstStrings.instance.main,
     );
   }
@@ -56,13 +56,13 @@ class InitFolders {
 
   Future<void> _setUpAllFolders() async {
     // create app folder
-    CreateFolderAndFiles().createFolder('E:/Flutter new/crypto_new/lib/app');
+    CreateFolderAndFiles().createFolder('app');
 
     // create utils folder
-    CreateFolderAndFiles().createFolder('E:/Flutter new/crypto_new/lib/utils');
+    CreateFolderAndFiles().createFolder('utils');
 
     // create config folder
-    CreateFolderAndFiles().createFolder('E:/Flutter new/crypto_new/lib/config');
+    CreateFolderAndFiles().createFolder('config');
 
     print("Create base folders successfully 🚀🚀");
 
@@ -86,17 +86,17 @@ class InitFolders {
   _setUpRoutesFolder() async {
     // create routes folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/routes');
+        .createFolder('app/routes');
 
     // create app_routes file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/routes/app_routes.dart',
+      'app/routes/app_routes.dart',
       '',
     );
 
     // create routes file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/routes/routes.dart',
+      'app/routes/routes.dart',
       '',
     );
   }
@@ -104,19 +104,19 @@ class InitFolders {
   Future<void> _setUpDateFolder() async {
     // create data folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/data');
+        .createFolder('app/data');
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/data/local');
+        .createFolder('app/data/local');
 
     // create my_shared_pref file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/local/my_shared_pref.dart',
+      'app/data/local/my_shared_pref.dart',
       ConstStrings.instance.sharedPrefs,
     );
 
     // create hive file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/local/hive.dart',
+      'app/data/local/hive.dart',
       ConstStrings.instance.hive,
     );
 
@@ -126,23 +126,23 @@ class InitFolders {
 
     // create remote folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/data/remote');
+        .createFolder('app/data/remote');
 
     // create api_call_status file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/remote/api_call_status.dart',
+      'app/data/remote/api_call_status.dart',
       ConstStrings.instance.apiCallStatus,
     );
 
     // create api_exceptions file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/remote/api_exceptions.dart',
+      'app/data/remote/api_exceptions.dart',
       ConstStrings.instance.apiException,
     );
 
     // create base_client file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/remote/base_client.dart',
+      'app/data/remote/base_client.dart',
       ConstStrings.instance.baseClient,
     );
   }
@@ -150,24 +150,24 @@ class InitFolders {
   Future<void> _setUpComponentsFolder() async {
     // create components folder
     CreateFolderAndFiles().createFolder(
-      'E:/Flutter new/crypto_new/lib/app/components',
+      'app/components',
     );
 
     // create api_error_widget file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/components/api_error_widget.dart',
+      'app/components/api_error_widget.dart',
       ConstStrings.instance.apiErrorWidget,
     );
 
     // create custom_snackbar file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/components/custom_snackbar.dart',
+      'app/components/custom_snackbar.dart',
       ConstStrings.instance.snackbar,
     );
 
     // create animated widget
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/components/animated_widget.dart',
+      'app/components/animated_widget.dart',
       ConstStrings.instance.animatedWidget,
     );
 
@@ -179,19 +179,19 @@ class InitFolders {
   void _setUpUtilFiles() async {
     // create file in util folder
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/utils/constants.dart',
+      'utils/constants.dart',
       ConstStrings.instance.constsApp,
     );
 
     // init AwesomeNotifications
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/utils/awesome_notifications_helper.dart',
+      'utils/awesome_notifications_helper.dart',
       ConstStrings.instance.awesomeNotifications,
     );
 
     // init FcmHelper
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/utils/fcm_helper.dart',
+      'utils/fcm_helper.dart',
       ConstStrings.instance.fcmHelper,
     );
 
@@ -213,62 +213,62 @@ class InitFolders {
   void _setUpTheme() {
     // create dark_theme_colors
     CreateFolderAndFiles()
-        .createFolder("E:/Flutter new/crypto_new/lib/config/theme");
+        .createFolder("config/theme");
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/theme/dark_theme_colors.dart",
+      "config/theme/dark_theme_colors.dart",
       ConstStrings.instance.darkTheme,
     );
 
     // create light_theme_colors
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/theme/light_theme_colors.dart",
+      "config/theme/light_theme_colors.dart",
       ConstStrings.instance.lightTheme,
     );
 
     // create my_fonts
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/theme/my_fonts.dart",
+      "config/theme/my_fonts.dart",
       ConstStrings.instance.myFonts,
     );
 
     // create myStyle
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/theme/my_styles.dart",
+      "config/theme/my_styles.dart",
       ConstStrings.instance.myStyle,
     );
 
     // create myTheme
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/theme/my_theme.dart",
+      "config/theme/my_theme.dart",
       ConstStrings.instance.myTheme,
     );
   }
 
   void _setUpTranslations() {
     CreateFolderAndFiles()
-        .createFolder("E:/Flutter new/crypto_new/lib/config/translations");
+        .createFolder("config/translations");
 
     // create localization_service
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/localization_service.dart",
+      "config/translations/localization_service.dart",
       ConstStrings.instance.localizationService,
     );
 
     // create strings file
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/strings.dart",
+      "config/translations/strings.dart",
       ConstStrings.instance.strings,
     );
 
     // create en_us_translation
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/ar_Ar_translation.dart",
+      "config/translations/ar_Ar_translation.dart",
       ConstStrings.instance.arAr,
     );
 
     // create ar_ar_translation
     CreateFolderAndFiles().createFile(
-      "E:/Flutter new/crypto_new/lib/config/translations/ar_En_translation.dart",
+      "config/translations/ar_En_translation.dart",
       ConstStrings.instance.enUs,
     );
   }
