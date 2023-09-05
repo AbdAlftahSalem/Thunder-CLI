@@ -11,7 +11,7 @@ class InitFolders {
     await _setUpAllFolders();
 
     // setUp app files
-    // _setUpUtilFiles();
+    _setUpUtilFiles();
 
     // setUp config files
     // _setUpConfigFiles();
