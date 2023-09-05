@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 
 import 'app/data/local/hive.dart';
 import 'app/data/local/my_shared_pref.dart';
-import 'app/modules/view/home_view.dart';
+import 'app/modules/login/view/login_view.dart';
 import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
 import 'utils/awesome_notifications_helper.dart';
@@ -67,8 +67,7 @@ Future<void> main() async {
           locale: MySharedPref.getCurrentLocal(),
           // app language
           translations: LocalizationService.getInstance(),
-          // localization services in app (controller app language)
-          home: const HomeScreen(),
+          home: const LoginView(),
         );
       },
     ),
@@ -475,7 +474,7 @@ class BaseClient {
     return '''
 import 'package:get/get.dart';
 
-import '../controller/${bindingName}_controller.dart';
+import '../controller/${bindingName.toLowerCase()}_controller.dart';
 
 class ${"${bindingClassName}Binding"} extends Bindings {
   @override
@@ -493,12 +492,12 @@ class ${"${bindingClassName}Binding"} extends Bindings {
     return '''
 import 'package:get/get.dart';
 
-import '../../../utils/constants.dart';
-import '../../data/remote/api_call_status.dart';
-import '../../data/remote/base_client.dart';
+import '../../../../utils/constants.dart';
+import '../../../data/remote/api_call_status.dart';
+import '../../../data/remote/base_client.dart';
 
 
-class $controllerName extends GetxController {
+class ${controllerName}Controller extends GetxController {
   // hold data coming from api
   List<dynamic>? data;
 
@@ -551,10 +550,10 @@ class $controllerName extends GetxController {
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/home_controller.dart';
+import '../controller/${viewClassName.toLowerCase()}_controller.dart';
 
-class $viewClassName extends StatelessWidget {
-  const $viewClassName({super.key});
+class ${viewClassName}View extends StatelessWidget {
+  const ${viewClassName}View({super.key});
 
   @override
   Widget build(BuildContext context) {

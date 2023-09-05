@@ -1,11 +1,12 @@
 import '../consts/const.dart';
 import '../services/create_folder_files.dart';
 import '../services/run_cmd.dart';
+import './create_module_files.dart';
 
 class InitFolders {
   void initFolders() async {
-    // add packages
-    await _addPackages();
+    // // add packages
+    // await _addPackages();
 
     // setUp all folders
     await _setUpAllFolders();
@@ -74,7 +75,8 @@ class InitFolders {
     await _setUpDateFolder();
 
     // set up modules folder
-    await _setUpModulesFolder();
+    CreateModuleFiles().createFiles();
+
   }
 
   Future<void> _setUpDateFolder() async {
@@ -120,41 +122,6 @@ class InitFolders {
     CreateFolderAndFiles().createFile(
       'E:/Flutter new/crypto_new/lib/app/data/remote/base_client.dart',
       ConstStrings.instance.baseClient,
-    );
-  }
-
-  Future<void> _setUpModulesFolder() async {
-    // create modules folder
-    CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules');
-    // create binding folder
-    CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules/binding');
-
-    // create home binding file
-    CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/binding/home_binding.dart',
-      ConstStrings.instance.binding("Home"),
-    );
-
-    // controller folder
-    CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules/controller');
-
-    // create home controller file
-    CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/controller/home_controller.dart',
-      ConstStrings.instance.controller("HomeController"),
-    );
-
-    // create view folder
-    CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules/view');
-
-    // create home view file
-    CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/view/home_view.dart',
-      ConstStrings.instance.view("HomeScreen"),
     );
   }
 
