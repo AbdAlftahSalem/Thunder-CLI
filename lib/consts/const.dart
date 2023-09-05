@@ -81,136 +81,95 @@ Future<void> main() async {
 }''';
 
   String sharedPrefs = '''
-    import 'package:flutter/material.dart';
-    import 'package:shared_preferences/shared_preferences.dart';
-    
-    import '../../../config/translations/localization_service.dart';
-    
-    class MySharedPref {
-      // prevent making instance
-      MySharedPref._();
-    
-      // get storage
-      static late SharedPreferences _sharedPreferences;
-    
-      // STORING KEYS
-      static const String _fcmTokenKey = 'fcm_token';
-      static const String _currentLocalKey = 'current_local';
-      static const String _lightThemeKey = 'is_theme_light';
-    
-      /// init get storage services
-      static Future<void> init() async {
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MySharedPref {
+  // prevent making instance
+  MySharedPref._();
+
+  // get storage
+  static late SharedPreferences _sharedPreferences;
+
+  // STORING KEYS
+  static const String _fcmTokenKey = 'fcm_token';
+  static const String _currentLocalKey = 'current_local';
+  static const String _lightThemeKey = 'is_theme_light';
+
+  /// init get storage services
+  static Future<void> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
-      }
-    
-      static setStorage(SharedPreferences sharedPreferences) {
+  }
+
+  static setStorage(SharedPreferences sharedPreferences) {
     _sharedPreferences = sharedPreferences;
-      }
-    
-      /// set theme current type as light theme
-      static Future<void> setThemeIsLight(bool lightTheme) =>
+  }
+
+  /// set theme current type as light theme
+  static Future<void> setThemeIsLight(bool lightTheme) =>
       _sharedPreferences.setBool(_lightThemeKey, lightTheme);
-    
-      /// get if the current theme type is light
-      static bool getThemeIsLight() =>
-      _sharedPreferences.getBool(_lightThemeKey) ?? true; // todo set the default theme (true for light, false for dark)
-    
-      /// save current locale
-      static Future<void> setCurrentLanguage(String languageCode) =>
+
+  /// get if the current theme type is light
+  static bool getThemeIsLight() =>
+      _sharedPreferences.getBool(_lightThemeKey) ??
+      true; // todo set the default theme (true for light, false for dark)
+
+  /// save current locale
+  static Future<void> setCurrentLanguage(String languageCode) =>
       _sharedPreferences.setString(_currentLocalKey, languageCode);
-    
-      /// get current locale
-      static Locale getCurrentLocal(){
-      String? langCode = _sharedPreferences.getString(_currentLocalKey);
-      // default language is english
-      if(langCode == null){
-        return LocalizationService.defaultLanguage;
-      }
-      return LocalizationService.supportedLanguages[langCode]!;
-      }
-    
-      /// save generated fcm token
-      static Future<void> setFcmToken(String token) =>
-      _sharedPreferences.setString(_fcmTokenKey, token);
-    
-      /// get authorization token
-      static String? getFcmToken() =>
-      _sharedPreferences.getString(_fcmTokenKey);
-    
-      /// clear all data from shared pref
-      static Future<void> clear() async => await _sharedPreferences.clear();
-    
+
+  /// get current locale
+  static Locale getCurrentLocal() {
+    String? langCode = _sharedPreferences.getString(_currentLocalKey);
+    // default language is english
+    if (langCode == null) {
+      return LocalizationService.defaultLanguage;
     }
-    ''';
+    return LocalizationService.supportedLanguages[langCode]!;
+  }
+
+  /// save generated fcm token
+  static Future<void> setFcmToken(String token) =>
+      _sharedPreferences.setString(_fcmTokenKey, token);
+
+  /// get authorization token
+  static String? getFcmToken() => _sharedPreferences.getString(_fcmTokenKey);
+
+  /// clear all data from shared pref
+  static Future<void> clear() async => await _sharedPreferences.clear();
+}
+
+  ''';
 
   String hive = '''
-    import '../models/user_model.dart';
-    import 'package:hive_flutter/hive_flutter.dart';
-    
-    class MyHive {
-      // prevent making instance
-      MyHive._();
-    
-      // hive box to store user data
-      static late Box<UserModel> _userBox;
-      // box name its like table name
-      static const String _userBoxName = 'user';
-      // store current user as (key => value)
-      static const String _currentUserKey = 'local_user';
-    
-      /// initialize local db (HIVE)
-      /// pass testPath only if you are testing hive
-      static Future<void> init({Function(HiveInterface)? registerAdapters,String? testPath}) async {
-    if(testPath != null) {
+import 'package:hive_flutter/hive_flutter.dart';
+
+class MyHive {
+  // prevent making instance
+  MyHive._();
+
+  // box name its like table name
+  static const String _userBoxName = 'user';
+
+  // store current user as (key => value)
+  static const String _currentUserKey = 'local_user';
+
+  /// initialize local db (HIVE)
+  /// pass testPath only if you are testing hive
+  static Future<void> init(
+      {Function(HiveInterface)? registerAdapters, String? testPath}) async {
+    if (testPath != null) {
       Hive.init(testPath);
-    }else {
+    } else {
       await Hive.initFlutter();
     }
     await registerAdapters?.call(Hive);
-    await initUserBox();
-      }
-    
-      /// initialize user box
-      static Future<void> initUserBox() async {
-    _userBox = await Hive.openBox(_userBoxName);
-      }
-    
-      /// save user to database
-      static Future<bool> saveUserToHive(UserModel user) async {
-    try {
-      await _userBox.put(_currentUserKey, user);
-      return true;
-    } catch (error) {
-      return false;
-    }
-      }
-    
-      /// get current logged user
-      static UserModel? getCurrentUser() {
-    try {
-      return _userBox.get(_currentUserKey);
-    } catch (error) {
-      return null;
-    }
-      }
-    
-      /// delete the current user
-      static Future<bool> deleteCurrentUser() async {
-    try {
-      await _userBox.delete(_currentUserKey);
-      return true;
-    } catch (error) {
-      return false;
-    }
-      }
-    
-    
-      // setter for _userBox (only using it for testing)
-      set userBox(Box<UserModel> box) {
-    _userBox = box;
-      }
-    }
-    ''';
+  }
+
+  // setup your methods for local db here
+}
+
+  ''';
 
   String apiCallStatus = '''
 enum ApiCallStatus {
@@ -263,14 +222,12 @@ class ApiException implements Exception {
 import 'dart:async';
 import 'dart:io';
 
+import 'package:crypto_new/app/components/custom_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:getx_skeleton/app/data/local/my_shared_pref.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../config/translations/strings_enum.dart';
-import '../components/custom_snackbar.dart';
 import 'api_exceptions.dart';
 
 enum RequestType {
@@ -281,14 +238,10 @@ enum RequestType {
 }
 
 class BaseClient {
-  static final Dio _dio = Dio(
-      BaseOptions(
-          headers: {
-            'Content-Type' : 'application/json',
-            'Accept' : 'application/json'
-          }
-      )
-  )
+  static final Dio _dio = Dio(BaseOptions(headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }))
     ..interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
@@ -307,21 +260,19 @@ class BaseClient {
 
   /// perform safe api request
   static safeApiCall(
-      String url,
-      RequestType requestType, {
-        Map<String, dynamic>? headers,
-        Map<String, dynamic>? queryParameters,
-        required Function(Response response) onSuccess,
-        Function(ApiException)? onError,
-        Function(int value, int progress)? onReceiveProgress,
-        Function(int total, int progress)?
+    String url,
+    RequestType requestType, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? queryParameters,
+    required Function(Response response) onSuccess,
+    Function(ApiException)? onError,
+    Function(int value, int progress)? onReceiveProgress,
+    Function(int total, int progress)?
         onSendProgress, // while sending (uploading) progress
-        Function? onLoading,
-        dynamic data,
-      }) async {
+    Function? onLoading,
+    dynamic data,
+  }) async {
     try {
-
-
       // 1) indicate loading state
       await onLoading?.call();
       // 2) try to perform http request
@@ -383,15 +334,17 @@ class BaseClient {
   /// download file
   static download(
       {required String url, // file url
-        required String savePath, // where to save file
-        Function(ApiException)? onError,
-        Function(int value, int progress)? onReceiveProgress,
-        required Function onSuccess}) async {
+      required String savePath, // where to save file
+      Function(ApiException)? onError,
+      Function(int value, int progress)? onReceiveProgress,
+      required Function onSuccess}) async {
     try {
       await _dio.download(
         url,
         savePath,
-        options: Options(receiveTimeout: const Duration(seconds: _timeoutInSeconds), sendTimeout: const Duration(seconds: _timeoutInSeconds)),
+        options: Options(
+            receiveTimeout: const Duration(seconds: _timeoutInSeconds),
+            sendTimeout: const Duration(seconds: _timeoutInSeconds)),
         onReceiveProgress: onReceiveProgress,
       );
       onSuccess();
@@ -404,8 +357,8 @@ class BaseClient {
   /// handle unexpected error
   static _handleUnexpectedException(
       {Function(ApiException)? onError,
-        required String url,
-        required Object error}) {
+      required String url,
+      required Object error}) {
     if (onError != null) {
       onError(ApiException(
         message: error.toString(),
@@ -445,9 +398,8 @@ class BaseClient {
   /// handle Dio error
   static _handleDioError(
       {required DioException error,
-        Function(ApiException)? onError,
-        required String url}) {
-
+      Function(ApiException)? onError,
+      required String url}) {
     // 404 error
     if (error.response?.statusCode == 404) {
       if (onError != null) {
@@ -462,7 +414,8 @@ class BaseClient {
     }
 
     // no internet connection
-    if (error.message != null && error.message!.toLowerCase().contains('socket')) {
+    if (error.message != null &&
+        error.message!.toLowerCase().contains('socket')) {
       if (onError != null) {
         return onError(ApiException(
           message: Strings.noInternetConnection.tr,
@@ -513,7 +466,8 @@ class BaseClient {
     CustomSnackBar.showCustomErrorToast(message: msg);
   }
 }
-    ''';
+
+  ''';
 
   String binding(String bindingName) {
     bindingName = bindingName.toCamelCase();
