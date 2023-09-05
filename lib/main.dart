@@ -20,7 +20,7 @@ void main(List<String> arguments) {
   } else if (results['m']) {
     CreateModuleFiles().createFiles();
   } else if (results['f']) {
-    InitFolders().initFolders(setUpPackage: true);
+    InitFolders().initFolders(setUpPackage: false);
   } else if (results['h']) {
     print("Welcome to Thunder CLI 🚀🚀");
     print("Thunder CLI is a tool to generate GetX project files");

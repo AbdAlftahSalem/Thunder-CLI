@@ -9,13 +9,14 @@ class ConstStrings {
   ConstStrings._internal();
 
   String main = '''
+import 'app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'app/data/local/hive.dart';
 import 'app/data/local/my_shared_pref.dart';
-import 'app/modules/login/view/login_view.dart';
+import 'app/routes/app_routes.dart';
 import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
 import 'utils/awesome_notifications_helper.dart';
@@ -38,7 +39,7 @@ Future<void> main() async {
   await AwesomeNotificationsHelper.init();
 
   runApp(
-    ScreenUtilInit(
+        ScreenUtilInit(
       // todo add your (Xd / Figma) artboard size
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -47,28 +48,27 @@ Future<void> main() async {
       rebuildFactor: (old, data) => true,
       builder: (context, widget) {
         return GetMaterialApp(
-          // todo add your app name
-          title: "GetXSkeleton",
-          useInheritedMediaQuery: true,
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) {
-            bool themeIsLight = MySharedPref.getThemeIsLight();
-            return Theme(
-              data: MyTheme.getThemeData(isLight: themeIsLight),
-              child: MediaQuery(
-                // prevent font from scalling (some people use big/small device fonts)
-                // but we want our app font to still the same and dont get affected
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: widget!,
-              ),
+              // todo add your app name
+              title: "GetXSkeleton",
+              useInheritedMediaQuery: true,
+              debugShowCheckedModeBanner: false,
+              builder: (context,widget) {
+                bool themeIsLight = MySharedPref.getThemeIsLight();
+                return Theme(
+                  data: MyTheme.getThemeData(isLight: themeIsLight),
+                  child: MediaQuery(
+                    // prevent font from scalling (some people use big/small device fonts)
+                    // but we want our app font to still the same and dont get affected
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: widget!,
+                  ),
+                );
+              },
+              initialRoute: Routes.LOGIN, // first screen to show when app is running
+              getPages: AppPages.routes, // app screens
+              locale: MySharedPref.getCurrentLocal(), // app language
+              translations: LocalizationService.getInstance(), // localization services in app (controller app language)
             );
-          },
-          // app screens
-          locale: MySharedPref.getCurrentLocal(),
-          // app language
-          translations: LocalizationService.getInstance(),
-          home: const LoginView(),
-        );
       },
     ),
   );
@@ -552,13 +552,13 @@ import 'package:get/get.dart';
 
 import '../controller/${viewName.toLowerCase()}_controller.dart';
 
-class ${viewClassName}View extends StatelessWidget {
+class ${viewClassName}View extends GetView<${viewClassName}Controller> {
   const ${viewClassName}View({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<${viewClassName.replaceAll("Screen", "")}Controller>(
+      body: GetBuilder<${viewClassName}Controller>(
         builder: (controller) {
          return const Center(child: Text("${viewName}View"));
         },
