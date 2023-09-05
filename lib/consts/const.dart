@@ -479,8 +479,8 @@ import '../controller/${bindingName.toLowerCase()}_controller.dart';
 class ${"${bindingClassName}Binding"} extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<${bindingName}Controller>(
-      () => ${bindingName}Controller(),
+    Get.lazyPut<${bindingClassName}Controller>(
+      () => ${bindingClassName}Controller(),
     );
   }
 }
@@ -550,7 +550,7 @@ class ${controllerName}Controller extends GetxController {
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/${viewClassName.toLowerCase()}_controller.dart';
+import '../controller/${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends StatelessWidget {
   const ${viewClassName}View({super.key});
@@ -558,9 +558,9 @@ class ${viewClassName}View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<${viewName.replaceAll("Screen", "")}Controller>(
+      body: GetBuilder<${viewClassName.replaceAll("Screen", "")}Controller>(
         builder: (controller) {
-          return const Text("$viewName");
+         return const Center(child: Text("${viewName}View"));
         },
       ),
     );
@@ -1636,4 +1636,29 @@ final Map<String, String> arAR = {
   Strings.hello : 'مرحباً!',
 };
         ''';
+
+  String appRoutes = '''
+import 'package:get/get.dart';
+
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+
+part 'app_routes.dart';
+
+class AppPages {
+  AppPages._();
+
+  static const INITIAL = Routes.HOME;
+
+  static final routes = [
+    GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+    ),
+  ];
+}
+
+
+  ''';
 }

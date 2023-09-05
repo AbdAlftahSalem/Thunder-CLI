@@ -76,8 +76,29 @@ class InitFolders {
     // set data folder
     await _setUpDateFolder();
 
+    // setup routes folder
+    await _setUpRoutesFolder();
+
     // set up modules folder
     CreateModuleFiles().createFiles();
+  }
+
+  _setUpRoutesFolder() async {
+    // create routes folder
+    CreateFolderAndFiles()
+        .createFolder('E:/Flutter new/crypto_new/lib/app/routes');
+
+    // create app_routes file
+    CreateFolderAndFiles().createFile(
+      'E:/Flutter new/crypto_new/lib/app/routes/app_routes.dart',
+      '',
+    );
+
+    // create routes file
+    CreateFolderAndFiles().createFile(
+      'E:/Flutter new/crypto_new/lib/app/routes/routes.dart',
+      '',
+    );
   }
 
   Future<void> _setUpDateFolder() async {
