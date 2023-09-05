@@ -9,6 +9,7 @@ void main(List<String> arguments) {
   // create flags
   parser.addFlag('i', help: 'Initialize project with GetX and mvc');
   parser.addFlag('m', help: 'Generate View Controller and Binding files');
+  parser.addFlag('h', help: 'Generate View Controller and Binding files');
 
   final results = parser.parse(arguments);
 
@@ -16,7 +17,13 @@ void main(List<String> arguments) {
     InitFolders().initFolders();
   } else if (results['m']) {
     CreateModuleFiles().createFiles();
+  } else if (results['h']) {
+    print("Welcome to Thunder CLI 🚀🚀");
+    print("Thunder CLI is a tool to generate GetX project files");
+    print("Available commands:");
+    print("thunder_cli -i : Initialize project with GetX and mvc");
+    print("thunder_cli -m : Generate View Controller and Binding files");
   } else {
-    print("Please enter a valid command [ --i / --a ]");
+    print(parser.usage);
   }
 }
