@@ -1,3 +1,3 @@
-## 2.0.4
+## 2.0.5
 
-- Fix some bugs
+- Add platforms support.
