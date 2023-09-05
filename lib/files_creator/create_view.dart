@@ -17,9 +17,9 @@ class CreateView {
   }
 
   void _generateController(String viewName) {
-    CreateFolderAndFiles().createFolder('app/modules/$viewName');
+    CreateFolderAndFiles().createFolder('lib/app/modules/$viewName');
     final fileName =
-        'app/modules/$viewName/${viewName.toLowerCase()}_view.dart';
+        'lib/app/modules/$viewName/${viewName.toLowerCase()}_view.dart';
     CreateFolderAndFiles().createFile(
       fileName,
       ConstStrings.instance.view(viewName),

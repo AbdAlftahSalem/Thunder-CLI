@@ -18,10 +18,10 @@ class CreateAllFiles {
 
   _generateFiles(String name) {
     // Create Folder
-    CreateFolderAndFiles().createFolder('app/modules/$name');
+    CreateFolderAndFiles().createFolder('lib/app/modules/$name');
 
     // Create View
-    final viewFileName = 'app/modules/$name/${name.toLowerCase()}_view.dart';
+    final viewFileName = 'lib/app/modules/$name/${name.toLowerCase()}_view.dart';
 
     CreateFolderAndFiles().createFile(
       viewFileName,
@@ -32,7 +32,7 @@ class CreateAllFiles {
 
     // Create Controller
     final controllerFileName =
-        'app/modules/$name/${name.toLowerCase()}_controller.dart';
+        'lib/app/modules/$name/${name.toLowerCase()}_controller.dart';
 
     CreateFolderAndFiles().createFile(
       controllerFileName,
@@ -43,7 +43,7 @@ class CreateAllFiles {
 
     // Create Binding
     final bindingFileName =
-        'app/modules/$name/${name.toLowerCase()}_binding.dart';
+        'lib/app/modules/$name/${name.toLowerCase()}_binding.dart';
 
     CreateFolderAndFiles().createFile(
       bindingFileName,

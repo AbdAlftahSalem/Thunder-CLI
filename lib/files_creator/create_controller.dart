@@ -17,7 +17,7 @@ class CreateController {
   }
 
   void _generateController(String controllerName) {
-    final fileName = '${controllerName.toLowerCase()}_controller.dart';
+    final fileName = 'lib/app/modules/${controllerName.toLowerCase()}_controller.dart';
     CreateFolderAndFiles()
         .createFile(fileName, ConstStrings.instance.controller(controllerName));
 

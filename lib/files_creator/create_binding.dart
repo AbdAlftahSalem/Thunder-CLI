@@ -17,9 +17,9 @@ class CreateBinding {
   }
 
   void _generateBinding(String bindingName) {
-    CreateFolderAndFiles().createFolder('app/modules/$bindingName');
+    CreateFolderAndFiles().createFolder('lib/app/modules/$bindingName');
     final fileName =
-        'app/modules/$bindingName/${bindingName.toLowerCase()}_binding.dart';
+        'lib/app/modules/$bindingName/${bindingName.toLowerCase()}_binding.dart';
     CreateFolderAndFiles().createFile(
       fileName,
       ConstStrings.instance.binding(bindingName),

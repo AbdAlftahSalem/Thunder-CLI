@@ -614,205 +614,167 @@ class $viewName extends StatelessWidget {
   }
 
   String apiErrorWidget = '''
-    import 'package:flutter/material.dart';
-    import 'package:get/get.dart';
-    
-    import '../../app/data/local/my_shared_pref.dart';
-    import 'ar_AR/ar_ar_translation.dart';
-    import 'en_US/en_us_translation.dart';
-    
-    class LocalizationService extends Translations {
-      // prevent creating instance
-      LocalizationService._();
-    
-      static LocalizationService? _instance;
-    
-      static LocalizationService getInstance() {
-    _instance ??= LocalizationService._();
-    return _instance!;
-      }
-    
-      // default language
-      // todo change the default language
-      static Locale defaultLanguage = supportedLanguages['en']!;
-    
-      // supported languages
-      static Map<String,Locale> supportedLanguages = {
-    'en' : const Locale('en', 'US'),
-    'ar' : const Locale('ar', 'AR'),
-      };
-    
-      // supported languages fonts family (must be in assets & pubspec yaml) or you can use google fonts
-      static Map<String,TextStyle> supportedLanguagesFontsFamilies = {
-    // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
-    'en' : const TextStyle(fontFamily: 'Poppins'),
-    'ar': const TextStyle(fontFamily: 'Cairo'),
-      };
-    
-      @override
-      Map<String, Map<String, String>> get keys => {
-    'en_US': enUs,
-    'ar_AR': arAR,
-      };
-    
-      /// check if the language is supported
-      static isLanguageSupported(String languageCode) =>
-    supportedLanguages.keys.contains(languageCode);
-    
-    
-      /// update app language by code language for example (en,ar..etc)
-      static updateLanguage(String languageCode) async {
-    // check if the language is supported
-    if(!isLanguageSupported(languageCode)) return;
-    // update current language in shared pref
-    await MySharedPref.setCurrentLanguage(languageCode);
-    if(!Get.testMode) {
-      Get.updateLocale(supportedLanguages[languageCode]!);
-    }
-      }
-    
-      /// check if the language is english
-      static bool isItEnglish() =>
-      MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
-    
-      /// get current locale
-      static Locale getCurrentLocal () => MySharedPref.getCurrentLocal();
-    }      
-        ''';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../config/translations/strings_enum.dart';
+
+class ApiErrorWidget extends StatelessWidget {
+  const ApiErrorWidget({super.key, required this.message, required this.retryAction, this.padding});
+
+  final String message;
+  final Function retryAction;
+  final EdgeInsets? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(message),
+            10.verticalSpace,
+            SizedBox(width: double.infinity,child: ElevatedButton(onPressed: () => retryAction(), child: Text(Strings.retry.tr),)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+  ''';
 
   String snackbar = '''
-    import 'package:flutter/material.dart';
-    import 'package:get/get.dart';
-    
-    import '../../app/data/local/my_shared_pref.dart';
-    import 'ar_AR/ar_ar_translation.dart';
-    import 'en_US/en_us_translation.dart';
-    
-    class LocalizationService extends Translations {
-      // prevent creating instance
-      LocalizationService._();
-    
-      static LocalizationService? _instance;
-    
-      static LocalizationService getInstance() {
-    _instance ??= LocalizationService._();
-    return _instance!;
-      }
-    
-      // default language
-      // todo change the default language
-      static Locale defaultLanguage = supportedLanguages['en']!;
-    
-      // supported languages
-      static Map<String,Locale> supportedLanguages = {
-    'en' : const Locale('en', 'US'),
-    'ar' : const Locale('ar', 'AR'),
-      };
-    
-      // supported languages fonts family (must be in assets & pubspec yaml) or you can use google fonts
-      static Map<String,TextStyle> supportedLanguagesFontsFamilies = {
-    // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
-    'en' : const TextStyle(fontFamily: 'Poppins'),
-    'ar': const TextStyle(fontFamily: 'Cairo'),
-      };
-    
-      @override
-      Map<String, Map<String, String>> get keys => {
-    'en_US': enUs,
-    'ar_AR': arAR,
-      };
-    
-      /// check if the language is supported
-      static isLanguageSupported(String languageCode) =>
-    supportedLanguages.keys.contains(languageCode);
-    
-    
-      /// update app language by code language for example (en,ar..etc)
-      static updateLanguage(String languageCode) async {
-    // check if the language is supported
-    if(!isLanguageSupported(languageCode)) return;
-    // update current language in shared pref
-    await MySharedPref.setCurrentLanguage(languageCode);
-    if(!Get.testMode) {
-      Get.updateLocale(supportedLanguages[languageCode]!);
-    }
-      }
-    
-      /// check if the language is english
-      static bool isItEnglish() =>
-      MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
-    
-      /// get current locale
-      static Locale getCurrentLocal () => MySharedPref.getCurrentLocal();
-    }        
-        ''';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class CustomSnackBar {
+  static showCustomSnackBar({required String title, required String message,Duration? duration})
+  {
+    Get.snackbar(
+      title,
+      message,
+      duration: duration ?? const Duration(seconds: 3),
+      margin: const EdgeInsets.only(top: 10,left: 10,right: 10),
+      colorText: Colors.white,
+      backgroundColor: Colors.green,
+      icon: const Icon(Icons.check_circle, color: Colors.white,),
+    );
+  }
+
+
+  static showCustomErrorSnackBar({required String title, required String message,Color? color,Duration? duration})
+  {
+    Get.snackbar(
+      title,
+      message,
+      duration: duration ?? const Duration(seconds: 3),
+      margin: const EdgeInsets.only(top: 10,left: 10,right: 10),
+      colorText: Colors.white,
+      backgroundColor: color ?? Colors.redAccent,
+      icon: const Icon(Icons.error, color: Colors.white,),
+    );
+  }
+
+
+
+  static showCustomToast({String? title, required String message,Color? color,Duration? duration}){
+    Get.rawSnackbar(
+      title: title,
+      duration: duration ?? const Duration(seconds: 3),
+      snackStyle: SnackStyle.GROUNDED,
+      backgroundColor: color ?? Colors.green,
+      onTap: (snack){
+        Get.closeAllSnackbars();
+      },
+      //overlayBlur: 0.8,
+      message: message,
+    );
+  }
+
+
+  static showCustomErrorToast({String? title, required String message,Color? color,Duration? duration}){
+    Get.rawSnackbar(
+      title: title,
+      duration: duration ?? const Duration(seconds: 3),
+      snackStyle: SnackStyle.GROUNDED,
+      backgroundColor: color ?? Colors.redAccent,
+      onTap: (snack){
+        Get.closeAllSnackbars();
+      },
+      //overlayBlur: 0.8,
+      message: message,
+    );
+  }
+}
+ ''';
 
   String animatedWidget = '''
-    import 'package:flutter/material.dart';
-    import 'package:get/get.dart';
-    
-    import '../../app/data/local/my_shared_pref.dart';
-    import 'ar_AR/ar_ar_translation.dart';
-    import 'en_US/en_us_translation.dart';
-    
-    class LocalizationService extends Translations {
-      // prevent creating instance
-      LocalizationService._();
-    
-      static LocalizationService? _instance;
-    
-      static LocalizationService getInstance() {
-    _instance ??= LocalizationService._();
-    return _instance!;
-      }
-    
-      // default language
-      // todo change the default language
-      static Locale defaultLanguage = supportedLanguages['en']!;
-    
-      // supported languages
-      static Map<String,Locale> supportedLanguages = {
-    'en' : const Locale('en', 'US'),
-    'ar' : const Locale('ar', 'AR'),
-      };
-    
-      // supported languages fonts family (must be in assets & pubspec yaml) or you can use google fonts
-      static Map<String,TextStyle> supportedLanguagesFontsFamilies = {
-    // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
-    'en' : const TextStyle(fontFamily: 'Poppins'),
-    'ar': const TextStyle(fontFamily: 'Cairo'),
-      };
-    
-      @override
-      Map<String, Map<String, String>> get keys => {
-    'en_US': enUs,
-    'ar_AR': arAR,
-      };
-    
-      /// check if the language is supported
-      static isLanguageSupported(String languageCode) =>
-    supportedLanguages.keys.contains(languageCode);
-    
-    
-      /// update app language by code language for example (en,ar..etc)
-      static updateLanguage(String languageCode) async {
-    // check if the language is supported
-    if(!isLanguageSupported(languageCode)) return;
-    // update current language in shared pref
-    await MySharedPref.setCurrentLanguage(languageCode);
-    if(!Get.testMode) {
-      Get.updateLocale(supportedLanguages[languageCode]!);
-    }
-      }
-    
-      /// check if the language is english
-      static bool isItEnglish() =>
-      MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
-    
-      /// get current locale
-      static Locale getCurrentLocal () => MySharedPref.getCurrentLocal();
-    }
-    ''';
+import 'package:crypto_new/app/data/remote/api_call_status.dart';
+import 'package:flutter/cupertino.dart';
+
+// switch between different widgets with animation
+// depending on api call status
+class MyWidgetsAnimator extends StatelessWidget {
+  final ApiCallStatus apiCallStatus;
+  final Widget Function() loadingWidget;
+  final Widget Function() successWidget;
+  final Widget Function() errorWidget;
+  final Widget Function()? emptyWidget;
+  final Widget Function()? holdingWidget;
+  final Widget Function()? refreshWidget;
+  final Duration? animationDuration;
+  final Widget Function(Widget, Animation<double>)? transitionBuilder;
+
+  // this will be used to not hide the success widget when refresh
+  // if its true success widget will still be shown
+  // if false refresh widget will be shown or empty box if passed (refreshWidget) is null
+  final bool hideSuccessWidgetWhileRefreshing;
+
+  const MyWidgetsAnimator({
+    Key? key,
+    required this.apiCallStatus,
+    required this.loadingWidget,
+    required this.errorWidget,
+    required this.successWidget,
+    this.holdingWidget,
+    this.emptyWidget,
+    this.refreshWidget,
+    this.animationDuration,
+    this.transitionBuilder,
+    this.hideSuccessWidgetWhileRefreshing = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final widgetMap = {
+      ApiCallStatus.success: successWidget,
+      ApiCallStatus.error: errorWidget,
+      ApiCallStatus.holding: holdingWidget ?? (() => const SizedBox()),
+      ApiCallStatus.loading: loadingWidget,
+      ApiCallStatus.empty: emptyWidget ?? (() => const SizedBox()),
+      ApiCallStatus.refresh: refreshWidget ??
+          (hideSuccessWidgetWhileRefreshing
+              ? successWidget
+              : () => const SizedBox()),
+      ApiCallStatus.cache: successWidget,
+    };
+
+    final selectedWidget = widgetMap[apiCallStatus];
+
+    return AnimatedSwitcher(
+      duration: animationDuration ?? const Duration(milliseconds: 300),
+      transitionBuilder:
+          transitionBuilder ?? AnimatedSwitcher.defaultTransitionBuilder,
+      child: selectedWidget!(),
+    );
+  }
+}
+
+  ''';
 
   String constsApp = '''
 class Constants {
