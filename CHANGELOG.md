@@ -1,3 +1,3 @@
-## 2.0.2
+## 2.0.3
 
-- Fix some bugs
+- Add routes and binding
