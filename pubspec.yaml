@@ -1,6 +1,6 @@
 name: thunder_creator
 description: This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
-version: 1.0.2
+version: 2.0.0
 repository: https://github.com/AbdAlftahSalem/Thunder-Creator.git
 homepage: https://github.com/AbdAlftahSalem/Thunder-Creator.git
 
@@ -25,7 +25,7 @@ dependencies:
   shared_preferences: ^2.2.1
 
 executables:
-  thunder_creator:
+  thunder_cli:
 
 dev_dependencies:
   lints: ^2.0.0

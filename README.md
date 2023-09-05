@@ -2,62 +2,108 @@
 
 This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
 
+## How to Use Thunder CLI
+
+To streamline the process of creating project structures and modules, we've developed a command-line tool called Thunder
+CLI. It simplifies the setup of your Flutter project. Below are the available commands and their usage:
+
+### Create a Full Project Structure
+
+Use the following command to create a full project structure:
+
+```bash
+thunder_cli --i
+```
+
+### Create a Module
+
+Use the following command to create a module:
+
+```bash
+thunder_cli --m
+```
+
 ## Project Structure
 
 The project structure is organized as follows:
 
 ```
-app/
-├── components/
-│   ├── api_error_widget.dart
-│   ├── custom_snackbar.dart
-│   └── animated_widget.dart
-├── data/
-│   ├── local/
-│   │   ├── my_shared_pref.dart
-│   │   └── hive.dart
-├── modules/
-│   ├── binding/
-│   │   └── home_binding.dart
-│   ├── controller/
-│   │   └── home_controller.dart
-│   └── view/
-│    └── home_view.dart
-utils/
-    ├── constants.dart
-    ├── awesome_notifications_helper.dart
-    └── fcm_helper.dart
+lib
+│
+├── app
+│   ├── components
+│   │   ├── animated_widget
+│   │   ├── api_error_widget
+│   │   └── custom_snackbar
+│   │
+│   ├── data
+│   │   ├── local
+│   │   │   ├── hive
+│   │   │   └── my_shared_pref
+│   │   └── remote
+│   │       ├── api_call_status
+│   │       ├── api_exceptions
+│   │       └── base_client
+│   │
+│   ├── modules
+│   │   ├── login
+│   │   │   ├── binding
+│   │   │   │   └── login_binding
+│   │   │   ├── controller
+│   │   │   │   └── login_controller
+│   │   │   └── view
+│   │   │       └── login_view
+│   │   └── ...
+│   │
+│   ├── ...
+│   │
+│   └── main
+│
+├── config
+│   ├── theme
+│   │   ├── dark_theme_colors
+│   │   ├── light_theme_colors
+│   │   ├── my_fonts
+│   │   ├── my_style
+│   │   └── my_theme
+│   │
+│   └── translations
+│       ├── ar_Ar_translation
+│       ├── ar_En_translation
+│       ├── localization_service
+│       └── strings
+│
+├── utils
+│   ├── awesome_notification_helper
+│   ├── constants
+│   └── fcm_helper
+│
+└── main
 
-config/
-└── translations/
-    ├── localization_service.dart
-    ├── strings.dart
-    ├── ar_ar_translation.dart
-    └── en_us_translation.dart
 ```
 
-### Key Directories
+## Directory Descriptions
 
-- **`app/`**: The main application directory.
-    - **`components/`**: Contains custom UI components like `api_error_widget.dart`, `custom_snackbar.dart`,
-      and `animated_widget.dart`.
-    - **`data/`**: Handles data operations, including local data storage.
-        - **`local/`**: Manages local data with `my_shared_pref.dart` and `hive.dart`.
-    - **`modules/`**: Follows the MVC pattern for organizing code.
-        - **`binding/`**: Contains GetX bindings. For example, `home_binding.dart`.
-        - **`controller/`**: Contains controller logic, such as `home_controller.dart`.
-        - **`view/`**: Contains view classes, like `home_view.dart`.
-- **`utils/`**: Houses utility functions and constants used throughout the project.
-- **`config/translations/`**: Contains localization-related files.
-    - **`localization_service.dart`**: Manages localization.
-    - **`strings.dart`**: Stores translation keys.
-    - **`ar_ar_translation.dart`**: Arabic translations.
-    - **`en_us_translation.dart`**: English translations.
+1. **lib**: This is the root directory of your Flutter project where you'll organize all your source code.
 
-## Setup and Running
+2. **app**: Contains all the code specific to your app. It's where you organize various app-related modules.
 
-1. **Clone the Repository**:
+    - **components**: Holds reusable components or widgets that are used throughout your app.
 
-   ```shell
-   https://github.com/AbdAlftahSalem/Thunder-Creator.git
-   ```
+    - **data**: Manages data-related code, such as data storage and retrieval.
+
+    - **modules**: Organizes the app's various modules or screens.
+
+3. **config**: Houses configuration-related code.
+
+    - **theme**: Code related to app theming.
+
+    - **translations**: Code for internationalization (i18n) and localization (l10n).
+
+4. **utils**: Utility code and helper classes for your app.
+
+5. **main**: The entry point of your Flutter application.
+
+These directories help you organize your Flutter project into logical sections, making it easier to manage and maintain
+your code.
+
