@@ -13,14 +13,14 @@ class CreateModels {
     if (data[0]) {
       print("Thunder is creating your model file . please wait for seconds 🔃");
       BaseClient.safeApiCall(
-        data[1]["url"],
+        data[1]["url"].trim(),
         data[1]["type"],
         headers: data[1]["headers"],
         data: data[1]["body"],
         queryParameters: data[1]["params"],
         onSuccess: (res) {
           if (res.data is Map || res.data is List) {
-            CreateModels().createModel(
+            CreateModels()._createModel(
               name: data[1]["name"],
               data: res.data,
             );
@@ -32,7 +32,7 @@ class CreateModels {
     }
   }
 
-  void createModel({required String name, required dynamic data}) {
+  void _createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
       'lib/app/data/models/${name.toLowerCase()}_model.dart',
@@ -107,7 +107,7 @@ class CreateModels {
   String _convertMapToClassModel({required String name, required Map data}) {
     String content = "class ${name.toCamelCase()}Model {\n";
 
-    List<String> mapKeys = [];
+    List<Map> mapKeys = [];
 
     // add variables
     data.forEach((key, value) {
@@ -124,12 +124,23 @@ class CreateModels {
         content +=
             "  bool? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is List) {
-        content +=
-            "  List? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+        if (value.isNotEmpty) {
+          if (value[0] is Map) {
+            content +=
+                "  List<${key.toString().toCamelCase()}Model>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            mapKeys.add({key: value[0]});
+          } else {
+            content +=
+                "  List<dynamic>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+          }
+        } else {
+          content +=
+              "  List<dynamic>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+        }
       } else if (value is Map) {
         content +=
             "  ${key.toString().toCamelCase()}Model? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
-        mapKeys.add(key);
+        mapKeys.add({key: value});
       } else {
         content +=
             "  dynamic ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
@@ -162,8 +173,10 @@ class CreateModels {
     content += "    return data;\n  }\n}\n\n";
 
     // add map keys
-    for (var key in mapKeys) {
-      content += _convertMapToClassModel(data: data[key], name: key);
+    for (var element in mapKeys) {
+      element.forEach((key, value) {
+        content += _convertMapToClassModel(name: key, data: value);
+      });
     }
 
     return content;

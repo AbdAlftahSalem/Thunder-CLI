@@ -44,29 +44,28 @@ class CreateModuleFiles {
 
   void _setupFoldersModule(String name) {
     // create modules folder
-    CreateFolderAndFiles()
-        .createFolder('lib/app/modules');
+    CreateFolderAndFiles().createFolder('lib/app/modules');
 
     // create home folder
-    CreateFolderAndFiles().createFolder(
-        'lib/app/modules/${name.toLowerCase()}');
+    CreateFolderAndFiles()
+        .createFolder('lib/app/modules/${name.toLowerCase()}');
 
     // create binding folder
-    CreateFolderAndFiles().createFolder(
-        'lib/app/modules/${name.toLowerCase()}/binding');
+    CreateFolderAndFiles()
+        .createFolder('lib/app/modules/${name.toLowerCase()}/binding');
 
     // controller folder
-    CreateFolderAndFiles().createFolder(
-        'lib/app/modules/${name.toLowerCase()}/controller');
+    CreateFolderAndFiles()
+        .createFolder('lib/app/modules/${name.toLowerCase()}/controller');
 
     // create view folder
-    CreateFolderAndFiles().createFolder(
-        'lib/app/modules/${name.toLowerCase()}/view');
+    CreateFolderAndFiles()
+        .createFolder('lib/app/modules/${name.toLowerCase()}/view');
 
     // create model folder
     if (withModel) {
-      CreateFolderAndFiles().createFolder(
-          'lib/app/modules/${name.toLowerCase()}/model');
+      CreateFolderAndFiles()
+          .createFolder('lib/app/modules/${name.toLowerCase()}/model');
     }
   }
 
