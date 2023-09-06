@@ -45,47 +45,47 @@ class CreateModuleFiles {
   void _setupFoldersModule(String name) {
     // create modules folder
     CreateFolderAndFiles()
-        .createFolder('E:/Flutter new/crypto_new/lib/app/modules');
+        .createFolder('app/modules');
 
     // create home folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}');
+        'app/modules/${name.toLowerCase()}');
 
     // create binding folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding');
+        'app/modules/${name.toLowerCase()}/binding');
 
     // controller folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller');
+        'app/modules/${name.toLowerCase()}/controller');
 
     // create view folder
     CreateFolderAndFiles().createFolder(
-        'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view');
+        'app/modules/${name.toLowerCase()}/view');
 
     // create model folder
     if (withModel) {
       CreateFolderAndFiles().createFolder(
-          'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/model');
+          'app/modules/${name.toLowerCase()}/model');
     }
   }
 
   void _setupFilesModule(String name) {
     // create home binding file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
+      'app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
       ConstStrings.instance.binding(name),
     );
 
     // create home controller file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
+      'app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
     // create home view file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
+      'app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
       ConstStrings.instance.view(name),
     );
   }

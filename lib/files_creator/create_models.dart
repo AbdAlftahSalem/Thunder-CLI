@@ -11,6 +11,7 @@ class CreateModels {
     var data = await _setupRequestData();
 
     if (data[0]) {
+      print("Thunder is creating your model file . please wait for seconds 🔃");
       BaseClient.safeApiCall(
         data[1]["url"],
         data[1]["type"],
@@ -34,12 +35,14 @@ class CreateModels {
   void createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
-      'E:/Flutter new/crypto_new/lib/app/data/models/${name.toLowerCase()}_model.dart',
+      'app/data/models/${name.toLowerCase()}_model.dart',
       _convertMapToClassModel(
         name: name,
         data: data is Map ? data : data[0],
       ),
     );
+
+    print("Create model file successfully 🚀🚀");
   }
 
   Future _setupRequestData() async {
