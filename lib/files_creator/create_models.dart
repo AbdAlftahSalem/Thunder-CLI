@@ -19,7 +19,7 @@ class CreateModels {
         queryParameters: data[1]["params"],
         onSuccess: (res) {
           if (res.data is Map || res.data is List) {
-            CreateModels()._createModel(
+            CreateModels().createModel(
               name: data[1]["name"],
               data: res.data,
             );
@@ -31,7 +31,7 @@ class CreateModels {
     }
   }
 
-  void _createModel({required String name, required dynamic data}) {
+  void createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
       'E:/Flutter new/crypto_new/lib/app/data/models/${name.toLowerCase()}_model.dart',
@@ -109,28 +109,35 @@ class CreateModels {
     // add variables
     data.forEach((key, value) {
       if (value is String) {
-        content += "  String? $key;\n";
+        content +=
+            "  String? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is int) {
-        content += "  int? $key;\n";
+        content +=
+            "  int? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is double) {
-        content += "  double? $key;\n";
+        content +=
+            "  double? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is bool) {
-        content += "  bool? $key;\n";
+        content +=
+            "  bool? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is List) {
-        content += "  List? $key;\n";
+        content +=
+            "  List? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is Map) {
         content +=
-            "  ${key.toString().toCamelCase()}Model? ${key.toString().toLowerCase()};\n";
+            "  ${key.toString().toCamelCase().lowerCaseFirstLetter()}Model? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
         mapKeys.add(key);
       } else {
-        content += "  dynamic $key;\n";
+        content +=
+            "  dynamic ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       }
     });
 
     // add optional constructor
     content += "\n  ${name.toCamelCase()}Model({\n";
     data.forEach((key, value) {
-      content += "    this.$key,\n";
+      content +=
+          "    this.${key.toString().toCamelCase().lowerCaseFirstLetter()},\n";
     });
     content += "  });\n";
 
@@ -139,14 +146,15 @@ class CreateModels {
         "\n\n  ${name.toCamelCase()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCase()}Model(\n";
     data.forEach((key, value) {
       content +=
-          "    $key: ${value is Map ? "${key.toString().toCamelCase()}Model.fromJson(json['$key'])" : "json['$key'],"}\n";
+          "    ${key.toString().toCamelCase().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCase().lowerCaseFirstLetter()}Model.fromJson(json['$key'])" : "json['$key'],"}\n";
     });
 
     // add toJson method
     content += "  );\n}\n\n  Map<String, dynamic> toJson() {\n";
     content += "    final Map<String, dynamic> data =  <String, dynamic>{};\n";
     data.forEach((key, value) {
-      content += "    data['$key'] = $key;\n";
+      content +=
+          "    data['$key'] = ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
     });
     content += "    return data;\n  }\n}\n\n";
 
