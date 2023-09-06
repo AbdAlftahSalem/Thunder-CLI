@@ -1,4 +1,5 @@
 import 'package:args/args.dart';
+import 'files_creator/create_models.dart';
 import 'files_creator/create_module_files.dart';
 import 'files_creator/init_folders.dart';
 
@@ -13,6 +14,7 @@ void main(List<String> arguments) {
     ..addFlag('m', help: 'Generate View Controller and Binding files')
     ..addFlag('mm',
         help: 'Generate View Controller and Binding files and model')
+    ..addFlag('mo', help: 'Generate model file for the module')
     ..addFlag('h', help: 'Show help message');
 
   final results = parser.parse(arguments);
@@ -26,6 +28,9 @@ void main(List<String> arguments) {
   } else if (results['f']) {
     // Initialize folders and files without installing packages
     InitFolders().initFolders(setUpPackage: false);
+  } else if (results['mo']) {
+    // Generate model file for the module
+    CreateModels().createModelFile();
   } else if (results['mm']) {
     // Generate View Controller and Binding files and model
     CreateModuleFiles(withModel: true).createFiles();

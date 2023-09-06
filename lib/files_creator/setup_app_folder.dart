@@ -90,6 +90,9 @@ class SetupAppFolder {
       'app/data/remote/base_client.dart',
       ConstStrings.instance.baseClient,
     );
+
+    // create models folder
+    CreateFolderAndFiles().createFolder('app/data/models');
   }
 
   Future<void> _setUpComponentsFolder() async {
