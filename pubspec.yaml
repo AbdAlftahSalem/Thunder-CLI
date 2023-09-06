@@ -10,6 +10,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   args: ^2.2.2
+  dio: ^5.3.2
 
 executables:
   thund:

@@ -7,4 +7,8 @@ extension StringCamelCaseConversion on String {
     }
     return words.join();
   }
+
+  String lowerCaseFirstLetter() {
+    return "${this[0].toLowerCase()}${substring(1)}";
+  }
 }
