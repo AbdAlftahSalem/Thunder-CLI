@@ -7,20 +7,97 @@ This project is a Flutter application scaffolded with GetX and follows the MVC (
 To streamline the process of creating project structures and modules, we've developed a command-line tool called Thunder
 CLI. It simplifies the setup of your Flutter project. Below are the available commands and their usage:
 
-### Create a Full Project Structure
+## Installation
 
-Use the following command to create a full project structure:
+To install Thunder CLI, run the following command:
 
 ```bash
+pub global activate thunder_cli
+```
+
+## Commands
+
+### Create a new project
+
+To create a new project and using thunder cli, run the following command:
+
+```bash
+flutter create --org com.example --project-name my_project_name .
+```
+
+## Usage
+
+To initialize a new Flutter project [ Folders and packages ] with Thunder CLI, use the following command:
+
+```shell
 thunder_cli --i
 ```
 
-### Create a Module
+This command will set up the following components for your project:
 
-Use the following command to create a module:
+- Local storage
+- Remote storage
+- Awesome Notification
+- FCM
+- Dio Base Client
+- Themes (Dark and Light)
+- Main File
+- Routes and App Pages
+- Components for Application (e.g., animated widgets, snackbar)
+- Constants (e.g., colors, strings)
+- Translations (e.g., localization service, strings)
 
-```bash
+To create a new module, use the following command:
+
+```shell
 thunder_cli --m
+```
+
+This command will set up the following components for your module:
+
+- Binding
+- Controller
+- View
+- Add view in routes and app pages
+
+To create a new model via url (e.g., https://jsonplaceholder.typicode.com/posts), use the following command:
+
+```shell
+thunder_cli --mo
+```
+
+This command will set up the following components for your model:
+
+- Model
+- FromJson
+- ToJson
+
+To create module with model, use the following command:
+
+```shell
+thunder_cli --mm
+```
+
+This command will set up the following components for your module:
+
+- Binding
+- Controller
+- View
+- Add view in routes and app pages
+- Model
+- FromJson
+- ToJson
+
+This command will set up the folders only for your project:
+
+    ```shell
+    thunder_cli --f
+    ```
+
+To show help, use the following command:
+
+```shell
+thunder_cli --h
 ```
 
 ## Project Structure
@@ -40,11 +117,12 @@ lib
 │   │   ├── local
 │   │   │   ├── hive
 │   │   │   └── my_shared_pref
+│   │   ├── models
 │   │   └── remote
 │   │       ├── api_call_status
 │   │       ├── api_exceptions
-│   │       └── base_client
-│   │
+│   │       ├── base_client
+│   │    
 │   ├── modules
 │   │   ├── login
 │   │   │   ├── binding
@@ -80,30 +158,17 @@ lib
 │
 └── main
 
+
 ```
 
-## Directory Descriptions
+[Thunder CLI on pub.dev](https://pub.dev/packages/thunder_creator)
 
-1. **lib**: This is the root directory of your Flutter project where you'll organize all your source code.
+## Contributing
 
-2. **app**: Contains all the code specific to your app. It's where you organize various app-related modules.
+Feel free to contribute to this project by opening issues, suggesting new features, or submitting pull requests.
 
-    - **components**: Holds reusable components or widgets that are used throughout your app.
+## License
 
-    - **data**: Manages data-related code, such as data storage and retrieval.
+This project is licensed under the MIT License.
 
-    - **modules**: Organizes the app's various modules or screens.
-
-3. **config**: Houses configuration-related code.
-
-    - **theme**: Code related to app theming.
-
-    - **translations**: Code for internationalization (i18n) and localization (l10n).
-
-4. **utils**: Utility code and helper classes for your app.
-
-5. **main**: The entry point of your Flutter application.
-
-These directories help you organize your Flutter project into logical sections, making it easier to manage and maintain
-your code.
-
+---
