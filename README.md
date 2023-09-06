@@ -161,7 +161,7 @@ lib
 
 ```
 
-[Thunder CLI on pub.dev](https://pub.dev/packages/thunder_creator)
+[Thunder CLI on pub.dev](https://pub.dev/packages/thunder_cli)
 
 ## Contributing
 
