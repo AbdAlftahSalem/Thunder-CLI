@@ -35,7 +35,7 @@ class CreateModels {
   void createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
-      'app/data/models/${name.toLowerCase()}_model.dart',
+      'lib/app/data/models/${name.toLowerCase()}_model.dart',
       _convertMapToClassModel(
         name: name,
         data: data is Map ? data : data[0],
@@ -128,7 +128,7 @@ class CreateModels {
             "  List? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
       } else if (value is Map) {
         content +=
-            "  ${key.toString().toCamelCase().lowerCaseFirstLetter()}Model? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  ${key.toString().toCamelCase()}Model? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
         mapKeys.add(key);
       } else {
         content +=
@@ -149,7 +149,7 @@ class CreateModels {
         "\n\n  ${name.toCamelCase()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCase()}Model(\n";
     data.forEach((key, value) {
       content +=
-          "    ${key.toString().toCamelCase().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCase().lowerCaseFirstLetter()}Model.fromJson(json['$key'])" : "json['$key'],"}\n";
+          "    ${key.toString().toCamelCase().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCase()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
     });
 
     // add toJson method

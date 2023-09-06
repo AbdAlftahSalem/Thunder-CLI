@@ -45,47 +45,47 @@ class CreateModuleFiles {
   void _setupFoldersModule(String name) {
     // create modules folder
     CreateFolderAndFiles()
-        .createFolder('app/modules');
+        .createFolder('lib/app/modules');
 
     // create home folder
     CreateFolderAndFiles().createFolder(
-        'app/modules/${name.toLowerCase()}');
+        'lib/app/modules/${name.toLowerCase()}');
 
     // create binding folder
     CreateFolderAndFiles().createFolder(
-        'app/modules/${name.toLowerCase()}/binding');
+        'lib/app/modules/${name.toLowerCase()}/binding');
 
     // controller folder
     CreateFolderAndFiles().createFolder(
-        'app/modules/${name.toLowerCase()}/controller');
+        'lib/app/modules/${name.toLowerCase()}/controller');
 
     // create view folder
     CreateFolderAndFiles().createFolder(
-        'app/modules/${name.toLowerCase()}/view');
+        'lib/app/modules/${name.toLowerCase()}/view');
 
     // create model folder
     if (withModel) {
       CreateFolderAndFiles().createFolder(
-          'app/modules/${name.toLowerCase()}/model');
+          'lib/app/modules/${name.toLowerCase()}/model');
     }
   }
 
   void _setupFilesModule(String name) {
     // create home binding file
     CreateFolderAndFiles().createFile(
-      'app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
+      'lib/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
       ConstStrings.instance.binding(name),
     );
 
     // create home controller file
     CreateFolderAndFiles().createFile(
-      'app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
+      'lib/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
     // create home view file
     CreateFolderAndFiles().createFile(
-      'app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
+      'lib/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
       ConstStrings.instance.view(name),
     );
   }

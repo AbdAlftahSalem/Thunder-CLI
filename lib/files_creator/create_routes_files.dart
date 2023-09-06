@@ -9,7 +9,7 @@ class RoutesCreator {
 
   void addInAppRoutesFile() {
     // reading app_routes.dart file
-    final file = File('app/routes/app_routes.dart');
+    final file = File('lib/app/routes/app_routes.dart');
     String content = file.readAsStringSync();
 
     // extract all imports from code
@@ -77,7 +77,7 @@ class AppPages {
 
   void addInRoutesFile() {
     // reading routes file
-    final routesFile = File('app/routes/routes.dart');
+    final routesFile = File('lib/app/routes/routes.dart');
 
     // reading routes file content
     String routesContent = routesFile.readAsStringSync();
@@ -89,14 +89,13 @@ class AppPages {
 
     // if routesMatch is null, then add routes
     if (routesMatch.isEmpty) {
-    } else {
       // add routes to content
       routesContent += '''
 class Routes {
   static const ${nameFolder.toUpperCase()} = '/${nameFolder.toLowerCase()}';
 }
 ''';
-
+    } else {
       routesMatch.add(
           '  static const ${nameFolder.toUpperCase()} = "/${nameFolder.toLowerCase()}";');
       String routes = routesMatch.join('\n');

@@ -25,20 +25,20 @@ class InitFolders {
 
     // set up main file
     CreateFolderAndFiles().createFile(
-      'main.dart',
+      'lib/main.dart',
       ConstStrings.instance.main,
     );
   }
 
   Future<void> _setUpAllFolders() async {
     // create app folder
-    CreateFolderAndFiles().createFolder('app');
+    CreateFolderAndFiles().createFolder('lib/app');
 
     // create utils folder
-    CreateFolderAndFiles().createFolder('utils');
+    CreateFolderAndFiles().createFolder('lib/utils');
 
     // create config folder
-    CreateFolderAndFiles().createFolder('config');
+    CreateFolderAndFiles().createFolder('lib/config');
 
     print("Create base folders successfully 🚀🚀");
 
