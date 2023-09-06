@@ -1,7 +1,7 @@
-import 'package:thunder_creator/files_creator/setup_app_folder.dart';
-import 'package:thunder_creator/files_creator/setup_packages.dart';
-import 'package:thunder_creator/files_creator/setup_theme_folder.dart';
-import 'package:thunder_creator/files_creator/setup_util_files.dart';
+import 'package:thunder_cli/files_creator/setup_app_folder.dart';
+import 'package:thunder_cli/files_creator/setup_packages.dart';
+import 'package:thunder_cli/files_creator/setup_theme_folder.dart';
+import 'package:thunder_cli/files_creator/setup_util_files.dart';
 
 import '../consts/const.dart';
 import '../services/create_folder_files.dart';
