@@ -1,23 +1,24 @@
 import '../consts/const.dart';
+import '../consts/folder_paths.dart';
 import '../services/create_folder_files.dart';
 
 class SetUpUtilFolder {
   void setupUtilFolder() {
     // create file in util folder
     CreateFolderAndFiles().createFile(
-      'lib/utils/constants.dart',
+      FolderPaths.constantsFile,
       ConstStrings.instance.constsApp,
     );
 
     // init AwesomeNotifications
     CreateFolderAndFiles().createFile(
-      'lib/utils/awesome_notifications_helper.dart',
+      FolderPaths.awesomeNotificationsHelperFile,
       ConstStrings.instance.awesomeNotifications,
     );
 
     // init FcmHelper
     CreateFolderAndFiles().createFile(
-      'lib/utils/fcm_helper.dart',
+      FolderPaths.fcmHelperFile,
       ConstStrings.instance.fcmHelper,
     );
 

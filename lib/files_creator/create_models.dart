@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:thunder_cli/consts/folder_paths.dart';
+
 import '../data/remote/base_client.dart';
 import '../extensions/string_extensions.dart';
 import '../services/create_folder_files.dart';
@@ -35,7 +37,7 @@ class CreateModels {
   void _createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/models/${name.toLowerCase()}_model.dart',
+      FolderPaths.modelFile(name),
       _convertMapToClassModel(
         name: name,
         data: data is Map ? data : data[0],

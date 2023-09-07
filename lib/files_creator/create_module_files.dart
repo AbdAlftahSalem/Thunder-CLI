@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../consts/const.dart';
+import '../consts/folder_paths.dart';
 import '../extensions/string_extensions.dart';
 import '../services/create_folder_files.dart';
 import 'create_models.dart';
@@ -44,47 +45,42 @@ class CreateModuleFiles {
 
   void _setupFoldersModule(String name) {
     // create modules folder
-    CreateFolderAndFiles().createFolder('lib/app/modules');
+    CreateFolderAndFiles().createFolder(FolderPaths.modulesFolder);
 
     // create home folder
-    CreateFolderAndFiles()
-        .createFolder('lib/app/modules/${name.toLowerCase()}');
+    CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
 
     // create binding folder
-    CreateFolderAndFiles()
-        .createFolder('lib/app/modules/${name.toLowerCase()}/binding');
+    CreateFolderAndFiles().createFolder(FolderPaths.bindingFolder(name));
 
     // controller folder
-    CreateFolderAndFiles()
-        .createFolder('lib/app/modules/${name.toLowerCase()}/controller');
+    CreateFolderAndFiles().createFolder(FolderPaths.controllerFolder(name));
 
     // create view folder
-    CreateFolderAndFiles()
-        .createFolder('lib/app/modules/${name.toLowerCase()}/view');
+    CreateFolderAndFiles().createFolder(FolderPaths.viewFolder(name));
 
     // create model folder
     if (withModel) {
-      CreateFolderAndFiles()
-          .createFolder('lib/app/modules/${name.toLowerCase()}/model');
+      CreateFolderAndFiles().createFolder(FolderPaths.modelFile(name));
     }
   }
 
   void _setupFilesModule(String name) {
     // create home binding file
     CreateFolderAndFiles().createFile(
-      'lib/app/modules/${name.toLowerCase()}/binding/${name.toLowerCase()}_binding.dart',
+      FolderPaths.bindingFile(name),
       ConstStrings.instance.binding(name),
     );
 
     // create home controller file
     CreateFolderAndFiles().createFile(
-      'lib/app/modules/${name.toLowerCase()}/controller/${name.toLowerCase()}_controller.dart',
+      FolderPaths.controllerFile(name),
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
     // create home view file
     CreateFolderAndFiles().createFile(
-      'lib/app/modules/${name.toLowerCase()}/view/${name.toLowerCase()}_view.dart',
+      FolderPaths.viewFile(name),
       ConstStrings.instance.view(name),
     );
   }

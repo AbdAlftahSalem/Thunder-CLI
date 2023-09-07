@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../consts/folder_paths.dart';
 import '../extensions/string_extensions.dart';
 
 class RoutesCreator {
@@ -9,7 +10,7 @@ class RoutesCreator {
 
   void addInAppRoutesFile() {
     // reading app_routes.dart file
-    final file = File('lib/app/routes/app_routes.dart');
+    final file = File(FolderPaths.appRoutesFile);
     String content = file.readAsStringSync();
 
     // extract all imports from code
@@ -77,7 +78,7 @@ class AppPages {
 
   void addInRoutesFile() {
     // reading routes file
-    final routesFile = File('lib/app/routes/routes.dart');
+    final routesFile = File(FolderPaths.routesFile);
 
     // reading routes file content
     String routesContent = routesFile.readAsStringSync();

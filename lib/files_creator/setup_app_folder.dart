@@ -1,17 +1,18 @@
 import '../consts/const.dart';
+import '../consts/folder_paths.dart';
 import '../services/create_folder_files.dart';
 import 'create_module_files.dart';
 
 class SetupAppFolder {
   void setupAppFolder() {
     // create app folder
-    CreateFolderAndFiles().createFolder('lib/app');
+    CreateFolderAndFiles().createFolder(FolderPaths.appFolder);
 
     // create utils folder
-    CreateFolderAndFiles().createFolder('lib/utils');
+    CreateFolderAndFiles().createFolder(FolderPaths.utilFolder);
 
     // create config folder
-    CreateFolderAndFiles().createFolder('lib/config');
+    CreateFolderAndFiles().createFolder(FolderPaths.configFolder);
 
     print("Create base folders successfully 🚀🚀");
 
@@ -34,35 +35,35 @@ class SetupAppFolder {
 
   Future<void> _setUpRoutesFolder() async {
     // create routes folder
-    CreateFolderAndFiles().createFolder('lib/app/routes');
+    CreateFolderAndFiles().createFolder(FolderPaths.routesFolder);
 
     // create app_routes file
     CreateFolderAndFiles().createFile(
-      'lib/app/routes/app_routes.dart',
+      FolderPaths.appRoutesFile,
       '',
     );
 
     // create routes file
     CreateFolderAndFiles().createFile(
-      'lib/app/routes/routes.dart',
+      FolderPaths.routesFile,
       '',
     );
   }
 
   Future<void> _setUpDateFolder() async {
     // create data folder
-    CreateFolderAndFiles().createFolder('lib/app/data');
-    CreateFolderAndFiles().createFolder('lib/app/data/local');
+    CreateFolderAndFiles().createFolder(FolderPaths.dataFolder);
+    CreateFolderAndFiles().createFolder(FolderPaths.localFolder);
 
     // create my_shared_pref file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/local/my_shared_pref.dart',
+      FolderPaths.sharedPrefFile,
       ConstStrings.instance.sharedPrefs,
     );
 
     // create hive file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/local/hive.dart',
+      FolderPaths.hiveFile,
       ConstStrings.instance.hive,
     );
 
@@ -71,51 +72,51 @@ class SetupAppFolder {
     print("Set all files in app/data/locale folder successfully 🚀🚀");
 
     // create remote folder
-    CreateFolderAndFiles().createFolder('lib/app/data/remote');
+    CreateFolderAndFiles().createFolder(FolderPaths.remoteFolder);
 
     // create api_call_status file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/remote/api_call_status.dart',
+      FolderPaths.apiCallStateFile,
       ConstStrings.instance.apiCallStatus,
     );
 
     // create api_exceptions file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/remote/api_exceptions.dart',
+      FolderPaths.apiExceptionFile,
       ConstStrings.instance.apiException,
     );
 
     // create base_client file
     CreateFolderAndFiles().createFile(
-      'lib/app/data/remote/base_client.dart',
+      FolderPaths.baseClientFile,
       ConstStrings.instance.baseClient,
     );
 
     // create models folder
-    CreateFolderAndFiles().createFolder('lib/app/data/models');
+    CreateFolderAndFiles().createFolder(FolderPaths.modelsFolder);
   }
 
   Future<void> _setUpComponentsFolder() async {
     // create components folder
     CreateFolderAndFiles().createFolder(
-      'lib/app/components',
+      FolderPaths.componentsFolder,
     );
 
     // create api_error_widget file
     CreateFolderAndFiles().createFile(
-      'lib/app/components/api_error_widget.dart',
+      FolderPaths.apiErrorWidgetFile,
       ConstStrings.instance.apiErrorWidget,
     );
 
     // create custom_snackbar file
     CreateFolderAndFiles().createFile(
-      'lib/app/components/custom_snackbar.dart',
+      FolderPaths.snackbarWidgetFile,
       ConstStrings.instance.snackbar,
     );
 
     // create animated widget
     CreateFolderAndFiles().createFile(
-      'lib/app/components/animated_widget.dart',
+      FolderPaths.animatedWidgetFile,
       ConstStrings.instance.animatedWidget,
     );
 

@@ -1,3 +1,5 @@
+import 'package:thunder_cli/consts/folder_paths.dart';
+
 import '../consts/const.dart';
 import '../services/create_folder_files.dart';
 
@@ -14,61 +16,61 @@ class SetupConfigFolder {
 
   void _setUpTheme() {
     // create dark_theme_colors
-    CreateFolderAndFiles().createFolder("lib/config/theme");
+    CreateFolderAndFiles().createFolder(FolderPaths.themeFolder);
     CreateFolderAndFiles().createFile(
-      "lib/config/theme/dark_theme_colors.dart",
+      FolderPaths.darkThemeColorsFile,
       ConstStrings.instance.darkTheme,
     );
 
     // create light_theme_colors
     CreateFolderAndFiles().createFile(
-      "lib/config/theme/light_theme_colors.dart",
+      FolderPaths.lightThemeColorsFile,
       ConstStrings.instance.lightTheme,
     );
 
     // create my_fonts
     CreateFolderAndFiles().createFile(
-      "lib/config/theme/my_fonts.dart",
+      FolderPaths.myFontsFile,
       ConstStrings.instance.myFonts,
     );
 
     // create myStyle
     CreateFolderAndFiles().createFile(
-      "lib/config/theme/my_styles.dart",
+      FolderPaths.myStylesFile,
       ConstStrings.instance.myStyle,
     );
 
     // create myTheme
     CreateFolderAndFiles().createFile(
-      "lib/config/theme/my_theme.dart",
+      FolderPaths.myThemeFile,
       ConstStrings.instance.myTheme,
     );
   }
 
   void _setUpTranslations() {
-    CreateFolderAndFiles().createFolder("lib/config/translations");
+    CreateFolderAndFiles().createFolder(FolderPaths.translationsFolder);
 
     // create localization_service
     CreateFolderAndFiles().createFile(
-      "lib/config/translations/localization_service.dart",
+      FolderPaths.localizationFile,
       ConstStrings.instance.localizationService,
     );
 
     // create strings file
     CreateFolderAndFiles().createFile(
-      "lib/config/translations/strings.dart",
+      FolderPaths.stringsFile,
       ConstStrings.instance.strings,
     );
 
     // create en_us_translation
     CreateFolderAndFiles().createFile(
-      "lib/config/translations/ar_Ar_translation.dart",
+      FolderPaths.enFile,
       ConstStrings.instance.arAr,
     );
 
     // create ar_ar_translation
     CreateFolderAndFiles().createFile(
-      "lib/config/translations/ar_En_translation.dart",
+      FolderPaths.arFile,
       ConstStrings.instance.enUs,
     );
   }

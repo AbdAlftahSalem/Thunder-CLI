@@ -4,6 +4,7 @@ import 'package:thunder_cli/files_creator/setup_theme_folder.dart';
 import 'package:thunder_cli/files_creator/setup_util_files.dart';
 
 import '../consts/const.dart';
+import '../consts/folder_paths.dart';
 import '../services/create_folder_files.dart';
 
 class InitFolders {
@@ -25,20 +26,20 @@ class InitFolders {
 
     // set up main file
     CreateFolderAndFiles().createFile(
-      'lib/main.dart',
+      FolderPaths.mainFile,
       ConstStrings.instance.main,
     );
   }
 
   Future<void> _setUpAllFolders() async {
     // create app folder
-    CreateFolderAndFiles().createFolder('lib/app');
+    CreateFolderAndFiles().createFolder(FolderPaths.appFolder);
 
     // create utils folder
-    CreateFolderAndFiles().createFolder('lib/utils');
+    CreateFolderAndFiles().createFolder(FolderPaths.utilFolder);
 
     // create config folder
-    CreateFolderAndFiles().createFolder('lib/config');
+    CreateFolderAndFiles().createFolder(FolderPaths.configFolder);
 
     print("Create base folders successfully 🚀🚀");
 

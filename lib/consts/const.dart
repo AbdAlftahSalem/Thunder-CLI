@@ -220,14 +220,14 @@ class ApiException implements Exception {
 import 'dart:async';
 import 'dart:io';
 
-import 'app/components/custom_snackbar.dart';
+import '../../components/custom_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../config/translations/strings.dart';
-import 'api_exceptions.dart';
+import 'api_exception.dart';
 
 enum RequestType {
   get,
@@ -493,7 +493,7 @@ class ${"${bindingClassName}Binding"} extends Bindings {
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
-import '../../../data/remote/api_call_status.dart';
+import '../../../data/remote/api_call_state.dart';
 import '../../../data/remote/base_client.dart';
 
 
@@ -679,7 +679,8 @@ class CustomSnackBar {
  ''';
 
   String animatedWidget = '''
-import 'app/data/remote/api_call_status.dart';
+import '../data/remote/api_call_state.dart';
+
 import 'package:flutter/cupertino.dart';
 
 // switch between different widgets with animation
@@ -1545,8 +1546,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app/data/local/my_shared_pref.dart';
-import 'ar_Ar_translation.dart';
-import 'ar_En_translation.dart';
+import 'ar_Ar_translations.dart';
+import 'ar_En_translations.dart';
 
 class LocalizationService extends Translations {
   // prevent creating instance
