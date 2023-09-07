@@ -220,7 +220,7 @@ class ApiException implements Exception {
 import 'dart:async';
 import 'dart:io';
 
-import 'package:crypto_new/app/components/custom_snackbar.dart';
+import 'app/components/custom_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:logger/logger.dart';
@@ -679,7 +679,7 @@ class CustomSnackBar {
  ''';
 
   String animatedWidget = '''
-import 'package:crypto_new/app/data/remote/api_call_status.dart';
+import 'app/data/remote/api_call_status.dart';
 import 'package:flutter/cupertino.dart';
 
 // switch between different widgets with animation
