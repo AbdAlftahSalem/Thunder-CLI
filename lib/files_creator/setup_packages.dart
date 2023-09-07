@@ -25,17 +25,17 @@ class SetupPackagesAndAppInfo {
 
     await RunCmd.runInCmd('flutter pub get');
 
-    print("⚡ Get packages , thunder install ${packages.length} packages");
+    print("⚡ Get packages , thunder install ${packages.length} packages\n\n");
 
     await RunCmd.runInCmd(
         'flutter pub global run rename --appname ${appInfo['appName']} --target android ios windows macOS linux');
 
-    print("⚡ Rename app name to ${appInfo['appName']}");
+    print("⚡ Rename app name to ${appInfo['appName']}\n\n");
 
     // set up package name
     await RunCmd.runInCmd(
         'flutter pub run change_app_package_name:main ${appInfo['packageName']}');
 
-    print("⚡ Change package name to ${appInfo['packageName']}");
+    print("⚡ Change package name to ${appInfo['packageName']}\n\n");
   }
 }

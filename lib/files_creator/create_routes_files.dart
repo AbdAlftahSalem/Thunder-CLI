@@ -75,7 +75,7 @@ class AppPages {
     // write content to app_routes.dart file
     file.writeAsStringSync(content);
 
-    print("⚡ Add routes to app_routes.dart file");
+    print("⚡ Add routes to app_routes.dart file\n\n");
   }
 
   void addInRoutesFile() {
@@ -112,6 +112,6 @@ class Routes {
     // write content to routes.dart file
     routesFile.writeAsStringSync(routesContent);
 
-    print("⚡ Add routes to routes.dart file");
+    print("⚡ Add routes to routes.dart file\n\n");
   }
 }

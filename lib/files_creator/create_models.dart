@@ -13,7 +13,8 @@ class CreateModels {
     var data = await _setupRequestData();
 
     if (data[0]) {
-      print("Thunder is creating your model file . please wait for seconds 🔃");
+      print(
+          "Thunder is creating your model file . please wait for seconds 🔃\n\n\n");
       BaseClient.safeApiCall(
         data[1]["url"].trim(),
         data[1]["type"],
@@ -44,7 +45,7 @@ class CreateModels {
       ),
     );
 
-    print("⚡ Create model file successfully");
+    print("⚡ Create model file successfully\n\n");
   }
 
   Future _setupRequestData() async {

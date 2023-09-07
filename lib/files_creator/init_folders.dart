@@ -33,7 +33,7 @@ class InitFolders {
       ConstStrings.instance.main,
     );
 
-    print("⚡ ⚡ Init app successfully");
+    print("⚡⚡ Init app successfully\n\n");
   }
 
   Future<Map<String, String>> _userApplicationData() async {

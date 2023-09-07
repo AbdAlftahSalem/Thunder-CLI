@@ -16,7 +16,7 @@ class SetupAppFolder {
 
     _setUpAppFiles();
 
-    print("⚡ ⚡ Set up all files in app folder successfully");
+    print("⚡⚡ Set up all files in app folder successfully\n\n");
   }
 
   void _setUpAppFiles() async {
