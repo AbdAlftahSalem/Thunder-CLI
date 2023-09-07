@@ -43,8 +43,7 @@ class FolderPaths {
   static const String routesFile = 'lib/app/routes/routes.dart';
 
   // module files
-  static String folderInModules(String name) =>
-      'lib/app/modules/$name';
+  static String folderInModules(String name) => 'lib/app/modules/$name';
 
   static String controllerFolder(String name) =>
       "lib/app/modules/$name/controller";

@@ -1,7 +1,7 @@
 import '../services/run_cmd.dart';
 
-class SetupPackages {
-  Future setupPackages() async {
+class SetupPackagesAndAppInfo {
+  Future setupPackagesAndAppInfo(Map<String, String> appInfo) async {
     final packages = [
       'get',
       'logger',
@@ -24,5 +24,13 @@ class SetupPackages {
       await RunCmd.runInCmd('flutter pub add $package');
       print("Add $package package 🚀🚀");
     });
+
+    // set up app name
+    await RunCmd.runInCmd(
+        'flutter pub run rename_app:main all="${appInfo['appName']}"');
+
+    // set up package name
+    await RunCmd.runInCmd(
+        'flutter pub run change_app_package_name:main ${appInfo['packageName']}');
   }
 }
