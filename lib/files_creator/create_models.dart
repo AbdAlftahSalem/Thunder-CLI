@@ -44,7 +44,7 @@ class CreateModels {
       ),
     );
 
-    print("Create model file successfully 🚀🚀");
+    print("⚡ Create model file successfully");
   }
 
   Future _setupRequestData() async {

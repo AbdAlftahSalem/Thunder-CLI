@@ -4,7 +4,6 @@ import 'package:thunder_cli/files_creator/setup_app_folder.dart';
 import 'package:thunder_cli/files_creator/setup_packages.dart';
 import 'package:thunder_cli/files_creator/setup_theme_folder.dart';
 import 'package:thunder_cli/files_creator/setup_util_files.dart';
-import 'package:thunder_cli/services/run_cmd.dart';
 
 import '../consts/const.dart';
 import '../consts/folder_paths.dart';
@@ -13,6 +12,8 @@ import '../services/create_folder_files.dart';
 class InitFolders {
   void initFolders({bool setUpPackage = false}) async {
     Map<String, String> appInfo = await _userApplicationData();
+
+    print("Thunder will init your app . please wait for seconds 🔃");
 
     // add packages
     if (setUpPackage) {
@@ -31,6 +32,8 @@ class InitFolders {
       FolderPaths.mainFile,
       ConstStrings.instance.main,
     );
+
+    print("⚡ ⚡ Init app successfully");
   }
 
   Future<Map<String, String>> _userApplicationData() async {

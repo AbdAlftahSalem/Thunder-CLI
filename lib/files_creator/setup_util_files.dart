@@ -22,6 +22,6 @@ class SetUpUtilFolder {
       ConstStrings.instance.fcmHelper,
     );
 
-    print("Set all files in app folder successfully 🚀🚀");
+    print("⚡ ⚡ Set up files in app folder successfully");
   }
 }

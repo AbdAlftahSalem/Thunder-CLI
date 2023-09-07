@@ -11,7 +11,7 @@ class SetupConfigFolder {
     // set up theme folder
     _setUpTheme();
 
-    print("Set all files in config folder successfully 🚀🚀");
+    print("⚡ ⚡ Set up files in config folder successfully");
   }
 
   void _setUpTheme() {

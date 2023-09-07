@@ -44,7 +44,7 @@ class CreateModuleFiles {
       CreateModels().createModelFile();
     }
 
-    print("Create module files successfully 🚀🚀");
+    print("⚡ Create module files successfully");
   }
 
   void _setupFoldersModule(String name) {

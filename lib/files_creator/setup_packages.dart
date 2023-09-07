@@ -15,22 +15,27 @@ class SetupPackagesAndAppInfo {
       'awesome_notifications',
       'flutter_launcher_icons',
       'change_app_package_name',
-      'rename_app',
-      'flutter_svg',
       'pretty_dio_logger',
     ];
 
-    Future.forEach(packages, (package) async {
+    await Future.forEach(packages, (package) async {
       await RunCmd.runInCmd('flutter pub add $package');
-      print("Add $package package 🚀🚀");
+      print("✅ Add $package package");
     });
 
-    // set up app name
+    await RunCmd.runInCmd('flutter pub get');
+
+    print("⚡ Get packages , thunder install ${packages.length} packages");
+
     await RunCmd.runInCmd(
-        'flutter pub run rename_app:main all="${appInfo['appName']}"');
+        'flutter pub global run rename --appname ${appInfo['appName']} --target android ios windows macOS linux');
+
+    print("⚡ Rename app name to ${appInfo['appName']}");
 
     // set up package name
     await RunCmd.runInCmd(
         'flutter pub run change_app_package_name:main ${appInfo['packageName']}');
+
+    print("⚡ Change package name to ${appInfo['packageName']}");
   }
 }

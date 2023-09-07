@@ -14,9 +14,9 @@ class SetupAppFolder {
     // create config folder
     CreateFolderAndFiles().createFolder(FolderPaths.configFolder);
 
-    print("Create base folders successfully 🚀🚀");
-
     _setUpAppFiles();
+
+    print("⚡ ⚡ Set up all files in app folder successfully");
   }
 
   void _setUpAppFiles() async {
