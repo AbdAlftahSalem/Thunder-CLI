@@ -12,8 +12,12 @@ class CreateModuleFiles {
 
   CreateModuleFiles({this.withModel = false});
 
-  void createFiles() {
-    stdout.write("Enter your view name [ login / bottom_nav ] : ");
+  void createFiles({bool createDefault = false}) {
+    if (createDefault) {
+      _generateFiles("login");
+      return;
+    }
+    stdout.write("Enter your view name ( login ) : ");
     final name = stdin.readLineSync();
 
     if (name == null || name.isEmpty) {

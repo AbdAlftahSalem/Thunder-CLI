@@ -21,13 +21,13 @@ void main(List<String> arguments) {
 
   if (results['i']) {
     // Initialize the project with GetX and MVC
-    InitFolders().initFolders();
+    InitFolders().initFolders(setUpPackage: true);
   } else if (results['m']) {
     // Generate View Controller and Binding files
     CreateModuleFiles().createFiles();
   } else if (results['f']) {
     // Initialize folders and files without installing packages
-    InitFolders().initFolders(setUpPackage: false);
+    InitFolders().initFolders();
   } else if (results['mo']) {
     // Generate model file for the module
     CreateModels().createModelFile();

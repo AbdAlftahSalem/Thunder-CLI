@@ -14,9 +14,6 @@ class InitFolders {
       await SetupPackages().setupPackages();
     }
 
-    // setUp all folders
-    await _setUpAllFolders();
-
     SetupAppFolder().setupAppFolder();
 
     SetUpUtilFolder().setupUtilFolder();
@@ -29,20 +26,5 @@ class InitFolders {
       FolderPaths.mainFile,
       ConstStrings.instance.main,
     );
-  }
-
-  Future<void> _setUpAllFolders() async {
-    // create app folder
-    CreateFolderAndFiles().createFolder(FolderPaths.appFolder);
-
-    // create utils folder
-    CreateFolderAndFiles().createFolder(FolderPaths.utilFolder);
-
-    // create config folder
-    CreateFolderAndFiles().createFolder(FolderPaths.configFolder);
-
-    print("Create base folders successfully 🚀🚀");
-
-    await Future.delayed(Duration(milliseconds: 500));
   }
 }

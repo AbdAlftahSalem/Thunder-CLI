@@ -21,16 +21,16 @@ class SetupAppFolder {
 
   void _setUpAppFiles() async {
     // set up components folder
-    await _setUpComponentsFolder();
+    _setUpComponentsFolder();
 
     // set data folder
-    await _setUpDateFolder();
+    _setUpDateFolder();
 
     // setup routes folder
-    await _setUpRoutesFolder();
+    _setUpRoutesFolder();
 
     // set up modules folder
-    CreateModuleFiles().createFiles();
+    CreateModuleFiles().createFiles(createDefault: true);
   }
 
   Future<void> _setUpRoutesFolder() async {
@@ -66,8 +66,6 @@ class SetupAppFolder {
       FolderPaths.hiveFile,
       ConstStrings.instance.hive,
     );
-
-    await Future.delayed(Duration(milliseconds: 500));
 
     print("Set all files in app/data/locale folder successfully 🚀🚀");
 
@@ -119,8 +117,6 @@ class SetupAppFolder {
       FolderPaths.animatedWidgetFile,
       ConstStrings.instance.animatedWidget,
     );
-
-    await Future.delayed(Duration(milliseconds: 500));
 
     print("Set all files in app/components folder successfully 🚀🚀");
   }
