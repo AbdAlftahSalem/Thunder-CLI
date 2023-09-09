@@ -12,25 +12,17 @@ CLI. It simplifies the setup of your Flutter project. Below are the available co
 To install Thunder CLI, run the following command:
 
 ```bash
-pub global activate thunder_cli
+dart pub global activate thunder_cli
 ```
 
 ## Commands
 
-### Create a new project
-
-To create a new project and using thunder cli, run the following command:
-
-```bash
-flutter create --org com.example --project-name my_project_name .
-```
-
 ## Usage
 
-To initialize a new Flutter project [ Folders and packages ] with Thunder CLI, use the following command:
+To create and initialize a new Flutter project [ Folders and packages ] with Thunder CLI, use the following command:
 
 ```shell
-thunder_cli --i
+thunder --i
 ```
 
 This command will set up the following components for your project:
@@ -50,7 +42,7 @@ This command will set up the following components for your project:
 To create a new module, use the following command:
 
 ```shell
-thunder_cli --m
+thunder --m
 ```
 
 This command will set up the following components for your module:
@@ -63,7 +55,7 @@ This command will set up the following components for your module:
 To create a new model via url (e.g., https://jsonplaceholder.typicode.com/posts), use the following command:
 
 ```shell
-thunder_cli --mo
+thunder --mo
 ```
 
 This command will set up the following components for your model:
@@ -75,7 +67,7 @@ This command will set up the following components for your model:
 To create module with model, use the following command:
 
 ```shell
-thunder_cli --mm
+thunder --mm
 ```
 
 This command will set up the following components for your module:
@@ -88,16 +80,10 @@ This command will set up the following components for your module:
 - FromJson
 - ToJson
 
-This command will set up the folders only for your project:
-
-    ```shell
-    thunder_cli --f
-    ```
-
 To show help, use the following command:
 
 ```shell
-thunder_cli --h
+thunder --h
 ```
 
 ## Project Structure
