@@ -33,7 +33,7 @@ class ${"${bindingClassName}Binding"} extends Bindings {
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
-import '../../../data/remote/api_call_state.dart';
+import '../../../data/remote/api_call_status.dart';
 import '../../../data/remote/base_client.dart';
 
 

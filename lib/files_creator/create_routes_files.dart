@@ -28,6 +28,8 @@ class RoutesCreator {
       content = '''
 import '/app/routes/routes.dart';
 import 'package:get/get.dart';
+import 'routes.dart';
+
 import '../modules/${nameFolder.toLowerCase()}/binding/${nameFolder.toLowerCase()}_binding.dart';
 import '../modules/${nameFolder.toLowerCase()}/view/${nameFolder.toLowerCase()}_view.dart';
 
@@ -37,6 +39,8 @@ import '../modules/${nameFolder.toLowerCase()}/view/${nameFolder.toLowerCase()}_
     ${imports.join('\n')}
 import '../modules/${nameFolder.toLowerCase()}/binding/${nameFolder.toLowerCase()}_binding.dart';
 import '../modules/${nameFolder.toLowerCase()}/view/${nameFolder.toLowerCase()}_view.dart';
+import 'routes.dart';
+
 ''';
     }
 

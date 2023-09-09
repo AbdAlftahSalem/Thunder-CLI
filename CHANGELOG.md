@@ -1,3 +1,3 @@
-## 2.1.9
+## 2.2.1
 
-- Add open project in VS Code 
+- Fix some bugs
