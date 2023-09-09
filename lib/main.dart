@@ -9,8 +9,6 @@ void main(List<String> arguments) {
   // Add flags to the argument parser
   parser
     ..addFlag('i', help: 'Initialize project with GetX and MVC')
-    ..addFlag('f',
-        help: 'Initialize folders and files without installing packages')
     ..addFlag('m', help: 'Generate View Controller and Binding files')
     ..addFlag('mm',
         help: 'Generate View Controller and Binding files and model')
