@@ -8,18 +8,24 @@ class InitFolders {
           "https://github.com/abdAlftahSalem/flutter_getx_template.git";
       final dirName = appInfo['appName'] ?? "";
 
-      print("Thunder will initialize your app. Please wait for seconds 🔃");
+      print(
+          "\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
 
-      if (await _cloneRepository(repoUrl, dirName) == 0) {
-        if (await _navigateToClonedDirectory(dirName)) {
-          await _runFlutterPubGet();
-          await _changePackageName(
-              appInfo['packageName'] ?? "com.example.thunder_cli");
-          await _changeAppName(appInfo['appName'] ?? "");
+      final cloneExitCode = await _cloneRepository(repoUrl, dirName);
 
-          print('⚡ Init app successfully\n\n');
+      if (cloneExitCode == 0) {
+        final success = await _setupClonedProject(appInfo);
+
+        if (success) {
+          print('⚡ Init app successfully\n');
+          final openInVSCode = await _askToOpenInVSCode();
+
+          if (openInVSCode) {
+            print('⚡ Opening project in VSCode...');
+            await _openInVSCode();
+          }
         } else {
-          print('😅 Cloned directory does not exist.');
+          print('😅 An error occurred during project setup.');
         }
       } else {
         print('😅 Failed to clone the repository.');
@@ -56,22 +62,33 @@ class InitFolders {
   Future<int> _cloneRepository(String repoUrl, String dirName) async {
     final cloneProcess = await Process.run('git', ['clone', repoUrl, dirName]);
     print(
-        "⚡⚡ Cloning repository completed with exit code ${cloneProcess.exitCode}\n\n");
+        "⚡⚡ Cloning repository completed with exit code ${cloneProcess.exitCode}\n");
     return cloneProcess.exitCode;
+  }
+
+  Future<bool> _setupClonedProject(Map<String, String> appInfo) async {
+    if (await _navigateToClonedDirectory(appInfo['appName'] ?? "")) {
+      await _runFlutterPubGet();
+      await _changePackageName(
+          appInfo['packageName'] ?? "com.example.thunder_cli");
+      await _changeAppName(appInfo['appName'] ?? "");
+      return true;
+    }
+    return false;
   }
 
   Future<bool> _navigateToClonedDirectory(String dirName) async {
     final clonedDirectory = Directory(dirName);
     if (clonedDirectory.existsSync()) {
       Directory.current = clonedDirectory;
-      print("⚡⚡ Navigated to cloned directory\n\n");
+      print("⚡⚡ Navigated to cloned directory\n");
       return true;
     }
     return false;
   }
 
   Future<void> _runFlutterPubGet() async {
-    print("Start initializing your app. Please wait for seconds 🔃");
+    print("🔃🔃 Start initializing your app. Please wait for seconds");
     final pubGetProcess = await Process.run('flutter', ['pub', 'get'],
         runInShell: true, workingDirectory: Directory.current.path);
 
@@ -81,20 +98,31 @@ class InitFolders {
       print('😅 Failed to run "flutter pub get". You can run it manually');
     }
 
-    print("⚡⚡ Pub get completed with exit code ${pubGetProcess.exitCode}\n\n");
+    print("⚡⚡ Pub get completed with exit code ${pubGetProcess.exitCode}\n");
   }
 
   Future<void> _changePackageName(String packageName) async {
     await Process.run(
         'flutter', ['pub', 'run', 'change_app_package_name:main', packageName],
         runInShell: true, workingDirectory: Directory.current.path);
-    print("⚡⚡ Change package name completed successfully\n\n");
+    print("⚡⚡ Change package name completed successfully\n");
   }
 
   Future<void> _changeAppName(String appName) async {
     await Process.run(
         'flutter', ['pub', 'run', 'rename_app:main', 'all="$appName"'],
         runInShell: true, workingDirectory: Directory.current.path);
-    print("⚡⚡ Change app name completed successfully\n\n");
+    print("⚡⚡ Change app name completed successfully\n");
+  }
+
+  Future<bool> _askToOpenInVSCode() async {
+    stdout.write('😎 Do you want to open the project in VSCode? (y/N): ');
+    final openInVSCode = stdin.readLineSync()?.trim().toLowerCase() ?? "";
+    return openInVSCode == 'y';
+  }
+
+  Future<void> _openInVSCode() async {
+    await Process.run('code', ['.'],
+        runInShell: true, workingDirectory: Directory.current.path);
   }
 }

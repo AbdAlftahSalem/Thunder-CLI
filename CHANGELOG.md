@@ -1,3 +1,3 @@
-## 2.1.8
+## 2.1.9
 
-- Clone template repository from GitHub
+- Add open project in VS Code 
