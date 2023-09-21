@@ -72,6 +72,12 @@ class InitFolders {
       await _changePackageName(
           appInfo['packageName'] ?? "com.example.thunder_cli");
       await _changeAppName(appInfo['appName'] ?? "");
+
+      // delete .get folder
+      final getFolder = Directory('.get');
+      if (getFolder.existsSync()) {
+        getFolder.deleteSync(recursive: true);
+      }
       return true;
     }
     return false;
