@@ -38,6 +38,8 @@ This command will set up the following components for your project:
 - Components for Application (e.g., animated widgets, snackbar)
 - Constants (e.g., colors, strings)
 - Translations (e.g., localization service, strings)
+- Publish app to GitHub
+- Open the folder in VS code
 
 To create a new module, use the following command:
 
