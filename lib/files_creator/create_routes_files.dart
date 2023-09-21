@@ -71,7 +71,7 @@ class AppPages {
       page: () => ${nameFolder.toCamelCase()}View(),
       binding: ${nameFolder.toCamelCase()}Binding(),
     ),
-    ];
+   ];
 }
 ''';
     }

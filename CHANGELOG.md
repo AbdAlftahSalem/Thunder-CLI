@@ -1,3 +1,3 @@
-## 2.2.2
+## 2.2.3
 
-- Fix some bugs
+- Add publish app to GitHub
