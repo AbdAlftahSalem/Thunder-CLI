@@ -42,6 +42,9 @@
       <excludeFolder url="file://$MODULE_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/abd/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/abd/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/abd/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

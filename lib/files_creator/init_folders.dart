@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../services/run_cmd.dart';
+
 class InitFolders {
   Future<void> initFolders({bool setUpPackage = false}) async {
     try {
@@ -18,6 +20,9 @@ class InitFolders {
 
         if (success) {
           print('⚡ Init app successfully\n');
+
+          await _publishToGitHub();
+
           final openInVSCode = await _askToOpenInVSCode();
 
           if (openInVSCode) {
@@ -73,11 +78,9 @@ class InitFolders {
           appInfo['packageName'] ?? "com.example.thunder_cli");
       await _changeAppName(appInfo['appName'] ?? "");
 
-      // delete .get folder
-      final getFolder = Directory('.get');
-      if (getFolder.existsSync()) {
-        getFolder.deleteSync(recursive: true);
-      }
+      // remove .git folder from cloned project
+      await RunCmd.runInCmd('rd /s /q .git');
+
       return true;
     }
     return false;
@@ -127,8 +130,39 @@ class InitFolders {
     return openInVSCode == 'y';
   }
 
+  Future<bool> _askToPublishToGitHub() async {
+    stdout.write('😎 Do you want to publish the project to GitHub? (y/N): ');
+    final publishToGitHub = stdin.readLineSync()?.trim().toLowerCase() ?? "";
+    return publishToGitHub == 'y';
+  }
+
   Future<void> _openInVSCode() async {
     await Process.run('code', ['.'],
         runInShell: true, workingDirectory: Directory.current.path);
+  }
+
+  Future<void> _publishToGitHub() async {
+    final publishToGitHub = await _askToPublishToGitHub();
+
+    // get user repository url
+    stdout.write('😎 Enter your repository url: ');
+    final repoUrl = stdin.readLineSync()?.trim() ?? "";
+
+    // get user repository commit message [ by default is init project ]
+    stdout.write(
+        '😎 Enter your repository commit message [ by default is init project ]: ');
+    final repoCommitMessage = stdin.readLineSync()?.trim() ?? "init project";
+
+    if (publishToGitHub) {
+      await RunCmd.runInCmd('git init');
+      await RunCmd.runInCmd('git add .');
+      await RunCmd.runInCmd('git commit -m "$repoCommitMessage"');
+      await RunCmd.runInCmd('git branch -M main');
+      await RunCmd.runInCmd('git remote add origin $repoUrl');
+      await RunCmd.runInCmd('git push -u origin main');
+    }
+
+    print("⚡⚡ Publish to GitHub completed successfully\n");
+    print("🔗🔗 Repo link: $repoUrl\n");
   }
 }
