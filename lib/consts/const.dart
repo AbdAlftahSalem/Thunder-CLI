@@ -14,7 +14,7 @@ class ConstStrings {
     return '''
 import 'package:get/get.dart';
 
-import '../controller/${bindingName.toLowerCase()}_controller.dart';
+import './${bindingName.toLowerCase()}_controller.dart';
 
 class ${"${bindingClassName}Binding"} extends Bindings {
   @override
@@ -33,9 +33,8 @@ class ${"${bindingClassName}Binding"} extends Bindings {
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
-import '../../../data/remote/api_call_status.dart';
-import '../../../data/remote/base_client.dart';
-
+import '../../data/remote/api_call_status.dart';
+import '../../data/remote/base_client.dart';
 
 class ${controllerName}Controller extends GetxController {
   // hold data coming from api
@@ -90,7 +89,7 @@ class ${controllerName}Controller extends GetxController {
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/${viewName.toLowerCase()}_controller.dart';
+import './${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends GetView<${viewClassName}Controller> {
   const ${viewClassName}View({super.key});

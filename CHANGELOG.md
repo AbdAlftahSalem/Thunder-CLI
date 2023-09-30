@@ -1,3 +1,3 @@
-## 2.2.3
+## 2.2.7
 
-- Add publish app to GitHub
+- Add const keyword in AppPages

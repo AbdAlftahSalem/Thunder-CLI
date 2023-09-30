@@ -17,7 +17,7 @@ class CreateModuleFiles {
       _generateFiles("login");
       return;
     }
-    stdout.write("Enter your view name ( login ) : ");
+    stdout.write("Enter your view name ( login , bottom_van ) : ");
     final name = stdin.readLineSync();
 
     if (name == null || name.isEmpty) {
@@ -51,38 +51,28 @@ class CreateModuleFiles {
     // create modules folder
     CreateFolderAndFiles().createFolder(FolderPaths.modulesFolder);
 
-    // // create home folder
-    // CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
+    // create feature folder
+    CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
 
-    // create binding folder
-    // CreateFolderAndFiles().createFolder(FolderPaths.bindingFolder(name));
-    //
-    // // controller folder
-    // CreateFolderAndFiles().createFolder(FolderPaths.controllerFolder(name));
-    //
-    // // create view folder
-    // CreateFolderAndFiles().createFolder(FolderPaths.viewFolder(name));
-
-    // create model folder
     if (withModel) {
       CreateFolderAndFiles().createFolder(FolderPaths.modelFile(name));
     }
   }
 
   void _setupFilesModule(String name) {
-    // create home binding file
+    // create binding file
     CreateFolderAndFiles().createFile(
       FolderPaths.bindingFile(name),
       ConstStrings.instance.binding(name),
     );
 
-    // create home controller file
+    // create controller file
     CreateFolderAndFiles().createFile(
       FolderPaths.controllerFile(name),
       ConstStrings.instance.controller(name.toCamelCase()),
     );
 
-    // create home view file
+    // create view file
     CreateFolderAndFiles().createFile(
       FolderPaths.viewFile(name),
       ConstStrings.instance.view(name),

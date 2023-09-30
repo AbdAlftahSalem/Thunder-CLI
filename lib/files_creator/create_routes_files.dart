@@ -30,15 +30,15 @@ import '/app/routes/routes.dart';
 import 'package:get/get.dart';
 import 'routes.dart';
 
-import '../modules/${nameFolder.toLowerCase()}/binding/${nameFolder.toLowerCase()}_binding.dart';
-import '../modules/${nameFolder.toLowerCase()}/view/${nameFolder.toLowerCase()}_view.dart';
+import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_binding.dart';
+import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
 
 ''';
     } else {
       content = '''
     ${imports.join('\n')}
-import '../modules/${nameFolder.toLowerCase()}/binding/${nameFolder.toLowerCase()}_binding.dart';
-import '../modules/${nameFolder.toLowerCase()}/view/${nameFolder.toLowerCase()}_view.dart';
+import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_binding.dart';
+import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
 import 'routes.dart';
 
 ''';
@@ -51,7 +51,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => ${nameFolder.toCamelCase()}View(),
+      page: () => const ${nameFolder.toCamelCase()}View(),
       binding: ${nameFolder.toCamelCase()}Binding(),
     ),
   ];
@@ -68,7 +68,7 @@ class AppPages {
     $routes
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => ${nameFolder.toCamelCase()}View(),
+      page: () => const ${nameFolder.toCamelCase()}View(),
       binding: ${nameFolder.toCamelCase()}Binding(),
     ),
    ];
