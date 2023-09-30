@@ -51,17 +51,17 @@ class CreateModuleFiles {
     // create modules folder
     CreateFolderAndFiles().createFolder(FolderPaths.modulesFolder);
 
-    // create home folder
-    CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
+    // // create home folder
+    // CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
 
     // create binding folder
-    CreateFolderAndFiles().createFolder(FolderPaths.bindingFolder(name));
-
-    // controller folder
-    CreateFolderAndFiles().createFolder(FolderPaths.controllerFolder(name));
-
-    // create view folder
-    CreateFolderAndFiles().createFolder(FolderPaths.viewFolder(name));
+    // CreateFolderAndFiles().createFolder(FolderPaths.bindingFolder(name));
+    //
+    // // controller folder
+    // CreateFolderAndFiles().createFolder(FolderPaths.controllerFolder(name));
+    //
+    // // create view folder
+    // CreateFolderAndFiles().createFolder(FolderPaths.viewFolder(name));
 
     // create model folder
     if (withModel) {

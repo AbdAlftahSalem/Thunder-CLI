@@ -22,11 +22,11 @@ class FolderPaths {
   static String bindingFolder(String name) => "lib/app/modules/$name/binding";
 
   static String bindingFile(String name) =>
-      'lib/app/modules/$name/binding/${name.toLowerCase()}_binding.dart';
+      'lib/app/modules/$name/${name.toLowerCase()}_binding.dart';
 
   static String controllerFile(String name) =>
-      'lib/app/modules/$name/controller/${name.toLowerCase()}_controller.dart';
+      'lib/app/modules/$name/${name.toLowerCase()}_controller.dart';
 
   static String viewFile(String name) =>
-      'lib/app/modules/$name/view/${name.toLowerCase()}_view.dart';
+      'lib/app/modules/$name/${name.toLowerCase()}_view.dart';
 }

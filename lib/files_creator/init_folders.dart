@@ -119,7 +119,7 @@ class InitFolders {
 
   Future<void> _changeAppName(String appName) async {
     await Process.run(
-        'flutter', ['pub', 'run', 'rename_app:main', 'all="$appName"'],
+        'flutter', ['pub', 'run', 'rename_app:main', 'all=$appName'],
         runInShell: true, workingDirectory: Directory.current.path);
     print("⚡⚡ Change app name completed successfully\n");
   }
@@ -144,25 +144,25 @@ class InitFolders {
   Future<void> _publishToGitHub() async {
     final publishToGitHub = await _askToPublishToGitHub();
 
-    // get user repository url
-    stdout.write('😎 Enter your repository url: ');
-    final repoUrl = stdin.readLineSync()?.trim() ?? "";
-
-    // get user repository commit message [ by default is init project ]
-    stdout.write(
-        '😎 Enter your repository commit message [ by default is init project ]: ');
-    final repoCommitMessage = stdin.readLineSync()?.trim() ?? "init project";
-
     if (publishToGitHub) {
+      // get user repository url
+      stdout.write('😎 Enter your repository url: ');
+      final repoUrl = stdin.readLineSync()?.trim() ?? "";
+
+      // get user repository commit message [ by default is init project ]
+      stdout.write(
+          '😎 Enter your repository commit message [ by default is init project ]: ');
+      final repoCommitMessage = stdin.readLineSync()?.trim() ?? "init project";
+
       await RunCmd.runInCmd('git init');
       await RunCmd.runInCmd('git add .');
       await RunCmd.runInCmd('git commit -m "$repoCommitMessage"');
       await RunCmd.runInCmd('git branch -M main');
       await RunCmd.runInCmd('git remote add origin $repoUrl');
       await RunCmd.runInCmd('git push -u origin main');
-    }
 
-    print("⚡⚡ Publish to GitHub completed successfully\n");
-    print("🔗🔗 Repo link: $repoUrl\n");
+      print("⚡⚡ Publish to GitHub completed successfully\n");
+      print("🔗🔗 Repo link: $repoUrl\n");
+    }
   }
 }
