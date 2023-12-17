@@ -1,19 +1,22 @@
 import 'dart:io';
 
+import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/services/create_folder_files.dart';
+
 import '../services/run_cmd.dart';
 
 class InitFolders {
-  Future<void> initFolders({bool setUpPackage = false}) async {
+  Future<void> initFolders() async {
     try {
       final appInfo = await _getUserApplicationData();
-      final repoUrl =
-          "https://github.com/abdAlftahSalem/flutter_getx_template.git";
-      final dirName = appInfo['appName'] ?? "";
+
+      final dirName = appInfo['appName'] ?? "thunder_application";
 
       print(
           "\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
 
-      final cloneExitCode = await _cloneRepository(repoUrl, dirName);
+      final cloneExitCode = await _cloneRepository(
+          appInfo["stateManagement"].toString().getRepoUrl(), dirName);
 
       if (cloneExitCode == 0) {
         final success = await _setupClonedProject(appInfo);
@@ -58,9 +61,18 @@ class InitFolders {
       return {};
     }
 
+    stdout.write('😎 Enter your state management [ GetX / BloC / Provider ]: ');
+    final stateManagement = stdin.readLineSync()?.trim() ?? "";
+
+    if (stateManagement.isEmpty) {
+      print('😢 State management cannot be empty');
+      return {};
+    }
+
     return {
       'appName': appName,
       'packageName': packageName,
+      'stateManagement': stateManagement,
     };
   }
 
@@ -73,6 +85,7 @@ class InitFolders {
 
   Future<bool> _setupClonedProject(Map<String, String> appInfo) async {
     if (await _navigateToClonedDirectory(appInfo['appName'] ?? "")) {
+      CreateFolderAndFiles().createFile("thunder.json", appInfo);
       await _runFlutterPubGet();
       await _changePackageName(
           appInfo['packageName'] ?? "com.example.thunder_cli");
@@ -90,7 +103,6 @@ class InitFolders {
     final clonedDirectory = Directory(dirName);
     if (clonedDirectory.existsSync()) {
       Directory.current = clonedDirectory;
-      print("⚡⚡ Navigated to cloned directory\n");
       return true;
     }
     return false;

@@ -20,7 +20,7 @@ void main(List<String> arguments) {
 
   if (results['i']) {
     // Initialize the project with GetX and MVC
-    InitFolders().initFolders(setUpPackage: true);
+    InitFolders().initFolders();
   } else if (results['m']) {
     // Generate View Controller and Binding files
     CreateModuleFiles().createFiles();

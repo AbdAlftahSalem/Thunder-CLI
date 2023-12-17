@@ -1,3 +1,5 @@
+import '../consts/const.dart';
+
 extension StringCamelCaseConversion on String {
   String toCamelCase() {
     List<String> words = split('_');
@@ -10,5 +12,12 @@ extension StringCamelCaseConversion on String {
 
   String lowerCaseFirstLetter() {
     return "${this[0].toLowerCase()}${substring(1)}";
+  }
+
+  String getRepoUrl() {
+    if (toLowerCase() == "getx") return ConstStrings.instance.repoGetXUrl;
+    if (toLowerCase() == "bloc") return ConstStrings.instance.repoBloCUrl;
+    if (toLowerCase() == "provider") return ConstStrings.instance.repoProviderUrl;
+    return ConstStrings.instance.repoGetXUrl;
   }
 }

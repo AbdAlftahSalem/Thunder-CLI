@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class CreateFolderAndFiles {
-  void createFile(String fileName, String content) {
+  void createFile(String fileName, dynamic content) {
     final file = File(fileName);
     file.writeAsStringSync(content);
   }
