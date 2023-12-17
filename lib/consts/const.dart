@@ -17,7 +17,7 @@ class ConstStrings {
   String repoProviderUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
-  String binding(String bindingName) {
+  String bindingGetX(String bindingName) {
     String bindingClassName = bindingName.toCamelCase();
 
     return '''
@@ -36,14 +36,14 @@ class ${"${bindingClassName}Binding"} extends Bindings {
 ''';
   }
 
-  String controller(String controllerName) {
+  String controllerGetX(String controllerName) {
     controllerName = controllerName.toCamelCase();
     return '''
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
 import '../../data/remote/api_call_status.dart';
-import '../../data/remote/base_client.dart';
+import '../../data/remote/network_data.dart';
 
 class ${controllerName}Controller extends GetxController {
   // hold data coming from api
@@ -91,7 +91,7 @@ class ${controllerName}Controller extends GetxController {
 ''';
   }
 
-  String view(String viewName) {
+  String viewGetX(String viewName) {
     String viewClassName = viewName.toCamelCase();
 
     return '''

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:thunder_cli/extensions/string_extensions.dart';
 import 'package:thunder_cli/services/create_folder_files.dart';
 
+import '../consts/folder_paths.dart';
 import '../services/run_cmd.dart';
 
 class InitFolders {
@@ -85,7 +86,7 @@ class InitFolders {
 
   Future<bool> _setupClonedProject(Map<String, String> appInfo) async {
     if (await _navigateToClonedDirectory(appInfo['appName'] ?? "")) {
-      CreateFolderAndFiles().createFile("thunder.json", appInfo);
+      CreateFolderAndFiles().createFile(FolderPaths.jsonFile, appInfo);
       await _runFlutterPubGet();
       await _changePackageName(
           appInfo['packageName'] ?? "com.example.thunder_cli");

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:thunder_cli/consts/folder_paths.dart';
 
-import '../data/remote/base_client.dart';
+import '../data/network_data.dart';
 import '../extensions/string_extensions.dart';
 import '../services/create_folder_files.dart';
 

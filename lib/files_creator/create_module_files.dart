@@ -63,19 +63,19 @@ class CreateModuleFiles {
     // create binding file
     CreateFolderAndFiles().createFile(
       FolderPaths.bindingFile(name),
-      ConstStrings.instance.binding(name),
+      ConstStrings.instance.bindingGetX(name),
     );
 
     // create controller file
     CreateFolderAndFiles().createFile(
       FolderPaths.controllerFile(name),
-      ConstStrings.instance.controller(name.toCamelCase()),
+      ConstStrings.instance.controllerGetX(name.toCamelCase()),
     );
 
     // create view file
     CreateFolderAndFiles().createFile(
       FolderPaths.viewFile(name),
-      ConstStrings.instance.view(name),
+      ConstStrings.instance.viewGetX(name),
     );
   }
 }

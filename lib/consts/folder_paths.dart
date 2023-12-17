@@ -10,6 +10,7 @@ class FolderPaths {
   // routes files
   static const String appRoutesFile = 'lib/app/routes/app_routes.dart';
   static const String routesFile = 'lib/app/routes/routes.dart';
+  static const String jsonFile = 'thunder.json';
 
   // module files
   static String folderInModules(String name) => 'lib/app/modules/$name';
