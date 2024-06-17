@@ -34,11 +34,15 @@ class CreateModuleFiles {
     // set up files module
     _setupFilesModule(name);
 
-    // reading routes file
-    RoutesCreator(nameFolder: name).addInRoutesFile();
+    try {
+      // reading routes file
+      RoutesCreator(nameFolder: name).addInRoutesFile();
 
-    // Create routes for module
-    RoutesCreator(nameFolder: name).addInAppRoutesFile();
+      // Create routes for module
+      RoutesCreator(nameFolder: name).addInAppRoutesFile();
+    } catch (e) {
+      print('😢 Error in create routes . \n $e');
+    }
 
     if (withModel) {
       CreateModels().createModelFile();
@@ -66,16 +70,20 @@ class CreateModuleFiles {
     //   ConstStrings.instance.bindingGetX(name),
     // );
 
-    // create controller file
-    CreateFolderAndFiles().createFile(
-      FolderPaths.controllerFile(name),
-      ConstStrings.instance.controllerGetX(name.toCamelCase()),
-    );
+    try {
+      // create controller file
+      CreateFolderAndFiles().createFile(
+        FolderPaths.controllerFile(name),
+        ConstStrings.instance.controllerGetX(name.toCamelCase()),
+      );
 
-    // create view file
-    CreateFolderAndFiles().createFile(
-      FolderPaths.viewFile(name),
-      ConstStrings.instance.viewGetX(name),
-    );
+      // create view file
+      CreateFolderAndFiles().createFile(
+        FolderPaths.viewFile(name),
+        ConstStrings.instance.viewGetX(name),
+      );
+    } catch (e) {
+      print('😢 Error in create view or controller . \n $e');
+    }
   }
 }

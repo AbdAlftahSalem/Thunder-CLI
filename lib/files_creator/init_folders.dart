@@ -62,7 +62,7 @@ class InitFolders {
       return {};
     }
 
-    stdout.write('😎 Enter your state management [ GetX / BloC / Provider ]: ');
+    stdout.write('😎 Enter your state management [ GetX / BloC ]: ');
     final stateManagement = stdin.readLineSync()?.trim() ?? "";
 
     if (stateManagement.isEmpty) {
@@ -162,7 +162,7 @@ class InitFolders {
       stdout.write('😎 Enter your repository url: ');
       final repoUrl = stdin.readLineSync()?.trim() ?? "";
 
-      // get user repository commit message [ by default is init project ]
+      // get user  repository commit message [ by default is init project ]
       stdout.write(
           '😎 Enter your repository commit message [ by default is init project ]: ');
       final repoCommitMessage = stdin.readLineSync()?.trim() ?? "init project";

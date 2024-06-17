@@ -50,7 +50,7 @@ class CreateModels {
 
   Future _setupRequestData() async {
     stdout.write(
-        "Enter your model name [ user / product [ thunder will add 'model' keyword ] ] : ");
+        "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");
     final name = stdin.readLineSync();
 
     if (name == null || name.isEmpty) {
@@ -98,6 +98,8 @@ class CreateModels {
   }
 
   RequestType _getRequestType(String type) {
+    type = type.toLowerCase();
+
     if (type == "get") {
       return RequestType.get;
     } else if (type == "post") {
