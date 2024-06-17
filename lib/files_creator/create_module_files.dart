@@ -60,11 +60,11 @@ class CreateModuleFiles {
   }
 
   void _setupFilesModule(String name) {
-    // create binding file
-    CreateFolderAndFiles().createFile(
-      FolderPaths.bindingFile(name),
-      ConstStrings.instance.bindingGetX(name),
-    );
+    // // create binding file
+    // CreateFolderAndFiles().createFile(
+    //   FolderPaths.bindingFile(name),
+    //   ConstStrings.instance.bindingGetX(name),
+    // );
 
     // create controller file
     CreateFolderAndFiles().createFile(

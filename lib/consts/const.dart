@@ -43,7 +43,7 @@ import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
 import '../../data/remote/api_call_status.dart';
-import '../../data/remote/network_data.dart';
+import '../../data/remote/base_client.dart';
 
 class ${controllerName}Controller extends GetxController {
   // hold data coming from api
