@@ -5,7 +5,8 @@ class RunCmd {
     ProcessResult result = await Process.run(command, [], runInShell: true);
 
     if (result.exitCode != 0) {
-      print(result.stderr);
+      print("Exit Code :  ${result.exitCode}");
+      print("Error     : ${result.stderr}");
     }
   }
 }

@@ -14,9 +14,6 @@ class ConstStrings {
   String repoBloCUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
-  String repoProviderUrl =
-      "https://github.com/abdAlftahSalem/flutter_getx_template.git";
-
   String bindingGetX(String bindingName) {
     String bindingClassName = bindingName.toCamelCase();
 

@@ -17,7 +17,15 @@ extension StringCamelCaseConversion on String {
   String getRepoUrl() {
     if (toLowerCase() == "getx") return ConstStrings.instance.repoGetXUrl;
     if (toLowerCase() == "bloc") return ConstStrings.instance.repoBloCUrl;
-    if (toLowerCase() == "provider") return ConstStrings.instance.repoProviderUrl;
     return ConstStrings.instance.repoGetXUrl;
+  }
+}
+
+extension ValidateInputData on String? {
+  String checkIfEmptyAndShowMessage(message) {
+    if ((this ?? "").isEmpty || this == null) {
+      return '';
+    }
+    return this ?? "";
   }
 }

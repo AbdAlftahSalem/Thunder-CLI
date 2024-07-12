@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/models/app_data_model.dart';
 import 'package:thunder_cli/services/create_folder_files.dart';
 
 import '../consts/folder_paths.dart';
@@ -9,88 +10,85 @@ import '../services/run_cmd.dart';
 class InitFolders {
   Future<void> initFolders() async {
     try {
-      final appInfo = await _getUserApplicationData();
+      final AppDataModel appInfo = await _getUserApplicationData();
 
-      final dirName = appInfo['appName'] ?? "thunder_application";
+      final dirName = appInfo.appName;
 
       print(
           "\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
 
-      final cloneExitCode = await _cloneRepository(
-          appInfo["stateManagement"].toString().getRepoUrl(), dirName);
+      final ProcessResult processResult = await _cloneRepository(
+          appInfo.stateManagement.toString().getRepoUrl(), dirName);
 
-      if (cloneExitCode == 0) {
-        final success = await _setupClonedProject(appInfo);
+      if (processResult.exitCode == 0) {
+        bool setupResult = await _setupClonedProject(appInfo);
 
-        if (success) {
-          print('⚡ Init app successfully\n');
+        if (setupResult) {
+          print('⚡ Init app successfully 🎉\n');
 
           await _publishToGitHub();
 
-          final openInVSCode = await _askToOpenInVSCode();
-
-          if (openInVSCode) {
-            print('⚡ Opening project in VSCode...');
-            await _openInVSCode();
-          }
+          await openInVSCode();
         } else {
           print('😅 An error occurred during project setup.');
         }
       } else {
-        print('😅 Failed to clone the repository.');
+        print(
+            '😅 Failed to clone the repository.\n Exit code : ${processResult.exitCode}\n Error : ${processResult.stderr}');
       }
     } catch (e) {
       print('😅 An error occurred: $e');
     }
   }
 
-  Future<Map<String, String>> _getUserApplicationData() async {
-    stdout.write('😎 Enter your application name: ');
-    final appName =
-        stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ?? "";
+  Future<AppDataModel> _getUserApplicationData() async {
+    AppDataModel appDataModel = AppDataModel();
 
-    if (appName.isEmpty) {
-      print('😢 Application name cannot be empty');
-      return {};
+    while (appDataModel.appName.isEmpty) {
+      stdout.write('😎 Enter your application name: ');
+      appDataModel.appName = (stdin
+                  .readLineSync()
+                  ?.trim()
+                  .replaceAll(" ", "_")
+                  .toLowerCase() ??
+              "")
+          .checkIfEmptyAndShowMessage("😢 Application name cannot be empty");
     }
 
-    stdout.write('😎 Enter your package name: ');
-    final packageName = stdin.readLineSync()?.trim() ?? "";
-
-    if (packageName.isEmpty) {
-      print('😢 Package name cannot be empty');
-      return {};
+    while (appDataModel.packageName.isEmpty) {
+      stdout.write('😎 Enter your package name: ');
+      appDataModel.packageName =
+          (stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ??
+                  "")
+              .checkIfEmptyAndShowMessage("😢 Package name cannot be empty");
     }
 
-    stdout.write('😎 Enter your state management [ GetX / BloC ]: ');
-    final stateManagement = stdin.readLineSync()?.trim() ?? "";
-
-    if (stateManagement.isEmpty) {
-      print('😢 State management cannot be empty');
-      return {};
+    while (appDataModel.stateManagement.isEmpty) {
+      stdout.write('😎 Enter your state management [ GetX / BloC ]: ');
+      final stateManagement = stdin.readLineSync()?.trim() ?? "";
+      if (stateManagement.toLowerCase() == 'getx') {
+        appDataModel.stateManagement = "GetX";
+      } else if (stateManagement.toLowerCase() == 'bloc') {
+        appDataModel.stateManagement = 'BloC';
+      }
     }
 
-    return {
-      'appName': appName,
-      'packageName': packageName,
-      'stateManagement': stateManagement,
-    };
+    return appDataModel;
   }
 
-  Future<int> _cloneRepository(String repoUrl, String dirName) async {
+  Future<ProcessResult> _cloneRepository(String repoUrl, String dirName) async {
     final cloneProcess = await Process.run('git', ['clone', repoUrl, dirName]);
     print(
         "⚡⚡ Cloning repository completed with exit code ${cloneProcess.exitCode}\n");
-    return cloneProcess.exitCode;
+    return cloneProcess;
   }
 
-  Future<bool> _setupClonedProject(Map<String, String> appInfo) async {
-    if (await _navigateToClonedDirectory(appInfo['appName'] ?? "")) {
-      CreateFolderAndFiles().createFile(FolderPaths.jsonFile, appInfo);
+  Future<bool> _setupClonedProject(AppDataModel appInfo) async {
+    if (await _navigateToClonedDirectory(appInfo.appName)) {
+      CreateFolderAndFiles().createFile(FolderPaths.jsonFile, appInfo.toJson());
       await _runFlutterPubGet();
-      await _changePackageName(
-          appInfo['packageName'] ?? "com.example.thunder_cli");
-      await _changeAppName(appInfo['appName'] ?? "");
+      await _changePackageName(appInfo.packageName);
+      await _changeAppName(appInfo.appName);
 
       // remove .git folder from cloned project
       await RunCmd.runInCmd('rd /s /q .git');
@@ -137,10 +135,15 @@ class InitFolders {
     print("⚡⚡ Change app name completed successfully\n");
   }
 
-  Future<bool> _askToOpenInVSCode() async {
+  Future<void> openInVSCode() async {
     stdout.write('😎 Do you want to open the project in VSCode? (y/N): ');
     final openInVSCode = stdin.readLineSync()?.trim().toLowerCase() ?? "";
-    return openInVSCode == 'y';
+    if (openInVSCode == 'y') {
+      print('⚡ Opening project in VSCode...');
+      await Process.run('code', ['.'],
+          runInShell: true, workingDirectory: Directory.current.path);
+      ;
+    }
   }
 
   Future<bool> _askToPublishToGitHub() async {
@@ -149,13 +152,8 @@ class InitFolders {
     return publishToGitHub == 'y';
   }
 
-  Future<void> _openInVSCode() async {
-    await Process.run('code', ['.'],
-        runInShell: true, workingDirectory: Directory.current.path);
-  }
-
   Future<void> _publishToGitHub() async {
-    final publishToGitHub = await _askToPublishToGitHub();
+    bool publishToGitHub = await _askToPublishToGitHub();
 
     if (publishToGitHub) {
       // get user repository url
