@@ -5,42 +5,41 @@ import 'package:thunder_cli/consts/folder_paths.dart';
 
 import '../data/network_data.dart';
 import '../extensions/string_extensions.dart';
+import '../models/request_model.dart';
 import '../services/create_folder_files.dart';
 
-class CreateModels {
+class CreateApiModels {
   Future<void> createModelFile() async {
     // set up model file
-    var data = await _setupRequestData();
+    RequestModel requestModel = await _setupRequestData();
 
-    if (data[0]) {
-      print(
-          "Thunder is creating your model file . please wait for seconds 🔃\n\n\n");
-      BaseClient.safeApiCall(
-        data[1]["url"].trim(),
-        data[1]["type"],
-        headers: data[1]["headers"],
-        data: data[1]["body"],
-        queryParameters: data[1]["params"],
-        onSuccess: (res) {
-          if (res.data is Map || res.data is List) {
-            CreateModels()._createModel(
-              name: data[1]["name"],
-              data: res.data,
-            );
-          } else {
-            print("Thunder can convert only Map or List !!");
-          }
-        },
-      );
-    }
+    print(
+        "Thunder is creating your model file . please wait for seconds 🔃\n\n\n");
+    BaseClient.safeApiCall(
+      requestModel.url,
+      requestModel.requestType ?? RequestType.get,
+      headers: requestModel.headers,
+      body: requestModel.body,
+      queryParameters: requestModel.params,
+      onSuccess: (res) {
+        if (res.data is Map || res.data is List) {
+          CreateApiModels()._createModel(
+            modelName: requestModel.modelName,
+            data: res.data,
+          );
+        } else {
+          print("Thunder can convert only Map or List !!");
+        }
+      },
+    );
   }
 
-  void _createModel({required String name, required dynamic data}) {
+  void _createModel({required String modelName, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
-      FolderPaths.instance.modelFile(name),
+      FolderPaths.instance.modelFile(modelName),
       _convertMapToClassModel(
-        name: name,
+        name: modelName,
         data: data is Map ? data : data[0],
       ),
     );
@@ -48,25 +47,28 @@ class CreateModels {
     print("⚡ Create model file successfully\n\n");
   }
 
-  Future _setupRequestData() async {
-    stdout.write(
-        "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");
-    final name = stdin.readLineSync();
+  Future<RequestModel> _setupRequestData() async {
+    RequestModel requestModel = RequestModel();
 
-    if (name == null || name.isEmpty) {
-      print("Name name cannot be empty !!");
-      return (false, null);
+    while (requestModel.modelName.isEmpty) {
+      stdout.write(
+          "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");
+      requestModel.modelName = (stdin.readLineSync() ?? "")
+          .trim()
+          .checkIfEmptyAndShowMessage("😢 Model Name name cannot be empty !!");
     }
 
-    stdout.write("Enter type of request [ get / post ] : ");
-    RequestType type = _getRequestType(stdin.readLineSync() ?? "");
+    while (requestModel.requestType == null) {
+      stdout.write("Enter type of request [ get / post ] : ");
+      requestModel.requestType = _getRequestType(stdin.readLineSync() ?? "");
+      print("✅ Request type is : ${requestModel.requestType}");
+    }
 
-    stdout.write("Enter your full url : ");
-    final url = stdin.readLineSync();
-
-    if (url == null || url.isEmpty) {
-      print("Url cannot be empty !!");
-      return [false, null];
+    while (requestModel.url.isEmpty) {
+      stdout.write("Enter your full url : ");
+      final url = (stdin.readLineSync() ?? "")
+          .trim()
+          .checkIfEmptyAndShowMessage(" Url cannot be empty !!");
     }
 
     stdout.write("Enter your request body : ");
@@ -84,17 +86,7 @@ class CreateModels {
     Map<String, dynamic> params =
         paramsString.isEmpty ? {} : jsonDecode(paramsString);
 
-    return [
-      true,
-      {
-        "name": name,
-        "type": type,
-        "url": url,
-        "body": body,
-        "headers": headers,
-        "params": params,
-      }
-    ];
+    return requestModel;
   }
 
   RequestType _getRequestType(String type) {
@@ -110,7 +102,7 @@ class CreateModels {
   }
 
   String _convertMapToClassModel({required String name, required Map data}) {
-    String content = "class ${name.toCamelCase()}Model {\n";
+    String content = "class ${name.toCamelCaseFirstLetter()}Model {\n";
 
     List<Map> mapKeys = [];
 
@@ -118,54 +110,54 @@ class CreateModels {
     data.forEach((key, value) {
       if (value is String) {
         content +=
-            "  String? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  String? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
       } else if (value is int) {
         content +=
-            "  int? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  int? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
       } else if (value is double) {
         content +=
-            "  double? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  double? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
       } else if (value is bool) {
         content +=
-            "  bool? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  bool? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
       } else if (value is List) {
         if (value.isNotEmpty) {
           if (value[0] is Map) {
             content +=
-                "  List<${key.toString().toCamelCase()}Model>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+                "  List<${key.toString().toCamelCaseFirstLetter()}Model>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
             mapKeys.add({key: value[0]});
           } else {
             content +=
-                "  List<dynamic>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+                "  List<dynamic>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
           }
         } else {
           content +=
-              "  List<dynamic>? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+              "  List<dynamic>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
         }
       } else if (value is Map) {
         content +=
-            "  ${key.toString().toCamelCase()}Model? ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  ${key.toString().toCamelCaseFirstLetter()}Model? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
         mapKeys.add({key: value});
       } else {
         content +=
-            "  dynamic ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+            "  dynamic ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
       }
     });
 
     // add optional constructor
-    content += "\n  ${name.toCamelCase()}Model({\n";
+    content += "\n  ${name.toCamelCaseFirstLetter()}Model({\n";
     data.forEach((key, value) {
       content +=
-          "    this.${key.toString().toCamelCase().lowerCaseFirstLetter()},\n";
+          "    this.${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()},\n";
     });
     content += "  });\n";
 
     // add fromJson method
     content +=
-        "\n\n  ${name.toCamelCase()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCase()}Model(\n";
+        "\n\n  ${name.toCamelCaseFirstLetter()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCaseFirstLetter()}Model(\n";
     data.forEach((key, value) {
       content +=
-          "    ${key.toString().toCamelCase().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCase()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
+          "    ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCaseFirstLetter()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
     });
 
     // add toJson method
@@ -173,7 +165,7 @@ class CreateModels {
     content += "    final Map<String, dynamic> data =  <String, dynamic>{};\n";
     data.forEach((key, value) {
       content +=
-          "    data['$key'] = ${key.toString().toCamelCase().lowerCaseFirstLetter()};\n";
+          "    data['$key'] = ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
     });
     content += "    return data;\n  }\n}\n\n";
 

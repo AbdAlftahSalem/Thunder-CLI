@@ -34,7 +34,7 @@ class ConstStrings {
 //   }
 
   String controllerGetX(String controllerName) {
-    controllerName = controllerName.toCamelCase();
+    controllerName = controllerName.toCamelCaseFirstLetter();
     return '''
 import 'package:get/get.dart';
 
@@ -89,7 +89,7 @@ class ${controllerName}Controller extends GetxController {
   }
 
   String viewGetX(String viewName) {
-    String viewClassName = viewName.toCamelCase();
+    String viewClassName = viewName.toCamelCaseFirstLetter();
 
     return '''
 import 'package:flutter/material.dart';

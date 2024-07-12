@@ -51,8 +51,8 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCase()}View(),
-      binding: ${nameFolder.toCamelCase()}Binding(),
+      page: () => const ${nameFolder.toCamelCaseFirstLetter()}View(),
+      binding: ${nameFolder.toCamelCaseFirstLetter()}Binding(),
     ),
   ];
 }
@@ -68,8 +68,8 @@ class AppPages {
     $routes
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCase()}View(),
-      binding: ${nameFolder.toCamelCase()}Binding(),
+      page: () => const ${nameFolder.toCamelCaseFirstLetter()}View(),
+      binding: ${nameFolder.toCamelCaseFirstLetter()}Binding(),
     ),
    ];
 }

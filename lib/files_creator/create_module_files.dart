@@ -45,7 +45,7 @@ class CreateModuleFiles {
     }
 
     if (withModel) {
-      CreateModels().createModelFile();
+      CreateApiModels().createModelFile();
     }
 
     print("⚡ Create module files successfully\n\n");
@@ -75,7 +75,7 @@ class CreateModuleFiles {
       // create controller file
       CreateFolderAndFiles().createFile(
         FolderPaths.instance.controllerFile(name),
-        ConstStrings.instance.controllerGetX(name.toCamelCase()),
+        ConstStrings.instance.controllerGetX(name.toCamelCaseFirstLetter()),
       );
 
       // create view file

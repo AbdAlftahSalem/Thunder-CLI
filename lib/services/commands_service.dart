@@ -28,7 +28,7 @@ class CommandServices {
       CreateModuleFiles().createFiles();
     } else if (results['mo']) {
       // Generate model file for the module
-      CreateModels().createModelFile();
+      CreateApiModels().createModelFile();
     } else if (results['mm']) {
       // Generate View Controller and Binding files and model
       CreateModuleFiles(withModel: true).createFiles();

@@ -26,7 +26,7 @@ class BaseClient {
     RequestType requestType, {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? data,
+    Map<String, dynamic>? body,
     required Function(Response response) onSuccess,
   }) async {
     try {
@@ -42,21 +42,21 @@ class BaseClient {
       } else if (requestType == RequestType.post) {
         response = await _dio.post(
           url,
-          data: data,
+          data: body,
           queryParameters: queryParameters,
           options: Options(headers: headers),
         );
       } else if (requestType == RequestType.put) {
         response = await _dio.put(
           url,
-          data: data,
+          data: body,
           queryParameters: queryParameters,
           options: Options(headers: headers),
         );
       } else {
         response = await _dio.delete(
           url,
-          data: data,
+          data: body,
           queryParameters: queryParameters,
           options: Options(headers: headers),
         );

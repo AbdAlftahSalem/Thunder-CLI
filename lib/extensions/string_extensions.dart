@@ -1,7 +1,7 @@
 import '../consts/const.dart';
 
-extension StringCamelCaseConversion on String {
-  String toCamelCase() {
+extension StringConversion on String {
+  String toCamelCaseFirstLetter() {
     List<String> words = split('_');
     for (int i = 0; i < words.length; i++) {
       String word = words[i];
