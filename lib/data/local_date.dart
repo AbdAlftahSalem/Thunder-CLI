@@ -11,7 +11,7 @@ class LocalData {
   LocalData._internal();
 
   Map<String, dynamic> getAppInfo() {
-    final file = File(FolderPaths.jsonFile);
+    final file = File(FolderPaths.instance.jsonFile);
     Map<String, dynamic> info = file.readAsStringSync() as Map<String, dynamic>;
 
     return info;

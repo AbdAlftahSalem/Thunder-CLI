@@ -53,33 +53,34 @@ class CreateModuleFiles {
 
   void _setupFoldersModule(String name) {
     // create modules folder
-    CreateFolderAndFiles().createFolder(FolderPaths.modulesFolder);
+    CreateFolderAndFiles().createFolder(FolderPaths.instance.modulesFolder);
 
     // create feature folder
-    CreateFolderAndFiles().createFolder(FolderPaths.folderInModules(name));
+    CreateFolderAndFiles()
+        .createFolder(FolderPaths.instance.folderInModules(name));
 
     if (withModel) {
-      CreateFolderAndFiles().createFolder(FolderPaths.modelFile(name));
+      CreateFolderAndFiles().createFolder(FolderPaths.instance.modelFile(name));
     }
   }
 
   void _setupFilesModule(String name) {
     // // create binding file
     // CreateFolderAndFiles().createFile(
-    //   FolderPaths.bindingFile(name),
+    //   FolderPaths.instancebindingFile(name),
     //   ConstStrings.instance.bindingGetX(name),
     // );
 
     try {
       // create controller file
       CreateFolderAndFiles().createFile(
-        FolderPaths.controllerFile(name),
+        FolderPaths.instance.controllerFile(name),
         ConstStrings.instance.controllerGetX(name.toCamelCase()),
       );
 
       // create view file
       CreateFolderAndFiles().createFile(
-        FolderPaths.viewFile(name),
+        FolderPaths.instance.viewFile(name),
         ConstStrings.instance.viewGetX(name),
       );
     } catch (e) {

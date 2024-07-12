@@ -38,7 +38,7 @@ class CreateModels {
   void _createModel({required String name, required dynamic data}) {
     // create model file
     CreateFolderAndFiles().createFile(
-      FolderPaths.modelFile(name),
+      FolderPaths.instance.modelFile(name),
       _convertMapToClassModel(
         name: name,
         data: data is Map ? data : data[0],

@@ -10,7 +10,7 @@ class RoutesCreator {
 
   void addInAppRoutesFile() {
     // reading app_routes.dart file
-    final file = File(FolderPaths.appRoutesFile);
+    final file = File(FolderPaths.instance.appRoutesFile);
     String content = file.readAsStringSync();
 
     // extract all imports from code
@@ -84,7 +84,7 @@ class AppPages {
 
   void addInRoutesFile() {
     // reading routes file
-    final routesFile = File(FolderPaths.routesFile);
+    final routesFile = File(FolderPaths.instance.routesFile);
 
     // reading routes file content
     String routesContent = routesFile.readAsStringSync();
