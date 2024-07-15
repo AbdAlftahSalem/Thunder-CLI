@@ -73,6 +73,26 @@ class InitFolders {
       }
     }
 
+    stdout
+        .write('😎 Do you want to using GitHubActions ? (y , N)[ default y ] ');
+    appDataModel.usingGitHubAction =
+        (stdin.readLineSync()?.trim() ?? "").toLowerCase() == 'n'
+            ? false
+            : true;
+
+    if (appDataModel.usingGitHubAction) {
+      print(
+          "⚡ THUNDER WILL ADD GITHUB ACTION TO SEND APK FILE TO TELEGRAM GROUP AUTOMATICALLY, BUT YOU SHOULD MAKE SOME STEPS . FOLLOW THIS LINK : ");
+    }
+
+    stdout.write('😎 Do you want to using App flavors ? (y , N)[ default y ] ');
+    appDataModel.usingFlavors =
+        (stdin.readLineSync()?.trim() ?? "").toLowerCase() == 'n'
+            ? false
+            : true;
+
+    print("You can know about Flavors in this link : ");
+
     return appDataModel;
   }
 
@@ -85,7 +105,8 @@ class InitFolders {
 
   Future<bool> _setupClonedProject(AppDataModel appInfo) async {
     if (await _navigateToClonedDirectory(appInfo.appName)) {
-      CreateFolderAndFiles().createFile(FolderPaths.instance.jsonFile, appInfo.toJson());
+      CreateFolderAndFiles()
+          .createFile(FolderPaths.instance.jsonFile, appInfo.toJson());
       await _runFlutterPubGet();
       await _changePackageName(appInfo.packageName);
       await _changeAppName(appInfo.appName);
