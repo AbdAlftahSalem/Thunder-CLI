@@ -6,8 +6,8 @@ class CreateFolderAndFiles {
     file.writeAsStringSync(content);
   }
 
-  void createFolder(String folderName) {
-    final directory = Directory(folderName);
+  void createFolder(String folderPath) {
+    final directory = Directory(folderPath);
     directory.createSync();
   }
 }

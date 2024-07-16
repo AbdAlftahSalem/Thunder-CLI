@@ -4,6 +4,7 @@ import 'package:thunder_cli/extensions/string_extensions.dart';
 import 'package:thunder_cli/models/app_data_model.dart';
 import 'package:thunder_cli/services/create_folder_files.dart';
 
+import '../consts/const.dart';
 import '../consts/folder_paths.dart';
 import '../services/run_cmd.dart';
 
@@ -84,7 +85,14 @@ class InitFolders {
     if (appDataModel.usingGitHubAction) {
       print(
           "\n⚡⚡ THUNDER WILL ADD GITHUB ACTION TO SEND APK FILE TO TELEGRAM GROUP AUTOMATICALLY\n** BUT YOU SHOULD MAKE SOME STEPS\n** FOLLOW THIS LINK : \n\n");
-      // TODO : SETUP GitHub Action
+      CreateFolderAndFiles().createFolder(Directory.current.path);
+      CreateFolderAndFiles().createFolder("${Directory.current.path}\\.github");
+      CreateFolderAndFiles()
+          .createFolder("${Directory.current.path}\\.github\\workflows");
+
+      CreateFolderAndFiles().createFile("${Directory.current.path}\\.github\\workflows\\build_flutter_apk_and_send_to_telegram.yaml",
+          ConstStrings.instance.buildApkFileWorkFlow());
+
       print("✅ Finished setup GitHub Action successfully 🎉 ...");
     }
 
