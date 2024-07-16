@@ -1,6 +1,6 @@
 import 'package:args/args.dart';
 
-import '../files_creator/create_api_model.dart';
+import '../features/create_api_model/create_api_model.dart';
 import '../files_creator/create_feature_files.dart';
 import '../features/init_project/init_project.dart';
 
@@ -28,7 +28,7 @@ class CommandServices {
       CreateFeatureFiles().createFiles();
     } else if (results['mo']) {
       // Generate model file for the module
-      CreateApiModel().createModelFile();
+      CreateApiModel().createApiModel();
     } else if (results['mm']) {
       // Generate View Controller and Binding files and model
       CreateFeatureFiles(withModel: true).createFiles();
