@@ -4,7 +4,7 @@
 library;
 
 export '../lib/consts/const_strings.dart';
-export '../lib/files_creator/create_module_files.dart';
+export '../lib/files_creator/create_feature_files.dart';
 export '../lib/files_creator/init_folders.dart';
 export '../lib/main.dart';
 export '../lib/services/create_folder_files.dart';

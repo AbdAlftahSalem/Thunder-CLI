@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import '../consts/folder_paths.dart';
+import '../../consts/folder_paths.dart';
 
-class RoutesCreator {
+class AddInRouteFile {
   String nameFolder;
 
-  RoutesCreator({required this.nameFolder});
+  AddInRouteFile({required this.nameFolder});
 
-  void addInRoutesFile() {
+  void addInRouteFile() {
     // reading routes file
     final routesFile = File(FolderPaths.instance.routesFile);
 
@@ -20,9 +20,18 @@ class RoutesCreator {
         .toList();
 
     // if routesMatch is null, then add routes
+    routesContent += addNewRouteInAppRouterClass(routesMatch);
+
+    // write content to routes.dart file
+    routesFile.writeAsStringSync(routesContent);
+
+    print("⚡ Add routes to routes.dart file successfully 🎉 ...\n\n");
+  }
+
+  String addNewRouteInAppRouterClass(List<String?> routesMatch) {
     if (routesMatch.isEmpty) {
       // add routes to content
-      routesContent += '''
+      return '''
 class Routes {
   static const ${nameFolder.toUpperCase()} = '/${nameFolder.toLowerCase()}';
 }
@@ -31,16 +40,11 @@ class Routes {
       routesMatch.add(
           '  static const ${nameFolder.toUpperCase()} = "/${nameFolder.toLowerCase()}";');
       String routes = routesMatch.join('\n');
-      routesContent = '''
+      return '''
 class Routes {
   $routes
 }
 ''';
     }
-
-    // write content to routes.dart file
-    routesFile.writeAsStringSync(routesContent);
-
-    print("⚡ Add routes to routes.dart file\n\n");
   }
 }

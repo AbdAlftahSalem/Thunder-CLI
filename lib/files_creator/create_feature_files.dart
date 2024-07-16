@@ -3,14 +3,15 @@ import 'dart:io';
 import '../consts/const_strings.dart';
 import '../consts/folder_paths.dart';
 import '../extensions/string_extensions.dart';
-import '../services/create_folder_files.dart';
-import '../features/create_api_model.dart';
 import 'create_routes_files.dart';
+import '../services/create_folder_files.dart';
+import '../features/add_in_app_router.dart';
+import 'create_api_model.dart';
 
-class CreateModuleFiles {
+class CreateFeatureFiles {
   bool withModel;
 
-  CreateModuleFiles({this.withModel = false});
+  CreateFeatureFiles({this.withModel = false});
 
   void createFiles({bool createDefault = false}) {
     if (createDefault) {
@@ -27,19 +28,19 @@ class CreateModuleFiles {
     }
   }
 
-  _generateFiles(String name) {
+  _generateFiles(String fileName) {
     // set up modules folder
-    _setupFoldersModule(name);
+    _setupFoldersModule(fileName);
 
     // set up files module
-    _setupFilesModule(name);
+    _setupFilesModule(fileName);
 
     try {
       // reading routes file
-      RoutesCreator(nameFolder: name).addInRoutesFile();
+      RoutesCreator(nameFolder: fileName).addInRoutesFile();
 
       // Create routes for module
-      RoutesCreator(nameFolder: name).addInAppRoutesFile();
+      AddInAppRoute.addRouteInAppRoute(fileName);
     } catch (e) {
       print('😢 Error in create routes . \n $e');
     }
