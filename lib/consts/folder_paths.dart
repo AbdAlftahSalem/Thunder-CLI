@@ -8,7 +8,7 @@ class FolderPaths {
 
   FolderPaths._internal();
 
-  String modulesFolder = 'lib/app/modules';
+  String featureFolder = 'lib/app/feature';
 
   // models files
   String modelFile(String name) =>
@@ -20,20 +20,20 @@ class FolderPaths {
   String jsonFile = 'thunder.json';
 
   // module files
-  String folderInModules(String name) => 'lib/app/modules/$name';
+  String folderInModules(String name) => 'lib/app/feature/$name';
 
-  String controllerFolder(String name) => "lib/app/modules/$name/controller";
+  String controllerFolder(String name) => "lib/app/feature/$name/controller";
 
-  String viewFolder(String name) => "lib/app/modules/$name/view";
+  String viewFolder(String name) => "lib/app/feature/$name/view";
 
-  String bindingFolder(String name) => "lib/app/modules/$name/binding";
+  String bindingFolder(String name) => "lib/app/feature/$name/binding";
 
   String bindingFile(String name) =>
-      'lib/app/modules/$name/${name.toLowerCase()}_binding.dart';
+      'lib/app/feature/$name/${name.toLowerCase()}_binding.dart';
 
   String controllerFile(String name) =>
-      'lib/app/modules/$name/${name.toLowerCase()}_controller.dart';
+      'lib/app/feature/$name/${name.toLowerCase()}_controller.dart';
 
   String viewFile(String name) =>
-      'lib/app/modules/$name/${name.toLowerCase()}_view.dart';
+      'lib/app/feature/$name/${name.toLowerCase()}_view.dart';
 }

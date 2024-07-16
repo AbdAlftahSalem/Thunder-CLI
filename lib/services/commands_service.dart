@@ -1,7 +1,7 @@
 import 'package:args/args.dart';
 
 import '../features/create_api_model/create_api_model.dart';
-import '../files_creator/create_feature_files.dart';
+import '../features/create_feature/create_feature.dart';
 import '../features/init_project/init_project.dart';
 
 class CommandServices {
@@ -31,7 +31,7 @@ class CommandServices {
       CreateApiModel().createApiModel();
     } else if (results['mm']) {
       // Generate View Controller and Binding files and model
-      CreateFeatureFiles(withModel: true).createFiles();
+      CreateFeatureFiles(withApiModel: true).createFiles();
     } else if (results['h']) {
       // Show help message
       print("Welcome to Thunder CLI 🚀🚀");
