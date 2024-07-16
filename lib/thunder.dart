@@ -5,6 +5,6 @@ library;
 
 export 'consts/const_strings.dart';
 export 'files_creator/create_feature_files.dart';
-export 'files_creator/init_folders.dart';
+export 'features/init_project/init_project.dart';
 export 'main.dart';
 export 'services/create_folder_files.dart';

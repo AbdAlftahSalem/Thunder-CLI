@@ -2,7 +2,7 @@ import 'package:args/args.dart';
 
 import '../files_creator/create_api_model.dart';
 import '../files_creator/create_feature_files.dart';
-import '../files_creator/init_folders.dart';
+import '../features/init_project/init_project.dart';
 
 class CommandServices {
 
@@ -22,7 +22,7 @@ class CommandServices {
 
     if (results['i']) {
       // Initialize the project with GetX and MVC
-      InitFolders().initFolders();
+      InitProject().initProject();
     } else if (results['m']) {
       // Generate View Controller and Binding files
       CreateFeatureFiles().createFiles();
