@@ -1,4 +1,4 @@
-import '../consts/const.dart';
+import '../consts/const_strings.dart';
 
 extension StringConversion on String {
   String toCamelCaseFirstLetter() {

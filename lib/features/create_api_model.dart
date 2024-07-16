@@ -8,7 +8,7 @@ import '../extensions/string_extensions.dart';
 import '../models/request_model.dart';
 import '../services/create_folder_files.dart';
 
-class CreateApiModels {
+class CreateApiModel {
   Future<void> createModelFile() async {
     // set up model file
     RequestModel requestModel = await _setupRequestData();
@@ -23,7 +23,7 @@ class CreateApiModels {
       queryParameters: requestModel.params,
       onSuccess: (res) {
         if (res.data is Map || res.data is List) {
-          CreateApiModels()._createModel(
+          CreateApiModel()._createModel(
             modelName: requestModel.modelName,
             data: res.data,
           );
@@ -66,25 +66,23 @@ class CreateApiModels {
 
     while (requestModel.url.isEmpty) {
       stdout.write("Enter your full url : ");
-      final url = (stdin.readLineSync() ?? "")
+      requestModel.url = (stdin.readLineSync() ?? "")
           .trim()
           .checkIfEmptyAndShowMessage(" Url cannot be empty !!");
     }
 
     stdout.write("Enter your request body : ");
     String bodyString = stdin.readLineSync() ?? "";
-    Map<String, dynamic> body =
-        bodyString.isEmpty ? {} : jsonDecode(bodyString);
+    requestModel.body = bodyString.isEmpty ? {} : jsonDecode(bodyString);
 
     stdout.write("Enter your request headers : ");
     String headersString = stdin.readLineSync() ?? "";
-    Map<String, dynamic> headers =
+    requestModel.headers =
         headersString.isEmpty ? {} : jsonDecode(headersString);
 
     stdout.write("Enter your request params : ");
     String paramsString = stdin.readLineSync() ?? "";
-    Map<String, dynamic> params =
-        paramsString.isEmpty ? {} : jsonDecode(paramsString);
+    requestModel.params = paramsString.isEmpty ? {} : jsonDecode(paramsString);
 
     return requestModel;
   }

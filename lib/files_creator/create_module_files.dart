@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import '../consts/const.dart';
+import '../consts/const_strings.dart';
 import '../consts/folder_paths.dart';
 import '../extensions/string_extensions.dart';
 import '../services/create_folder_files.dart';
-import 'create_models.dart';
+import '../features/create_api_model.dart';
 import 'create_routes_files.dart';
 
 class CreateModuleFiles {
@@ -45,7 +45,7 @@ class CreateModuleFiles {
     }
 
     if (withModel) {
-      CreateApiModels().createModelFile();
+      CreateApiModel().createModelFile();
     }
 
     print("⚡ Create module files successfully\n\n");

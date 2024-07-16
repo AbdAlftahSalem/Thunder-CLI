@@ -4,7 +4,7 @@ import 'package:thunder_cli/extensions/string_extensions.dart';
 import 'package:thunder_cli/models/app_data_model.dart';
 import 'package:thunder_cli/services/create_folder_files.dart';
 
-import '../consts/const.dart';
+import '../consts/const_strings.dart';
 import '../consts/folder_paths.dart';
 import '../services/run_cmd.dart';
 

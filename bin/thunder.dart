@@ -3,7 +3,7 @@
 /// More dartdocs go here.
 library;
 
-export '../lib/consts/const.dart';
+export '../lib/consts/const_strings.dart';
 export '../lib/files_creator/create_module_files.dart';
 export '../lib/files_creator/init_folders.dart';
 export '../lib/main.dart';
