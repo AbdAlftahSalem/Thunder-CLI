@@ -3,9 +3,8 @@ import 'dart:io';
 import '../consts/const_strings.dart';
 import '../consts/folder_paths.dart';
 import '../extensions/string_extensions.dart';
-import 'create_routes_files.dart';
+import '../features/routes_feature/route_feature.dart';
 import '../services/create_folder_files.dart';
-import '../features/add_in_app_router.dart';
 import 'create_api_model.dart';
 
 class CreateFeatureFiles {
@@ -37,10 +36,7 @@ class CreateFeatureFiles {
 
     try {
       // reading routes file
-      RoutesCreator(nameFolder: fileName).addInRoutesFile();
-
-      // Create routes for module
-      AddInAppRoute.addRouteInAppRoute(fileName);
+      RouteFeature(nameFolder: fileName);
     } catch (e) {
       print('😢 Error in create routes . \n $e');
     }
