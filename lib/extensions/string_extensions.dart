@@ -24,7 +24,7 @@ extension StringConversion on String {
 extension ValidateInputData on String? {
   String checkIfEmptyAndShowMessage(message) {
     if ((this ?? "").isEmpty || this == null) {
-      return '';
+      return "";
     }
     return this ?? "";
   }

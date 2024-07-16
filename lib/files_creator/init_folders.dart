@@ -55,7 +55,8 @@ class InitFolders {
           .checkIfEmptyAndShowMessage("😢 Application name cannot be empty");
     }
 
-    while (appDataModel.packageName.isEmpty) {
+    while (appDataModel.packageName.isEmpty ||
+        (appDataModel.packageName.split(".").length == 1)) {
       stdout.write('😎 Enter your package name: ');
       appDataModel.packageName =
           (stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ??
@@ -82,7 +83,9 @@ class InitFolders {
 
     if (appDataModel.usingGitHubAction) {
       print(
-          "⚡ THUNDER WILL ADD GITHUB ACTION TO SEND APK FILE TO TELEGRAM GROUP AUTOMATICALLY, BUT YOU SHOULD MAKE SOME STEPS . FOLLOW THIS LINK : ");
+          "\n⚡⚡ THUNDER WILL ADD GITHUB ACTION TO SEND APK FILE TO TELEGRAM GROUP AUTOMATICALLY\n** BUT YOU SHOULD MAKE SOME STEPS\n** FOLLOW THIS LINK : \n\n");
+      // TODO : SETUP GitHub Action
+      print("✅ Finished setup GitHub Action successfully 🎉 ...");
     }
 
     stdout.write('😎 Do you want to using App flavors ? (y , N)[ default y ] ');
@@ -91,7 +94,12 @@ class InitFolders {
             ? false
             : true;
 
-    print("You can know about Flavors in this link : ");
+    if (appDataModel.usingFlavors) {
+      print("⚡ Thunder will setup flavors in ${appDataModel.appName}");
+      // TODO : Setup flavors
+      print("✅ Finished setup flavors successfully 🎉 ...");
+      print("You can know about Flavors in this link : ");
+    }
 
     return appDataModel;
   }
