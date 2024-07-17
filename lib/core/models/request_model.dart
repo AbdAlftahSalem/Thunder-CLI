@@ -1,4 +1,4 @@
-import '../data/network_data.dart';
+import '../networking/dio_handler.dart';
 
 class RequestModel {
   String modelName, url;

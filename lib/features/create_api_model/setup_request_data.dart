@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 
-import '../../data/network_data.dart';
-import '../../models/request_model.dart';
+import '../../core/models/request_model.dart';
+import '../../core/networking/dio_handler.dart';
 
 class SetupRequestData {
   static RequestModel setupRequestData() {

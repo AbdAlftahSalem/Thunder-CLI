@@ -7,7 +7,7 @@ enum RequestType {
   delete,
 }
 
-class BaseClient {
+class DioHandler {
   static final Dio _dio = Dio(
     BaseOptions(
       headers: {

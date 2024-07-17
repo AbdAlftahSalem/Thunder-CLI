@@ -1,19 +1,18 @@
-import '../../consts/folder_paths.dart';
-import '../../services/create_folder_files.dart';
+import '../../core/helper/consts/folder_paths.dart';
+import '../../core/helper/services/folder_and_file_service/create_folder.dart';
 
 class SetupFeatureFolders {
   static void setupFeatureFolders(
       {required String featureName, required bool withApiModel}) {
     // create feature folder
-    CreateFolderAndFiles().createFolder(FolderPaths.instance.featureFolder);
+    CreateFolder.createFolder(FolderPaths.instance.featureFolder);
 
     // create feature folder
-    CreateFolderAndFiles()
-        .createFolder(FolderPaths.instance.folderInModules(featureName));
+    CreateFolder.createFolder(
+        FolderPaths.instance.folderInModules(featureName));
 
     if (withApiModel) {
-      CreateFolderAndFiles()
-          .createFolder(FolderPaths.instance.modelFile(featureName));
+      CreateFolder.createFolder(FolderPaths.instance.modelFile(featureName));
     }
   }
 }

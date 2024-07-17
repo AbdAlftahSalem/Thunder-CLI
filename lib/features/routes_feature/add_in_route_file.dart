@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../consts/folder_paths.dart';
+import '../../core/helper/consts/folder_paths.dart';
 
 class AddInRouteFile {
   String nameFolder;

@@ -1,4 +1,4 @@
-import 'package:thunder_cli/services/commands_service.dart';
+import 'core/helper/services/command_service/command_service.dart';
 
 void main(List<String> arguments) {
   CommandServices.startCommands(arguments);

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 
-import '../../consts/folder_paths.dart';
+import '../../core/helper/consts/folder_paths.dart';
 
 class AddInAppRouter {
   String nameFolder;

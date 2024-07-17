@@ -1,19 +1,18 @@
 import 'dart:io';
 
-import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/helper/services/folder_and_file_service/create_file.dart';
 import 'package:thunder_cli/features/init_project/publish_project_to_github.dart';
 
-import '../../consts/folder_paths.dart';
-import '../../models/app_data_model.dart';
-import '../../services/create_folder_files.dart';
-import '../../services/run_cmd.dart';
+import '../../core/helper/consts/folder_paths.dart';
+import '../../core/helper/services/cmd_service/run_in_cmd.dart';
+import '../../core/models/app_data_model.dart';
 import 'open_project_in_vs_code.dart';
 
 class CloneRepoAndSetupProject {
   static void cloneAndSetupProject(
       {required AppDataModel appInfo, required String dirName}) async {
-    print(
-        "\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
+    print("\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
 
     final ProcessResult processResult =
         await CloneRepoAndSetupProject._cloneRepo(
@@ -50,14 +49,13 @@ class CloneRepoAndSetupProject {
 
   static Future<bool> _setupClonedProject(AppDataModel appInfo) async {
     if (await _navigateToClonedDirectory(appInfo.appName)) {
-      CreateFolderAndFiles()
-          .createFile(FolderPaths.instance.jsonFile, appInfo.toJson());
+      CreateFile.createFile(FolderPaths.instance.jsonFile, appInfo.toJson());
       await _runFlutterPubGet();
       await _changePackageName(appInfo.packageName);
       await _changeAppName(appInfo.appName);
 
       // remove .git folder from cloned project
-      await RunCmd.runInCmd('rd /s /q .git');
+      await RunInCmd.runInCmd('rd /s /q .git');
 
       return true;
     }

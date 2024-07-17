@@ -1,7 +1,7 @@
+import 'package:thunder_cli/core/networking/dio_handler.dart';
 import 'package:thunder_cli/features/create_api_model/setup_request_data.dart';
 
-import '../../data/network_data.dart';
-import '../../models/request_model.dart';
+import '../../core/models/request_model.dart';
 import 'build_model_file.dart';
 
 class CreateApiModel {
@@ -9,7 +9,7 @@ class CreateApiModel {
     // set up model file
     RequestModel requestModel = SetupRequestData.setupRequestData();
 
-    BaseClient.safeApiCall(
+    DioHandler.safeApiCall(
       requestModel.url,
       requestModel.requestType ?? RequestType.get,
       headers: requestModel.headers,

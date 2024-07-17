@@ -1,8 +1,8 @@
-import 'package:thunder_cli/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 
-import '../../consts/const_strings.dart';
-import '../../consts/folder_paths.dart';
-import '../../services/create_folder_files.dart';
+import '../../core/helper/consts/const_strings.dart';
+import '../../core/helper/consts/folder_paths.dart';
+import '../../core/helper/services/folder_and_file_service/create_file.dart';
 
 class SetupFeatureFiles {
   static void setupFeatureFiles(String className) {
@@ -14,14 +14,14 @@ class SetupFeatureFiles {
 
     try {
       // create controller file
-      CreateFolderAndFiles().createFile(
+      CreateFile.createFile(
         FolderPaths.instance.controllerFile(className),
         ConstStrings.instance
             .controllerGetX(className.toCamelCaseFirstLetter()),
       );
 
       // create view file
-      CreateFolderAndFiles().createFile(
+      CreateFile.createFile(
         FolderPaths.instance.viewFile(className),
         ConstStrings.instance.viewGetX(className),
       );

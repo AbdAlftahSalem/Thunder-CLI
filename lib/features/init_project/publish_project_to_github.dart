@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../services/run_cmd.dart';
+import '../../core/helper/services/cmd_service/run_in_cmd.dart';
 
 class PublishProjectToGithub {
   static Future<void> publishProjectToGithub() async {
@@ -16,12 +16,12 @@ class PublishProjectToGithub {
           '😎 Enter your repository commit message [ by default is init project ]: ');
       final repoCommitMessage = stdin.readLineSync()?.trim() ?? "init project";
 
-      await RunCmd.runInCmd('git init');
-      await RunCmd.runInCmd('git add .');
-      await RunCmd.runInCmd('git commit -m "$repoCommitMessage"');
-      await RunCmd.runInCmd('git branch -M main');
-      await RunCmd.runInCmd('git remote add origin $repoUrl');
-      await RunCmd.runInCmd('git push -u origin main');
+      await RunInCmd.runInCmd('git init');
+      await RunInCmd.runInCmd('git add .');
+      await RunInCmd.runInCmd('git commit -m "$repoCommitMessage"');
+      await RunInCmd.runInCmd('git branch -M main');
+      await RunInCmd.runInCmd('git remote add origin $repoUrl');
+      await RunInCmd.runInCmd('git push -u origin main');
 
       print("⚡⚡ Publish to GitHub completed successfully\n");
       print("🔗🔗 Repo link: $repoUrl\n");

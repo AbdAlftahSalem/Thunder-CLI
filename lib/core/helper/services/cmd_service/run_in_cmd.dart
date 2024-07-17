@@ -1,6 +1,6 @@
 import 'dart:io';
 
-class RunCmd {
+class RunInCmd {
   static runInCmd(String command) async {
     ProcessResult result = await Process.run(command, [], runInShell: true);
 
