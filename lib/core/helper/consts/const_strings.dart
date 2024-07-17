@@ -14,27 +14,8 @@ class ConstStrings {
   String repoBloCUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
-//   String bindingGetX(String bindingName) {
-//     String bindingClassName = bindingName.toCamelCase();
-//
-//     return '''
-// import 'package:get/get.dart';
-//
-// import './${bindingName.toLowerCase()}_controller.dart';
-//
-// class ${"${bindingClassName}Binding"} extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<${bindingClassName}Controller>(
-//       () => ${bindingClassName}Controller(),
-//     );
-//   }
-// }
-// ''';
-//   }
-
   String controllerGetX(String controllerName) {
-    controllerName = controllerName.toCamelCaseFirstLetter();
+    controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
     return '''
 import 'package:get/get.dart';
 
@@ -89,7 +70,7 @@ class ${controllerName}Controller extends GetxController {
   }
 
   String viewGetX(String viewName) {
-    String viewClassName = viewName.toCamelCaseFirstLetter();
+    String viewClassName = viewName.toCamelCaseFirstLetterForEachWord();
 
     return '''
 import 'package:flutter/material.dart';

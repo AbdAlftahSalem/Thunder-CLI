@@ -9,7 +9,7 @@ class SetupHelperMethods {
     content += "    final Map<String, dynamic> data =  <String, dynamic>{};\n";
     data.forEach((key, value) {
       content +=
-          "    data['$key'] = ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+          "    data['$key'] = ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
     });
     content += "    return data;\n  }\n}\n\n";
     return content;
@@ -21,10 +21,10 @@ class SetupHelperMethods {
     required Map<dynamic, dynamic> data,
   }) {
     content +=
-        "\n\n  ${name.toCamelCaseFirstLetter()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCaseFirstLetter()}Model(\n";
+        "\n\n  ${name.toCamelCaseFirstLetterForEachWord()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCaseFirstLetterForEachWord()}Model(\n";
     data.forEach((key, value) {
       content +=
-          "    ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCaseFirstLetter()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
+          "    ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCaseFirstLetterForEachWord()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
     });
     return content;
   }
@@ -34,10 +34,10 @@ class SetupHelperMethods {
     required String name,
     required Map<dynamic, dynamic> data,
   }) {
-    content += "\n  ${name.toCamelCaseFirstLetter()}Model({\n";
+    content += "\n  ${name.toCamelCaseFirstLetterForEachWord()}Model({\n";
     data.forEach((key, value) {
       content +=
-          "    this.${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()},\n";
+          "    this.${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()},\n";
     });
     content += "  });\n";
     return content;
@@ -51,37 +51,37 @@ class SetupHelperMethods {
     data.forEach((key, value) {
       if (value is String) {
         content +=
-            "  String? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  String? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
       } else if (value is int) {
         content +=
-            "  int? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  int? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
       } else if (value is double) {
         content +=
-            "  double? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  double? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
       } else if (value is bool) {
         content +=
-            "  bool? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  bool? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
       } else if (value is List) {
         if (value.isNotEmpty) {
           if (value[0] is Map) {
             content +=
-                "  List<${key.toString().toCamelCaseFirstLetter()}Model>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+                "  List<${key.toString().toCamelCaseFirstLetterForEachWord()}Model>? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
             mapKeys.add({key: value[0]});
           } else {
             content +=
-                "  List<dynamic>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+                "  List<dynamic>? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
           }
         } else {
           content +=
-              "  List<dynamic>? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+              "  List<dynamic>? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
         }
       } else if (value is Map) {
         content +=
-            "  ${key.toString().toCamelCaseFirstLetter()}Model? ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  ${key.toString().toCamelCaseFirstLetterForEachWord()}Model? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
         mapKeys.add({key: value});
       } else {
         content +=
-            "  dynamic ${key.toString().toCamelCaseFirstLetter().lowerCaseFirstLetter()};\n";
+            "  dynamic ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
       }
     });
     return content;

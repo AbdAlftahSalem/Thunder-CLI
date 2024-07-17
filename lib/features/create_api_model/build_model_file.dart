@@ -25,7 +25,7 @@ class BuildModelFile {
     required String name,
     required Map data,
   }) {
-    String classContents = "class ${name.toCamelCaseFirstLetter()}Model {\n";
+    String classContents = "class ${name.toCamelCaseFirstLetterForEachWord()}Model {\n";
 
     List<Map> mapKeys = [];
 

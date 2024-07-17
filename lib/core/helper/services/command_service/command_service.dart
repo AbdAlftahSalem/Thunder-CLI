@@ -8,10 +8,10 @@ class CommandServices {
     // Add flags to the argument parser
     parser
       ..addFlag('i', help: 'Initialize project Thunder CMD')
-      ..addFlag('m', help: 'Generate View Controller and Binding files')
+      ..addFlag('m', help: 'Generate all feature folder and files . [ View , Controller , and routing folder and files ]')
       ..addFlag('mm',
-          help: 'Generate View Controller and Binding files and model')
-      ..addFlag('mo', help: 'Generate model file for the module')
+          help: 'Generate all feature folder and files . [ View , Controller , model and routing folder and files ]')
+      ..addFlag('mo', help: 'Generate model file for the feature')
       ..addFlag('h', help: 'Show help message');
 
     final results = parser.parse(arguments);

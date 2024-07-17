@@ -65,7 +65,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCaseFirstLetter()}View(),
+      page: () => const ${nameFolder.toCamelCaseFirstLetterForEachWord()}View(),
     ),
   ];
 }
@@ -81,7 +81,7 @@ class AppPages {
     $routes
     GetPage(
       name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCaseFirstLetter()}View(),
+      page: () => const ${nameFolder.toCamelCaseFirstLetterForEachWord()}View(),
     ),
    ];
 }

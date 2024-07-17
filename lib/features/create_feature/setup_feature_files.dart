@@ -17,7 +17,7 @@ class SetupFeatureFiles {
       CreateFile.createFile(
         FolderPaths.instance.controllerFile(className),
         ConstStrings.instance
-            .controllerGetX(className.toCamelCaseFirstLetter()),
+            .controllerGetX(className.toCamelCaseFirstLetterForEachWord()),
       );
 
       // create view file
