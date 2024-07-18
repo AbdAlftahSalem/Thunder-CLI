@@ -36,12 +36,7 @@ class CreateFeatureFiles {
     // set up files module
     SetupFeatureFiles.setupFeatureFiles(className);
 
-    try {
-      // reading routes file
-      RouteFeature(nameFolder: className);
-    } catch (e) {
-      print('😢 Error in create routes . \n $e');
-    }
+    RouteFeature(nameFolder: className);
 
     if (withApiModel) {
       CreateApiModel().createApiModel();

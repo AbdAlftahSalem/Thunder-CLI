@@ -9,6 +9,7 @@ class FolderPaths {
   FolderPaths._internal();
 
   String featureFolder = 'lib/app/feature';
+  String bindingsFile = 'lib/app/bindings1/bindings2/bindings3/bindings4/bindings.dart';
 
   // models files
   String modelFile(String name) =>
