@@ -1,8 +1,8 @@
 import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
-import 'package:thunder_cli/core/helper/services/folder_and_file_service/create_file.dart';
 import 'package:thunder_cli/features/create_api_model/setup_helper_methods.dart';
 
 import '../../core/helper/consts/folder_paths.dart';
+import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class BuildModelFile {
   static void buildModelFile({
@@ -10,7 +10,7 @@ class BuildModelFile {
     required dynamic data,
   }) {
     // create model file
-    CreateFile.createFile(
+    FolderAndFileService.createFile(
       FolderPaths.instance.modelFile(modelName),
       _convertMapToClassModel(
         name: modelName,

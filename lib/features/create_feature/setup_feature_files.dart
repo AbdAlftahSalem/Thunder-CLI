@@ -4,20 +4,20 @@ import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 
 import '../../core/helper/consts/const_strings.dart';
 import '../../core/helper/consts/folder_paths.dart';
-import '../../core/helper/services/folder_and_file_service/create_file.dart';
+import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFiles {
   static void setupFeatureFiles(String className) {
     try {
       // create controller file
-      CreateFile.createFile(
+      FolderAndFileService.createFile(
         FolderPaths.instance.controllerFile(className),
         ConstStrings.instance
             .controllerGetX(className.toCamelCaseFirstLetterForEachWord()),
       );
 
       // create view file
-      CreateFile.createFile(
+      FolderAndFileService.createFile(
         FolderPaths.instance.viewFile(className),
         ConstStrings.instance.viewGetX(className),
       );

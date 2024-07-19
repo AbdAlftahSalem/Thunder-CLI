@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
-import 'package:thunder_cli/core/helper/services/folder_and_file_service/create_file.dart';
 import 'package:thunder_cli/features/init_project/publish_project_to_github.dart';
 
 import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/cmd_service/run_in_cmd.dart';
+import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 import '../../core/models/app_data_model.dart';
 import 'open_project_in_vs_code.dart';
 
@@ -49,7 +49,8 @@ class CloneRepoAndSetupProject {
 
   static Future<bool> _setupClonedProject(AppDataModel appInfo) async {
     if (await _navigateToClonedDirectory(appInfo.appName)) {
-      CreateFile.createFile(FolderPaths.instance.jsonFile, appInfo.toJson());
+      FolderAndFileService.createFile(
+          FolderPaths.instance.jsonFile, appInfo.toJson());
       await _runFlutterPubGet();
       await _changePackageName(appInfo.packageName);
       await _changeAppName(appInfo.appName);
