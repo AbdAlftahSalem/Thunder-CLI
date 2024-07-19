@@ -3,16 +3,17 @@ import 'dart:io';
 import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 
 import '../../core/helper/consts/folder_paths.dart';
+import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInAppRouter {
   String nameFolder;
 
   AddInAppRouter({required this.nameFolder});
 
-  void addRouteInAppRoute() {
+  void addRouteInAppRoute() async {
     // reading app_routes.dart file
-    final file = File(FolderPaths.instance.appRoutesFile);
-    String contentFile = file.readAsStringSync();
+    String contentFile =
+        await FolderAndFileService.readFile(FolderPaths.instance.appRoutesFile);
 
     // extract all imports from code
     final imports = _getPreviousImports(contentFile);
@@ -25,7 +26,9 @@ class AddInAppRouter {
 
     // if routesMatch is null, then add routes
     contentFile += _updateCodeInContentFile(routesMatch);
+
     // write contentFile to app_routes.dart file
+    final file = File(FolderPaths.instance.appRoutesFile);
     file.writeAsStringSync(contentFile);
 
     print("⚡ Add routes to app_routes.dart file successfully 🎉 ...\n\n");
