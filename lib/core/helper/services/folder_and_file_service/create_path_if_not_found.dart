@@ -4,7 +4,7 @@ import 'folder_and_file_service.dart';
 
 class CreatePathIfNotFound {
   // TODO : we want to refactor this code and apply it in whole of the code
-  static createIt(String filePath) async {
+  static createIt(String filePath, {bool createFile = false}) async {
     List<String> preFolders = filePath.split("/");
     preFolders.removeWhere((element) => element.endsWith(".dart"));
 
@@ -16,6 +16,9 @@ class CreatePathIfNotFound {
         print(
             '✅ Create ${joinPath(preFolders, folderIndex)} folder successfully 🎉 ...');
       }
+    }
+    if (createFile) {
+      FolderAndFileService.createFile(filePath, '');
     }
   }
 

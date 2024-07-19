@@ -26,11 +26,9 @@ class SetupFeatureFiles {
     }
   }
 
-  static void bindings(String className) {
+  static void bindings(String className) async {
     // reading bindings.dart file
-    final file = File(FolderPaths.instance.bindingsFile);
-
-    String contentFile = file.readAsStringSync();
+    String contentFile = await FolderAndFileService.readFile(FolderPaths.instance.bindingsFile);
 
     final importData = RegExp(r'import.*?;')
         .allMatches(contentFile)
@@ -59,6 +57,7 @@ class BindingApp extends Bindings {
 }
   """;
 
+    final file = File(FolderPaths.instance.bindingsFile);
     file.writeAsStringSync(newBindingFile);
   }
 }

@@ -9,7 +9,7 @@ class FolderAndFileService {
       file.writeAsStringSync(content);
     } on PathNotFoundException catch (e) {
       print("$filePath not found , Thunder will create it 🚀\n\n");
-      await CreatePathIfNotFound.createIt(filePath);
+      await CreatePathIfNotFound.createIt(filePath, createFile: true);
 
       final file = File(filePath);
       file.writeAsStringSync(content);
@@ -28,4 +28,18 @@ class FolderAndFileService {
     }
   }
 
+  static Future readFile(String filePath) async {
+    try {
+      // reading bindings.dart file
+      final file = File(filePath);
+
+      return file.readAsStringSync();
+    } on PathNotFoundException catch (e) {
+      print("$filePath not found , Thunder will create it 🚀 \n");
+      await CreatePathIfNotFound.createIt(filePath, createFile: true);
+      // reading bindings.dart file
+      final file = File(filePath);
+      return file.readAsStringSync();
+    }
+  }
 }
