@@ -44,11 +44,10 @@ class AddInAppRouter {
   String _updateImportsInContentFile(List<String?> imports) {
     if (imports.isEmpty) {
       return '''
-import '/app/routes/routes.dart';
 import 'package:get/get.dart';
 import 'routes.dart';
 
-import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
+import '../../features/${nameFolder.toLowerCase()}/ui/${nameFolder.toLowerCase()}_view.dart';
 
 ''';
     } else {

@@ -7,6 +7,7 @@ class RouteFeature {
   RouteFeature({required this.nameFolder});
 
   void setRoutes() {
+    print("*****************************************************");
     AddInAppRouter(nameFolder: nameFolder).addRouteInAppRoute();
     AddInRouteFile(nameFolder: nameFolder).addInRouteFile();
   }

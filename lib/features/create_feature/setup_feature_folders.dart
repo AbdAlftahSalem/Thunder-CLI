@@ -6,14 +6,20 @@ class SetupFeatureFolders {
       {required String featureName, required bool withApiModel}) {
     // create feature folder
     FolderAndFileService.createFolder(FolderPaths.instance.featureFolder);
-
-    // create feature folder
     FolderAndFileService.createFolder(
-        FolderPaths.instance.folderInModules(featureName));
-
-    if (withApiModel) {
-      FolderAndFileService.createFolder(
-          FolderPaths.instance.modelFile(featureName));
-    }
+      FolderPaths.instance.logicFolder(featureName),
+    );
+    FolderAndFileService.createFolder(
+      FolderPaths.instance.uiFolder(featureName),
+    );
+    FolderAndFileService.createFolder(
+      FolderPaths.instance.dataFolder(featureName),
+    );
+    FolderAndFileService.createFolder(
+      FolderPaths.instance.repoFolder(featureName),
+    );
+    FolderAndFileService.createFolder(
+      FolderPaths.instance.modelsFolder(featureName),
+    );
   }
 }

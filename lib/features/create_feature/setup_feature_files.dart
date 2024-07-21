@@ -21,6 +21,11 @@ class SetupFeatureFiles {
         FolderPaths.instance.viewFile(className),
         ConstStrings.instance.viewGetX(className),
       );
+
+      bindings(className);
+
+
+
     } catch (e) {
       print('😢 Error in create view or controller . \n $e');
     }
@@ -28,7 +33,8 @@ class SetupFeatureFiles {
 
   static void bindings(String className) async {
     // reading bindings.dart file
-    String contentFile = await FolderAndFileService.readFile(FolderPaths.instance.bindingsFile);
+    String contentFile =
+        await FolderAndFileService.readFile(FolderPaths.instance.bindingsFile);
 
     final importData = RegExp(r'import.*?;')
         .allMatches(contentFile)

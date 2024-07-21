@@ -19,43 +19,31 @@ class ConstStrings {
     return '''
 import 'package:get/get.dart';
 
-import '../../../../utils/constants.dart';
-import '../../data/remote/api_call_status.dart';
-import '../../data/remote/base_client.dart';
+import 'package:get/get.dart';
+
+import '../../../core/networking/api_call_status.dart';
+import '../../../core/networking/api_result.dart';
+import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
 class ${controllerName}Controller extends GetxController {
-  // hold data coming from api
-  List<dynamic>? data;
+  ${controllerName}Repo ${controllerName.toLowerCase()}Repo;
+  ${controllerName}Controller({required this.${controllerName.toLowerCase()}Repo});
+  late ApiResult apiResult;
 
   // api call status
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 
   // getting data from api
   getData() async {
-    // *) perform api call
-    await BaseClient.safeApiCall(
-      Constants.todosApiUrl, // url
-      RequestType.get, // request type (get,post,delete,put)
-      onLoading: () {
-        // *) indicate loading state
-        apiCallStatus = ApiCallStatus.loading;
-        update();
+    apiCallStatus = ApiCallStatus.loading;
+    update();
+    apiResult = await homeRepo.getHomeData();
+    apiResult.handelRequest(
+      success: (apiResult) {
+        print("Success Request ...");
       },
-      onSuccess: (response) {
-        // api done successfully
-        data = List.from(response.data);
-        // *) indicate success state
-        apiCallStatus = ApiCallStatus.success;
-        update();
-      },
-      // if you don't pass this method base client
-      // will automaticly handle error and show message to user
-      onError: (error) {
-        // show error message to user
-        BaseClient.handleApiError(error);
-        // *) indicate error status
-        apiCallStatus = ApiCallStatus.error;
-        update();
+      error: (apiResult) {
+        print("Fail Request ...");
       },
     );
   }
@@ -76,7 +64,7 @@ class ${controllerName}Controller extends GetxController {
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './${viewName.toLowerCase()}_controller.dart';
+import '../logic/${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends GetView<${viewClassName}Controller> {
   const ${viewClassName}View({super.key});

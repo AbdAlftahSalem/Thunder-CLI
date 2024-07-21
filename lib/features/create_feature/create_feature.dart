@@ -36,11 +36,11 @@ class CreateFeatureFiles {
     // set up files module
     SetupFeatureFiles.setupFeatureFiles(className);
 
-    RouteFeature(nameFolder: className);
+    RouteFeature(nameFolder: className).setRoutes();
 
-    if (withApiModel) {
-      CreateApiModel().createApiModel();
-    }
+    // if (withApiModel) {
+    //   CreateApiModel().createApiModel();
+    // }
 
     print("⚡ Create module files successfully\n\n");
   }

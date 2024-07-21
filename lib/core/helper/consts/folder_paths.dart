@@ -9,27 +9,33 @@ class FolderPaths {
   FolderPaths._internal();
 
   String featureFolder = 'lib/app/feature';
-  String bindingsFile = 'lib/app/bindings/bindings.dart';
+  String bindingsFile = 'lib/core/bindings/bindings_app.dart';
 
   // models files
   String modelFile(String name) =>
-      'lib/app/data/models/${name.toLowerCase()}_model.dart';
+      'lib/feature/${name.toLowerCase()}/data/models/${name.toLowerCase()}model.data';
 
   // routes files
-  String appRoutesFile = 'lib/app/routes/app_routes.dart';
-  String routesFile = 'lib/app/routes/routes.dart';
-  String jsonFile = 'thunder.json';
+  String appRoutesFile = 'lib/core/routing/app_routes.dart';
+  String routesFile = 'lib/core/routing/routes.dart';
+  String jsonFile = 'lib/thunder.json';
 
   // feature files
-  String folderInModules(String name) => 'lib/app/feature/$name';
+  String folderInFeatures(String name) => 'lib/app/feature/$name';
 
-  String controllerFolder(String name) => "lib/app/feature/$name/controller";
+  String logicFolder(String name) => "lib/app/feature/$name/logic";
 
-  String viewFolder(String name) => "lib/app/feature/$name/view";
+  String uiFolder(String name) => "lib/app/feature/$name/ui";
+
+  String dataFolder(String name) => "lib/app/feature/$name/data";
+
+  String modelsFolder(String name) => "lib/app/feature/$name/data/models";
+
+  String repoFolder(String name) => "lib/app/feature/$name/data/repo";
 
   String controllerFile(String name) =>
-      'lib/app/feature/$name/${name.toLowerCase()}_controller.dart';
+      'lib/app/feature/$name/logic/${name.toLowerCase()}_controller.dart';
 
   String viewFile(String name) =>
-      'lib/app/feature/$name/${name.toLowerCase()}_view.dart';
+      'lib/app/feature/$name/ui/${name.toLowerCase()}_view.dart';
 }
