@@ -14,6 +14,33 @@ class ConstStrings {
   String repoBloCUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
+  String repo(String controllerName) {
+    controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
+    return '''
+import '../../../../core/networking/api_call_status.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../../core/networking/base_client.dart';
+
+class ${controllerName}Repo {
+  Future<ApiResult> getHomeData() async {
+    ApiResult apiResult = ApiResult();
+    try {
+      apiResult = await BaseClient.safeApiCall(
+        "url",
+        RequestType.get,
+      );
+      apiResult.apiCallStatus = ApiCallStatus.success;
+
+      return apiResult;
+    } catch (e) {
+      return ApiResult.error(apiCallStatus: ApiCallStatus.error);
+    }
+  }
+}
+
+''';
+  }
+
   String controllerGetX(String controllerName) {
     controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
     return '''

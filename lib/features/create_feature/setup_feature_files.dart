@@ -22,10 +22,13 @@ class SetupFeatureFiles {
         ConstStrings.instance.viewGetX(className),
       );
 
+      // create repo file
+      FolderAndFileService.createFile(
+        FolderPaths.instance.repoFile(className),
+        ConstStrings.instance.repo(className),
+      );
+
       bindings(className);
-
-
-
     } catch (e) {
       print('😢 Error in create view or controller . \n $e');
     }
