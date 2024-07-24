@@ -18,7 +18,7 @@ class CreateApiModel {
       onSuccess: (res) {
         if (res.data is Map || res.data is List) {
           BuildModelFile.buildModelFile(
-            modelName: requestModel.modelName,
+            requestModel: requestModel,
             data: res.data,
           );
         } else {

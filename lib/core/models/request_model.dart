@@ -1,12 +1,13 @@
 import '../networking/dio_handler.dart';
 
 class RequestModel {
-  String modelName, url;
+  String modelName, featureName, url;
   RequestType? requestType;
   Map<String, dynamic> body, headers, params;
 
   RequestModel({
     this.modelName = '',
+    this.featureName = '',
     this.url = '',
     this.requestType,
     this.body = const {},
@@ -22,6 +23,7 @@ class RequestModel {
       'body': body,
       'headers': headers,
       'params': params,
+      'featureName': featureName,
     };
   }
 
@@ -33,6 +35,7 @@ class RequestModel {
       body: map['body'],
       headers: map['headers'],
       params: map['params'],
+      featureName: map['featureName'],
     );
   }
 }

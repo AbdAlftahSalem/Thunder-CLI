@@ -10,6 +10,13 @@ class SetupRequestData {
   static RequestModel setupRequestData() {
     RequestModel requestModel = RequestModel();
 
+    while (requestModel.featureName.isEmpty) {
+      stdout.write("Enter your feature name to save .dart file in it : ");
+      requestModel.featureName = (stdin.readLineSync() ?? "")
+          .trim()
+          .checkIfEmptyAndShowMessage("😢 Model Name name cannot be empty !!");
+    }
+
     while (requestModel.modelName.isEmpty) {
       stdout.write(
           "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");

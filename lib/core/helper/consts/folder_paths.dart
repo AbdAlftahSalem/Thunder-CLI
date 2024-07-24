@@ -40,7 +40,6 @@ class FolderPaths {
       'lib/feature/$name/ui/${name.toLowerCase()}_view.dart';
 
   // models files
-  String modelFile(String name) =>
-      'lib/feature/${name.toLowerCase()}/data/models/${name.toLowerCase()}model.data';
-
+  String modelFile(String modelName, String featureName) =>
+      'lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}model.data';
 }
