@@ -23,7 +23,11 @@ import '../../../../core/networking/base_client.dart';
 import '../../../../helper/constants/api_constants.dart';
 
 class ${controllerName}Repo {
-  Future<ApiResult> getHomeData() async {
+  DioHelper dioHelper;
+
+  HomeNewRepo(this.dioHelper);
+
+  Future<ApiResult> get${controllerName}Data() async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(
@@ -43,7 +47,6 @@ class ${controllerName}Repo {
   }
 
   String controllerGetX(String controllerName) {
-    controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
     return '''
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -52,23 +55,20 @@ import '../../../core/networking/api_call_status.dart';
 import '../../../core/networking/api_result.dart';
 import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
-class ${controllerName}Controller extends GetxController {
-  ${controllerName}Repo ${controllerName.toLowerCase()}Repo;
-  ${controllerName}Controller({required this.${controllerName.toLowerCase()}Repo});
+class ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller extends GetxController {
+  ${controllerName.toCamelCaseFirstLetterForEachWord()}Repo ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo;
+  
+  ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller({required this.${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo});
+  
   late ApiResult apiResult;
 
   // getting data from api
   getData() async {
     apiResult.apiCallStatus = ApiCallStatus.loading;
     update();
-    apiResult = await homeRepo.getHomeData();
-
-    apiResult.handelRequest(
-      success: (apiResult) =>
-          debugPrint("Success Request \nData : \${apiResult.response?.data}"),
-      error: (apiResult) =>
-          debugPrint("Fail Request \nCode : \${apiResult.code} ...."),
-    );
+    apiResult = await ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
+    apiResult.handelRequest(success: (apiResul){}, error: (apiResul){});
+    update();
   }
 
 
@@ -88,6 +88,8 @@ class ${controllerName}Controller extends GetxController {
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../helper/widgets/custom_widgets/custom_text.dart';
+
 import '../logic/${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends GetView<${viewClassName}Controller> {
@@ -96,7 +98,7 @@ class ${viewClassName}View extends GetView<${viewClassName}Controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<HomeController>(
+      body: GetBuilder<${viewClassName}Controller>(
         builder: (controller) {
           return const Center(
             child: CustomText(txt: "$viewClassName"),
