@@ -20,13 +20,14 @@ class ConstStrings {
 import '../../../../core/networking/api_call_status.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
+import '../../../../helper/constants/api_constants.dart';
 
 class ${controllerName}Repo {
   Future<ApiResult> getHomeData() async {
     ApiResult apiResult = ApiResult();
     try {
-      apiResult = await BaseClient.safeApiCall(
-        "url",
+      apiResult = await dioHelper.safeApiCall(
+        ApiConstants.todosApiUrl,
         RequestType.get,
       );
       apiResult.apiCallStatus = ApiCallStatus.success;
@@ -44,8 +45,7 @@ class ${controllerName}Repo {
   String controllerGetX(String controllerName) {
     controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
     return '''
-import 'package:get/get.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../core/networking/api_call_status.dart';
@@ -57,23 +57,20 @@ class ${controllerName}Controller extends GetxController {
   ${controllerName}Controller({required this.${controllerName.toLowerCase()}Repo});
   late ApiResult apiResult;
 
-  // api call status
-  ApiCallStatus apiCallStatus = ApiCallStatus.holding;
-
   // getting data from api
   getData() async {
-    apiCallStatus = ApiCallStatus.loading;
+    apiResult.apiCallStatus = ApiCallStatus.loading;
     update();
     apiResult = await homeRepo.getHomeData();
+
     apiResult.handelRequest(
-      success: (apiResult) {
-        print("Success Request ...");
-      },
-      error: (apiResult) {
-        print("Fail Request ...");
-      },
+      success: (apiResult) =>
+          debugPrint("Success Request \nData : \${apiResult.response?.data}"),
+      error: (apiResult) =>
+          debugPrint("Fail Request \nCode : \${apiResult.code} ...."),
     );
   }
+
 
   @override
   void onInit() {
@@ -99,9 +96,11 @@ class ${viewClassName}View extends GetView<${viewClassName}Controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<${viewClassName}Controller>(
+      body: GetBuilder<HomeController>(
         builder: (controller) {
-         return const Center(child: Text("${viewName}View"));
+          return const Center(
+            child: CustomText(txt: "$viewClassName"),
+          );
         },
       ),
     );
