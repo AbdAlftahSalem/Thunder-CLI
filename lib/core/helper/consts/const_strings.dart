@@ -47,6 +47,7 @@ class ${controllerName}Repo {
   }
 
   String controllerGetX(String controllerName) {
+    // TODO TODO TODO  : UPDATE THIS CODE ...
     return '''
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
