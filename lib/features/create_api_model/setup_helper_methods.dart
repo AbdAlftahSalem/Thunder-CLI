@@ -69,7 +69,7 @@ class SetupHelperMethods {
             mapKeys.add({key: value[0]});
           } else {
             content +=
-                "  List<dynamic>? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
+                "  List<${value[0].runtimeType}>? ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()};\n";
           }
         } else {
           content +=
