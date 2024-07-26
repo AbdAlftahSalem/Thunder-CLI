@@ -49,15 +49,18 @@ class SetupFeatureFiles {
         .map((e) => e.group(0))
         .toList();
 
-    importData
-        .add("import '../../features/$className/logic/${className}_controller.dart';");
+    importData.add(
+        "import '../../features/$className/logic/${className}_controller.dart';");
     // import '../../features/home_new/data/repo/home_new_repo.dart';
-    importData
-        .add("import '../../features/$className/data/repo/${className}_repo.dart';");
+    importData.add(
+        "import '../../features/$className/data/repo/${className}_repo.dart';");
 
     if (bindingData.isEmpty) {
+      // main binding in file
       bindingData.add("Get.lazyPut(() => DioHelper());");
       bindingData.add("Get.lazyPut(() => HomeRepo(Get.find<DioHelper>()));");
+
+      // main Imports in file
       importData.add("import 'package:get/get.dart';");
       importData.add("import '../../features/home/data/repo/home_repo.dart';");
       importData.add("import '../networking/base_client.dart';");
