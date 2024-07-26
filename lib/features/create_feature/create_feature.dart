@@ -1,47 +1,31 @@
 import 'dart:io';
 
+import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/create_feature/setup_feature_files.dart';
 import 'package:thunder_cli/features/create_feature/setup_feature_folders.dart';
 
-import '../create_api_model/create_api_model.dart';
 import '../routes_feature/route_feature.dart';
 
 class CreateFeatureFiles {
-  bool withApiModel;
+  void createFiles() {
+    stdout.write("Enter your feature name ( login , bottom_van ) : ");
+    final featureName = (stdin.readLineSync() ?? "")
+        .trim()
+        .checkIfEmptyAndNullAndShowMessage("😢 Name name cannot be empty !!");
 
-  CreateFeatureFiles({this.withApiModel = false});
-
-  void createFiles({bool createDefault = false}) {
-    if (createDefault) {
-      _generateFiles("login");
-      return;
-    }
-    stdout.write("Enter your view name ( login , bottom_van ) : ");
-    final className = stdin.readLineSync();
-
-    if (className == null || className.isEmpty) {
-      print("😢 Name name cannot be empty !!");
-    } else {
-      _generateFiles(className);
+    if (featureName.isNotEmpty) {
+      _generateFiles(featureName);
     }
   }
 
-  _generateFiles(String className) {
+  _generateFiles(String featureName) {
     // set up modules folder
-    SetupFeatureFolders.setupFeatureFolders(
-      featureName: className,
-      withApiModel: withApiModel,
-    );
+    SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
 
-    // set up files module
-    SetupFeatureFiles.setupFeatureFiles(className);
+    SetupFeatureFiles.setupFeatureFiles(featureName);
 
-    RouteFeature(nameFolder: className).setRoutes();
+    RouteFeature.setRoutes(featureName);
 
-    // if (withApiModel) {
-    //   CreateApiModel().createApiModel();
-    // }
-
-    print("⚡ Create module files successfully\n\n");
+    print("⚡ Create feature files successfully\n\n");
   }
 }

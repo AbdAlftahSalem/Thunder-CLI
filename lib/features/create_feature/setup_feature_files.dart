@@ -7,27 +7,27 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFiles {
-  static void setupFeatureFiles(String className) {
+  static void setupFeatureFiles(String featureName) {
     try {
       // create controller file
       FolderAndFileService.createFile(
-        FolderPaths.instance.controllerFile(className),
-        ConstStrings.instance.controllerGetX(className),
+        FolderPaths.instance.controllerFile(featureName),
+        ConstStrings.instance.controllerGetX(featureName),
       );
 
       // create view file
       FolderAndFileService.createFile(
-        FolderPaths.instance.viewFile(className),
-        ConstStrings.instance.viewGetX(className),
+        FolderPaths.instance.viewFile(featureName),
+        ConstStrings.instance.viewGetX(featureName),
       );
 
       // create repo file
       FolderAndFileService.createFile(
-        FolderPaths.instance.repoFile(className),
-        ConstStrings.instance.repo(className),
+        FolderPaths.instance.repoFile(featureName),
+        ConstStrings.instance.repo(featureName),
       );
 
-      bindings(className);
+      bindings(featureName);
     } catch (e) {
       print('😢 Error in create view or controller . \n $e');
     }

@@ -4,11 +4,8 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInRouteFile {
-  String nameFolder;
-
-  AddInRouteFile({required this.nameFolder});
-
-  void addInRouteFile() async {
+  /// Add feature route in Route file
+  static void addInRouteFile(String featureName) async {
     // reading routes file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.routesFile);
@@ -19,7 +16,7 @@ class AddInRouteFile {
         .toList();
 
     prevRoutes.add(
-        "static const ${nameFolder.toUpperCase()} = '/${nameFolder.toLowerCase()}';");
+        "static const ${featureName.toUpperCase()} = '/${featureName.toLowerCase()}';");
 
     contentFile = """
 class Routes {

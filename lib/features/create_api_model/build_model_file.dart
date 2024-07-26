@@ -6,33 +6,36 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class BuildModelFile {
+  /// create model file using [requestModel] and [response]
   static void buildModelFile({
     required RequestModel requestModel,
-    required dynamic data,
+    required dynamic response,
   }) {
-    // create model file
     FolderAndFileService.createFile(
-      FolderPaths.instance.modelFile(requestModel.modelName, requestModel.featureName),
+      FolderPaths.instance
+          .modelFile(requestModel.modelName, requestModel.featureName),
       _convertMapToClassModel(
         name: requestModel.modelName,
-        data: data is Map ? data : data[0],
+        response: response is Map ? response : response[0],
       ),
     );
 
     print("⚡ Create model file successfully\n\n");
   }
 
+  /// convert API [response] to model class
   static String _convertMapToClassModel({
     required String name,
-    required Map data,
+    required Map response,
   }) {
-    String classContents = "class ${name.toCamelCaseFirstLetterForEachWord()}Model {\n";
+    String classContents =
+        "class ${name.toCamelCaseFirstLetterForEachWord()}Model {\n";
 
     List<Map> mapKeys = [];
 
     // setup variables
     classContents = SetupHelperMethods.setupVariables(
-      data: data,
+      data: response,
       content: classContents,
       mapKeys: mapKeys,
     );
@@ -41,27 +44,27 @@ class BuildModelFile {
     classContents = SetupHelperMethods.setupOptionalConstructor(
       content: classContents,
       name: name,
-      data: data,
+      data: response,
     );
 
     // setup fromJson method
     classContents = SetupHelperMethods.setupFromJson(
       content: classContents,
       name: name,
-      data: data,
+      data: response,
     );
 
     // setup toJson method
     classContents = SetupHelperMethods.setupToJson(
       content: classContents,
-      data: data,
+      data: response,
     );
 
     // ❌ ❌ TODO : This maybe not working ❌ ❌
     // Recursive for each element has value map []
     for (var element in mapKeys) {
       element.forEach((key, value) {
-        classContents += _convertMapToClassModel(name: key, data: value);
+        classContents += _convertMapToClassModel(name: key, response: value);
       });
     }
 

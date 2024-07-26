@@ -17,7 +17,7 @@ class GetCommand {
       CreateApiModel().createApiModel();
     } else if (results['mm']) {
       // Generate View Controller and Binding files and model
-      CreateFeatureFiles(withApiModel: true).createFiles();
+      CreateFeatureFiles().createFiles();
     } else if (results['h']) {
       // Show help message
       print("Welcome to Thunder CLI 🚀🚀");

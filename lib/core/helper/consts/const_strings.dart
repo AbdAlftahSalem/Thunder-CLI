@@ -14,6 +14,7 @@ class ConstStrings {
   String repoBloCUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
+  /// Build Repo class using dioHelper and return Future<ApiResult>
   String repo(String controllerName) {
     controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
     return '''
@@ -46,6 +47,7 @@ class ${controllerName}Repo {
 ''';
   }
 
+  /// Build base controller using GetX with main method to get data from API
   String controllerGetX(String controllerName) {
     // TODO TODO TODO  : UPDATE THIS CODE ...
     return '''
@@ -82,6 +84,7 @@ class ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller extends Ge
 ''';
   }
 
+  /// Build View with base code and link with controller to start build UI
   String viewGetX(String viewName) {
     String viewClassName = viewName.toCamelCaseFirstLetterForEachWord();
 
@@ -112,6 +115,7 @@ class ${viewClassName}View extends GetView<${viewClassName}Controller> {
     ''';
   }
 
+  /// Add workflow to build APK file and send it to telegram using github action when push code on master branch
   String buildApkFileWorkFlow() {
     return """
 name: Build Flutter APK and send it to telegram ...

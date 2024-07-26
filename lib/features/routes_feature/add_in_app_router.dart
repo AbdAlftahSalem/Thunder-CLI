@@ -6,11 +6,7 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInAppRouter {
-  String nameFolder;
-
-  AddInAppRouter({required this.nameFolder});
-
-  void addRouteInAppRoute() async {
+  void addRouteInAppRoute(String featureName) async {
     // reading app_routes.dart file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.appRoutesFile);
@@ -22,10 +18,10 @@ class AddInAppRouter {
     final routesMatch = RegExp(r'static final routes = \[([\s\S]*?)\];')
         .firstMatch(contentFile);
 
-    contentFile = _updateImportsInContentFile(imports);
+    contentFile = _updateImportsInContentFile(imports, featureName);
 
     // if routesMatch is null, then add routes
-    contentFile += _updateCodeInContentFile(routesMatch);
+    contentFile += _updateCodeInContentFile(routesMatch, featureName);
 
     // write contentFile to app_routes.dart file
     final file = File(FolderPaths.instance.appRoutesFile);
@@ -41,33 +37,35 @@ class AddInAppRouter {
         .toList();
   }
 
-  String _updateImportsInContentFile(List<String?> imports) {
+  String _updateImportsInContentFile(
+      List<String?> imports, String featureName) {
     if (imports.isEmpty) {
       return '''
 import 'package:get/get.dart';
 import 'routes.dart';
 
-import '../../features/${nameFolder.toLowerCase()}/ui/${nameFolder.toLowerCase()}_view.dart';
+import '../../features/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
 
 ''';
     } else {
       return '''
     ${imports.join('\n')}
-import '../../features/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
+import '../../features/${featureName.toLowerCase()}/${featureName.toLowerCase()}_view.dart';
 import 'routes.dart';
 
 ''';
     }
   }
 
-  String _updateCodeInContentFile(RegExpMatch? routesMatch) {
+  String _updateCodeInContentFile(
+      RegExpMatch? routesMatch, String featureName) {
     if (routesMatch == null) {
       return '''
 class AppPages {
   static final routes = [
     GetPage(
-      name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCaseFirstLetterForEachWord()}View(),
+      name: Routes.${featureName.toUpperCase()},
+      page: () => const ${featureName.toCamelCaseFirstLetterForEachWord()}View(),
     ),
   ];
 }
@@ -82,8 +80,8 @@ class AppPages {
   static final routes = [
     $routes
     GetPage(
-      name: Routes.${nameFolder.toUpperCase()},
-      page: () => const ${nameFolder.toCamelCaseFirstLetterForEachWord()}View(),
+      name: Routes.${featureName.toUpperCase()},
+      page: () => const ${featureName.toCamelCaseFirstLetterForEachWord()}View(),
     ),
    ];
 }

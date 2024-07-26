@@ -63,7 +63,7 @@ class GetProjectData {
       appDataModel.packageName =
           (stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ??
                   "")
-              .checkIfEmptyAndShowMessage("😢 Package name cannot be empty");
+              .checkIfEmptyAndNullAndShowMessage("😢 Package name cannot be empty");
     }
   }
 
@@ -76,7 +76,7 @@ class GetProjectData {
                   .replaceAll(" ", "_")
                   .toLowerCase() ??
               "")
-          .checkIfEmptyAndShowMessage("😢 Application name cannot be empty");
+          .checkIfEmptyAndNullAndShowMessage("😢 Application name cannot be empty");
     }
   }
 }

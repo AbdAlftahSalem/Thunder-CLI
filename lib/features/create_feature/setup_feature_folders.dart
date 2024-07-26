@@ -2,8 +2,7 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFolders {
-  static void setupFeatureFolders(
-      {required String featureName, required bool withApiModel}) {
+  static void setupFeatureFolders({required String featureName}) {
     // create feature folder
     FolderAndFileService.createFolder(FolderPaths.instance.featureFolder);
     FolderAndFileService.createFolder(

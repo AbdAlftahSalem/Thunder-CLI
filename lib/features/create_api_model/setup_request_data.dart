@@ -14,7 +14,7 @@ class SetupRequestData {
       stdout.write("Enter your feature name to save .dart file in it : ");
       requestModel.featureName = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndShowMessage("😢 Model Name name cannot be empty !!");
+          .checkIfEmptyAndNullAndShowMessage("😢 Model Name name cannot be empty !!");
     }
 
     while (requestModel.modelName.isEmpty) {
@@ -22,7 +22,7 @@ class SetupRequestData {
           "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");
       requestModel.modelName = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndShowMessage("😢 Model Name name cannot be empty !!");
+          .checkIfEmptyAndNullAndShowMessage("😢 Model Name name cannot be empty !!");
     }
 
     while (requestModel.requestType == null) {
@@ -35,7 +35,7 @@ class SetupRequestData {
       stdout.write("Enter your full url : ");
       requestModel.url = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndShowMessage(" Url cannot be empty !!");
+          .checkIfEmptyAndNullAndShowMessage(" Url cannot be empty !!");
     }
 
     stdout.write("Enter your request body : ");

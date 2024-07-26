@@ -6,7 +6,7 @@ import 'build_model_file.dart';
 
 class CreateApiModel {
   Future<void> createApiModel() async {
-    // set up model file
+    /// set up model file
     RequestModel requestModel = SetupRequestData.setupRequestData();
 
     DioHandler.safeApiCall(
@@ -19,7 +19,7 @@ class CreateApiModel {
         if (res.data is Map || res.data is List) {
           BuildModelFile.buildModelFile(
             requestModel: requestModel,
-            data: res.data,
+            response: res.data,
           );
         } else {
           print("Thunder can convert only Map or List !!");

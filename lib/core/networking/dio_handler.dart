@@ -17,9 +17,6 @@ class DioHandler {
     ),
   );
 
-  /// dio getter (used for testing)
-  static get dio => _dio;
-
   /// perform safe api request
   static safeApiCall(
     String url,

@@ -29,7 +29,6 @@ class FolderPaths {
 
   String repoFolder(String name) => "lib/feature/$name/data/repo";
 
-  // lib/features/home/data/repo/home_repo.dart
   String repoFile(String name) =>
       'lib/feature/$name/data/repo/${name.toLowerCase()}_repo.dart';
 
@@ -39,7 +38,6 @@ class FolderPaths {
   String viewFile(String name) =>
       'lib/feature/$name/ui/${name.toLowerCase()}_view.dart';
 
-  // models files
   String modelFile(String modelName, String featureName) =>
       'lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
 }
