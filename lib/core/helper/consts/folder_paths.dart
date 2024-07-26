@@ -41,5 +41,5 @@ class FolderPaths {
 
   // models files
   String modelFile(String modelName, String featureName) =>
-      'lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}model.data';
+      'lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
 }

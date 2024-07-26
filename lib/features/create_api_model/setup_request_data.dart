@@ -26,7 +26,7 @@ class SetupRequestData {
     }
 
     while (requestModel.requestType == null) {
-      stdout.write("Enter type of request [ get / post ] : ");
+      stdout.write("Enter type of request [ get / post / put / delete ] : ");
       requestModel.requestType = _getRequestType(stdin.readLineSync() ?? "");
       print("✅ Request type is : ${requestModel.requestType}");
     }
@@ -59,12 +59,18 @@ class SetupRequestData {
   static RequestType _getRequestType(String type) {
     type = type.toLowerCase();
 
-    if (type == "get") {
-      return RequestType.get;
-    } else if (type == "post") {
-      return RequestType.post;
-    } else {
-      return RequestType.get;
+    switch (type) {
+      case 'get':
+        return RequestType.get;
+      case 'post':
+        return RequestType.post;
+      case 'put':
+        return RequestType.put;
+      case 'delete':
+        return RequestType.delete;
     }
+    print(
+        "❌ $type is not in [ get / post / put / delete ] . \nThe default type is Get");
+    return RequestType.get;
   }
 }

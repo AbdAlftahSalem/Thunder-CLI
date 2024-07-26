@@ -21,7 +21,7 @@ class SetupHelperMethods {
     required Map<dynamic, dynamic> data,
   }) {
     content +=
-        "\n\n  ${name.toCamelCaseFirstLetterForEachWord()}Model.fromJson(Map<String, dynamic> json) {\n   ${name.toCamelCaseFirstLetterForEachWord()}Model(\n";
+        "\n\n  factory ${name.toCamelCaseFirstLetterForEachWord()}Model.fromJson(Map<String, dynamic> json) {\n   return ${name.toCamelCaseFirstLetterForEachWord()}Model(\n";
     data.forEach((key, value) {
       content +=
           "    ${key.toString().toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}: ${value is Map ? "${key.toString().toCamelCaseFirstLetterForEachWord()}Model.fromJson(json['$key'])," : "json['$key'],"}\n";
