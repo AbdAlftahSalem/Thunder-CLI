@@ -53,7 +53,7 @@ import '../../features/${nameFolder.toLowerCase()}/ui/${nameFolder.toLowerCase()
     } else {
       return '''
     ${imports.join('\n')}
-import '../modules/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
+import '../../features/${nameFolder.toLowerCase()}/${nameFolder.toLowerCase()}_view.dart';
 import 'routes.dart';
 
 ''';
