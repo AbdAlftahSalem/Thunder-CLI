@@ -25,7 +25,7 @@ import '../../../../helper/constants/api_constants.dart';
 class ${controllerName}Repo {
   DioHelper dioHelper;
 
-  HomeNewRepo(this.dioHelper);
+  ${controllerName}Repo(this.dioHelper);
 
   Future<ApiResult> get${controllerName}Data() async {
     ApiResult apiResult = ApiResult();

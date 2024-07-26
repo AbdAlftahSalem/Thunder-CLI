@@ -12,8 +12,7 @@ class SetupFeatureFiles {
       // create controller file
       FolderAndFileService.createFile(
         FolderPaths.instance.controllerFile(className),
-        ConstStrings.instance
-            .controllerGetX(className),
+        ConstStrings.instance.controllerGetX(className),
       );
 
       // create view file
@@ -51,15 +50,21 @@ class SetupFeatureFiles {
         .toList();
 
     importData
-        .add("import '/app/features/$className/${className}_controller.dart';");
+        .add("import '../../features/$className/logic/${className}_controller.dart';");
+    // import '../../features/home_new/data/repo/home_new_repo.dart';
+    importData
+        .add("import '../../features/$className/data/repo/${className}_repo.dart';");
 
     if (bindingData.isEmpty) {
       bindingData.add("Get.lazyPut(() => DioHelper());");
       bindingData.add("Get.lazyPut(() => HomeRepo(Get.find<DioHelper>()));");
+      importData.add("import 'package:get/get.dart';");
+      importData.add("import '../../features/home/data/repo/home_repo.dart';");
+      importData.add("import '../networking/base_client.dart';");
     }
 
     bindingData.add(
-        "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo>()));");
+        "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord()}Repo>()));");
 
     String newBindingFile = """
 ${importData.join("\n")}
