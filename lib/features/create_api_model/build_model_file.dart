@@ -7,11 +7,11 @@ import '../../core/helper/services/folder_and_file_service/folder_and_file_servi
 
 class BuildModelFile {
   /// create model file using [requestModel] and [response]
-  static void buildModelFile({
+  static Future<void> buildModelFile({
     required RequestModel requestModel,
     required dynamic response,
-  }) {
-    FolderAndFileService.createFile(
+  }) async{
+    await FolderAndFileService.createFile(
       FolderPaths.instance
           .modelFile(requestModel.modelName, requestModel.featureName),
       _convertMapToClassModel(

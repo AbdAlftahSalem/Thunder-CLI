@@ -18,14 +18,15 @@ class CreateFeatureFiles {
     }
   }
 
-  _generateFiles(String featureName) {
+  _generateFiles(String featureName) async {
+    print("\n******************** $featureName ********************\n");
     // set up modules folder
-    SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
+    await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
 
-    SetupFeatureFiles.setupFeatureFiles(featureName);
+    await SetupFeatureFiles.setupFeatureFiles(featureName);
 
-    RouteFeature.setRoutes(featureName);
+    await RouteFeature.setRoutes(featureName);
 
-    print("⚡ Create feature files successfully\n\n");
+    print("\n⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ Create $featureName Files Successfully ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡\n\n");
   }
 }

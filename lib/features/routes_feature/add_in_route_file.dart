@@ -5,7 +5,7 @@ import '../../core/helper/services/folder_and_file_service/folder_and_file_servi
 
 class AddInRouteFile {
   /// Add feature route in Route file
-  static void addInRouteFile(String featureName) async {
+  static Future<void> addInRouteFile(String featureName) async {
     // reading routes file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.routesFile);

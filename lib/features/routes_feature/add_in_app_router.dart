@@ -6,7 +6,7 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInAppRouter {
-  void addRouteInAppRoute(String featureName) async {
+  Future<void> addRouteInAppRoute(String featureName) async {
     // reading app_routes.dart file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.appRoutesFile);

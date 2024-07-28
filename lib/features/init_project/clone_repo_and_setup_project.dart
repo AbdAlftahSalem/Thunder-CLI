@@ -50,7 +50,7 @@ class CloneRepoAndSetupProject {
 
   static Future<bool> _setupClonedProject(AppDataModel appInfo) async {
     if (await _navigateToClonedDirectory(appInfo.appName)) {
-      FolderAndFileService.createFile(
+      await FolderAndFileService.createFile(
           FolderPaths.instance.jsonFile, appInfo.toJson());
       await _runFlutterPubGet();
       await _changePackageName(appInfo.packageName);

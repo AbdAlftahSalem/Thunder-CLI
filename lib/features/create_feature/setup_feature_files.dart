@@ -7,22 +7,22 @@ import '../../core/helper/consts/folder_paths.dart';
 import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFiles {
-  static void setupFeatureFiles(String featureName) {
+  static Future<void> setupFeatureFiles(String featureName) async {
     try {
       // create controller file
-      FolderAndFileService.createFile(
+      await FolderAndFileService.createFile(
         FolderPaths.instance.controllerFile(featureName),
         ConstStrings.instance.controllerGetX(featureName),
       );
 
       // create view file
-      FolderAndFileService.createFile(
+      await FolderAndFileService.createFile(
         FolderPaths.instance.viewFile(featureName),
         ConstStrings.instance.viewGetX(featureName),
       );
 
       // create repo file
-      FolderAndFileService.createFile(
+      await FolderAndFileService.createFile(
         FolderPaths.instance.repoFile(featureName),
         ConstStrings.instance.repo(featureName),
       );
