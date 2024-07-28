@@ -34,7 +34,6 @@ class SetupFeatureFiles {
   }
 
   static void bindings(String className) async {
-    // TODO TODO TODO TODO : Update imports here ....
     // reading bindings.dart file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.bindingsFile);
@@ -58,16 +57,16 @@ class SetupFeatureFiles {
     if (bindingData.isEmpty) {
       // main binding in file
       bindingData.add("Get.lazyPut(() => DioHelper());");
-      bindingData.add("Get.lazyPut(() => HomeRepo(Get.find<DioHelper>()));");
 
       // main Imports in file
       importData.add("import 'package:get/get.dart';");
-      importData.add("import '../../features/home/data/repo/home_repo.dart';");
       importData.add("import '../networking/base_client.dart';");
     }
-
+    bindingData.add(
+        "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Repo(Get.find<DioHelper>()));");
     bindingData.add(
         "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord()}Repo>()));");
+
 
     String newBindingFile = """
 ${importData.join("\n")}

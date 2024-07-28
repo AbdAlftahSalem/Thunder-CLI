@@ -10,7 +10,7 @@ class BuildModelFile {
   static Future<void> buildModelFile({
     required RequestModel requestModel,
     required dynamic response,
-  }) async{
+  }) async {
     await FolderAndFileService.createFile(
       FolderPaths.instance
           .modelFile(requestModel.modelName, requestModel.featureName),
@@ -60,7 +60,6 @@ class BuildModelFile {
       data: response,
     );
 
-    // ❌ ❌ TODO : This maybe not working ❌ ❌
     // Recursive for each element has value map []
     for (var element in mapKeys) {
       element.forEach((key, value) {

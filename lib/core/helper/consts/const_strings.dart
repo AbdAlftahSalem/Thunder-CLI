@@ -63,9 +63,9 @@ import '../../../core/networking/api_result.dart';
 import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
 class $controllerClassName extends GetxController {
-  $repoClassName $repoClassName;
+  $repoClassName ${repoClassName.lowerCaseFirstLetter()};
   
-  $controllerClassName({required this.$repoClassName});
+  $controllerClassName({required this.${repoClassName.lowerCaseFirstLetter()}});
   
   late ApiResult apiResult;
 
@@ -73,7 +73,7 @@ class $controllerClassName extends GetxController {
   getData() async {
     apiResult.apiCallStatus = ApiCallStatus.loading;
     update();
-    apiResult = await $repoClassName.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
+    apiResult = await ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
     apiResult.handelRequest(success: (apiResul){}, error: (apiResul){});
     update();
   }

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'folder_and_file_service.dart';
 
 class CreatePathIfNotFound {
-  // TODO : we want to refactor this code
   /// When read or write in files . file must found . this method to create file or folder if not found
   static createIt(String filePath, {bool createFile = false}) async {
     List<String> preFolders = filePath.split("/");
