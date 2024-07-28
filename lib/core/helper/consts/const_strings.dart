@@ -49,7 +49,11 @@ class ${controllerName}Repo {
 
   /// Build base controller using GetX with main method to get data from API
   String controllerGetX(String controllerName) {
-    // TODO TODO TODO  : UPDATE THIS CODE ...
+    String controllerClassName =
+        '${controllerName.toCamelCaseFirstLetterForEachWord()}Controller';
+    String repoClassName =
+        '${controllerName.toCamelCaseFirstLetterForEachWord()}Repo';
+
     return '''
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -58,10 +62,10 @@ import '../../../core/networking/api_call_status.dart';
 import '../../../core/networking/api_result.dart';
 import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
-class ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller extends GetxController {
-  ${controllerName.toCamelCaseFirstLetterForEachWord()}Repo ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo;
+class $controllerClassName extends GetxController {
+  $repoClassName $repoClassName;
   
-  ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller({required this.${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo});
+  $controllerClassName({required this.$repoClassName});
   
   late ApiResult apiResult;
 
@@ -69,7 +73,7 @@ class ${controllerName.toCamelCaseFirstLetterForEachWord()}Controller extends Ge
   getData() async {
     apiResult.apiCallStatus = ApiCallStatus.loading;
     update();
-    apiResult = await ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
+    apiResult = await $repoClassName.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
     apiResult.handelRequest(success: (apiResul){}, error: (apiResul){});
     update();
   }
