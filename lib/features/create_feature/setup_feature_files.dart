@@ -67,7 +67,6 @@ class SetupFeatureFiles {
     bindingData.add(
         "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord()}Repo>()));");
 
-
     String newBindingFile = """
 ${importData.join("\n")}
 
