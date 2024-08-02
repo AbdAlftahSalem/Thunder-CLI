@@ -1,6 +1,9 @@
+<img src="assets/images/logo.png" width="300"/>
+
 # Flutter GetX MVC Project
 
-This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
+This project is a Flutter application scaffolded with GetX ( BloC working in it ... ) and follows the MVC (
+Model-View-Controller) architecture.
 
 ## How to Use Thunder CLI
 
@@ -22,29 +25,31 @@ dart pub global activate thunder_cli
 To create and initialize a new Flutter project [ Folders and packages ] with Thunder CLI, use the following command:
 
 ```shell
-thunder --i
+thunder --init
 ```
 
 This command will set up the following components for your project:
 
+- Main File
+- Components for Application (e.g., animated widgets, snackbar)
+- Themes (Dark and Light)
+- Constants (e.g., colors, strings)
+- Routes and App Pages
 - Local storage
 - Remote storage
 - Awesome Notification
 - FCM
 - Dio Base Client
-- Themes (Dark and Light)
-- Main File
-- Routes and App Pages
-- Components for Application (e.g., animated widgets, snackbar)
-- Constants (e.g., colors, strings)
 - Translations (e.g., localization service, strings)
 - Publish app to GitHub
 - Open the folder in VS code
+- Setup GitHub action
+- Setup flavor
 
-To create a new module, use the following command:
+To create a new Feature , use the following command:
 
 ```shell
-thunder --m
+thunder --feature
 ```
 
 This command will set up the following components for your module:
@@ -57,28 +62,13 @@ This command will set up the following components for your module:
 To create a new model via url (e.g., https://jsonplaceholder.typicode.com/posts), use the following command:
 
 ```shell
-thunder --mo
+thunder --model
 ```
 
 This command will set up the following components for your model:
 
 - Model
-- FromJson
-- ToJson
-
-To create module with model, use the following command:
-
-```shell
-thunder --mm
-```
-
-This command will set up the following components for your module:
-
-- Binding
-- Controller
-- View
-- Add view in routes and app pages
-- Model
+- Named constructor
 - FromJson
 - ToJson
 
@@ -90,63 +80,10 @@ thunder --h
 
 ## Project Structure
 
-The project structure is organized as follows:
+The project structure URL :
 
 ```
-lib
-│
-├── app
-│   ├── components
-│   │   ├── animated_widget
-│   │   ├── api_error_widget
-│   │   └── custom_snackbar
-│   │
-│   ├── data
-│   │   ├── local
-│   │   │   ├── hive
-│   │   │   └── my_shared_pref
-│   │   ├── models
-│   │   └── remote
-│   │       ├── api_call_status
-│   │       ├── api_exceptions
-│   │       ├── base_client
-│   │    
-│   ├── modules
-│   │   ├── login
-│   │   │   ├── binding
-│   │   │   │   └── login_binding
-│   │   │   ├── controller
-│   │   │   │   └── login_controller
-│   │   │   └── view
-│   │   │       └── login_view
-│   │   └── ...
-│   │
-│   ├── ...
-│   │
-│   └── main
-│
-├── config
-│   ├── theme
-│   │   ├── dark_theme_colors
-│   │   ├── light_theme_colors
-│   │   ├── my_fonts
-│   │   ├── my_style
-│   │   └── my_theme
-│   │
-│   └── translations
-│       ├── ar_Ar_translation
-│       ├── ar_En_translation
-│       ├── localization_service
-│       └── strings
-│
-├── utils
-│   ├── awesome_notification_helper
-│   ├── constants
-│   └── fcm_helper
-│
-└── main
-
-
+https://github.com/abdAlftahSalem/flutter_getx_template.git
 ```
 
 [Thunder CLI on pub.dev](https://pub.dev/packages/thunder_cli)
