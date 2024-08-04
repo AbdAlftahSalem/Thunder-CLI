@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
 import '../../core/models/request_model.dart';
 import '../../core/networking/dio_handler.dart';
@@ -14,7 +13,8 @@ class SetupRequestData {
       stdout.write("Enter your feature name to save .dart file in it : ");
       requestModel.featureName = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndNullAndShowMessage("😢 Model Name name cannot be empty !!");
+          .checkIfEmptyAndNullAndShowMessage(
+              "😢 Model Name name cannot be empty !!");
     }
 
     while (requestModel.modelName.isEmpty) {
@@ -22,7 +22,8 @@ class SetupRequestData {
           "Enter your model name [ user / product [ thunder will add 'model' keyword by default ] ] : ");
       requestModel.modelName = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndNullAndShowMessage("😢 Model Name name cannot be empty !!");
+          .checkIfEmptyAndNullAndShowMessage(
+              "😢 Model Name name cannot be empty !!");
     }
 
     while (requestModel.requestType == null) {

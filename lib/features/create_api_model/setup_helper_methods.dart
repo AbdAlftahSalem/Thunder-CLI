@@ -1,4 +1,4 @@
-import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
 class SetupHelperMethods {
   static String setupToJson({

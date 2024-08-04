@@ -1,9 +1,9 @@
-import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/core/models/request_model.dart';
 import 'package:thunder_cli/features/create_api_model/setup_helper_methods.dart';
 
-import '../../core/helper/consts/folder_paths.dart';
-import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/consts/folder_paths.dart';
+import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class BuildModelFile {
   /// create model file using [requestModel] and [response]

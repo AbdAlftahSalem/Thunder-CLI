@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import '../../core/helper/consts/folder_paths.dart';
-import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/consts/folder_paths.dart';
+import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInRouteFile {
   /// Add feature route in Route file
   static Future<void> addInRouteFile(String featureName) async {
-    // reading routes file
+    // reading routes file+
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.routesFile);
 

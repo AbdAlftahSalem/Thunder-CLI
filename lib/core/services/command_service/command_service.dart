@@ -1,5 +1,5 @@
 import 'package:args/args.dart';
-import 'package:thunder_cli/core/helper/services/command_service/get_command.dart';
+import 'package:thunder_cli/core/services/command_service/get_command.dart';
 
 class CommandServices {
   /// SetUp Commands to using ThunderCLI

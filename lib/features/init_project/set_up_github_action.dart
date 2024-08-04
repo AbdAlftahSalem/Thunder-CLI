@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../../core/helper/consts/const_strings.dart';
-import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/consts/const_strings.dart';
+import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetUpGithubAction {
   static Future<void> setUpGithubAction() async {

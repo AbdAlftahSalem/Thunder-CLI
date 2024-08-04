@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/init_project/set_up_github_action.dart';
 import 'package:thunder_cli/features/init_project/setup_flavor.dart';
 
@@ -60,23 +60,24 @@ class GetProjectData {
     while (appDataModel.packageName.isEmpty ||
         (appDataModel.packageName.split(".").length == 1)) {
       stdout.write('😎 Enter your package name: ');
-      appDataModel.packageName =
-          (stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ??
-                  "")
-              .checkIfEmptyAndNullAndShowMessage("😢 Package name cannot be empty");
+      appDataModel.packageName = (stdin
+                  .readLineSync()
+                  ?.trim()
+                  .replaceAll(" ", "_")
+                  .toLowerCase() ??
+              "")
+          .checkIfEmptyAndNullAndShowMessage("😢 Package name cannot be empty");
     }
   }
 
   static void setupAppName(AppDataModel appDataModel) {
     while (appDataModel.appName.isEmpty) {
       stdout.write('😎 Enter your application name: ');
-      appDataModel.appName = (stdin
-                  .readLineSync()
-                  ?.trim()
-                  .replaceAll(" ", "_")
-                  .toLowerCase() ??
-              "")
-          .checkIfEmptyAndNullAndShowMessage("😢 Application name cannot be empty");
+      appDataModel.appName =
+          (stdin.readLineSync()?.trim().replaceAll(" ", "_").toLowerCase() ??
+                  "")
+              .checkIfEmptyAndNullAndShowMessage(
+                  "😢 Application name cannot be empty");
     }
   }
 }

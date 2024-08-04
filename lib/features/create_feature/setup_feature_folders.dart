@@ -1,5 +1,6 @@
-import '../../core/helper/consts/folder_paths.dart';
-import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
+
+import '../../core/consts/folder_paths.dart';
+import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFolders {
   static Future<void> setupFeatureFolders({required String featureName}) async {

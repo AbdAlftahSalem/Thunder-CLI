@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:thunder_cli/core/helper/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/init_project/publish_project_to_github.dart';
 
-import '../../core/helper/consts/folder_paths.dart';
-import '../../core/helper/services/cmd_service/run_in_cmd.dart';
-import '../../core/helper/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/consts/folder_paths.dart';
 import '../../core/models/app_data_model.dart';
+import '../../core/services/cmd_service/run_in_cmd.dart';
+import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 import 'open_project_in_vs_code.dart';
 
 class CloneRepoAndSetupProject {
@@ -17,7 +17,7 @@ class CloneRepoAndSetupProject {
 
     final ProcessResult processResult =
         await CloneRepoAndSetupProject._cloneRepo(
-      repoUrl: appInfo.stateManagement.toString().getRepoUrl(),
+      repoUrl: appInfo.stateManagement.getRepoUrl(),
       dirName: dirName,
     );
 
