@@ -1,3 +1,6 @@
-## 2.2.7
+## 2.2.8
 
-- Add const keyword in AppPages
+- Update structure folders
+- Add Repo folders for every features 
+- Update handle API response 
+- Add Github action
