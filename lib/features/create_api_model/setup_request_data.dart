@@ -28,7 +28,7 @@ class SetupRequestData {
 
     while (requestModel.requestType == null) {
       stdout.write("Enter type of request [ get / post / put / delete ] : ");
-      requestModel.requestType = _getRequestType(stdin.readLineSync() ?? "");
+      requestModel.requestType = getRequestType(stdin.readLineSync() ?? "");
       print("✅ Request type is : ${requestModel.requestType}");
     }
 
@@ -57,7 +57,7 @@ class SetupRequestData {
     return requestModel;
   }
 
-  static RequestType _getRequestType(String type) {
+  static RequestType getRequestType(String type) {
     type = type.toLowerCase();
 
     switch (type) {
