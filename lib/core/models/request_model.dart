@@ -38,4 +38,9 @@ class RequestModel {
       featureName: map['featureName'],
     );
   }
+
+  @override
+  String toString() {
+    return 'RequestModel{modelName: $modelName, featureName: $featureName, url: $url, requestType: $requestType, body: $body, headers: $headers, params: $params}';
+  }
 }
