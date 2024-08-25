@@ -9,9 +9,11 @@ import '../create_api_model/setup_request_data.dart';
 class ConvertApiCollectionToCode {
   static void convertApiCollectionToCode() async {
     Map<String, dynamic> collectionData =
-    await ReadFilePathAndData.readFilePathAndData();
+        await ReadFilePathAndData.readFilePathAndData();
     List<VariableModel> variablesModel =
-    _getVariables(collectionData['variable']);
+        _getVariables(collectionData['variable']);
+    VariableModel baseUrl = variablesModel.firstWhere(
+        (element) => element.toString().toLowerCase().contains("url"));
 
     for (var folderCollection in collectionData['item']) {
       for (var requestInFolder in folderCollection['item']) {
@@ -19,26 +21,36 @@ class ConvertApiCollectionToCode {
         RequestType requestType = SetupRequestData.getRequestType(
             requestInFolder['request']['method']);
         Map<String, dynamic> headers =
-        getHeaders(requestInFolder['request']['header']);
-        Map<String, dynamic> body = {};
-        if ((requestInFolder['request']['body']['raw'])
+            getHeaders(requestInFolder['request']['header']);
+        Map<String, dynamic> body = getBody(requestInFolder);
+        String url = (requestInFolder['request']['url']['raw'])
             .toString()
-            .isNotEmpty &&
-            (requestInFolder['request']['body'] as Map<String, dynamic>)
-                .containsKey("raw")) {
-          body = jsonDecode(requestInFolder['request']['body']['raw']);
-        } else if ((requestInFolder['request']['body'] as Map<String, dynamic>)
-            .containsKey("formdata")) {
-          for (var i in requestInFolder['request']['body']['formdata']) {
-            body.addAll(
-                {i['key']: i['type'] == "file" ? i['src'] : i['value']});
-          }
-        }
+            .replaceAll(baseUrl.key, baseUrl.value)
+            .replaceAll("{", "")
+            .replaceAll("}", "")
+            .replaceAll("//", "/");
+
         print(requestName);
+        print(url);
         print(body);
         print("${"*" * 100}\n");
       }
     }
+  }
+
+  static Map<String, dynamic> getBody(requestInFolder) {
+    Map<String, dynamic> body = {};
+    if ((requestInFolder['request']['body']['raw']).toString().isNotEmpty &&
+        (requestInFolder['request']['body'] as Map<String, dynamic>)
+            .containsKey("raw")) {
+      body = jsonDecode(requestInFolder['request']['body']['raw']);
+    } else if ((requestInFolder['request']['body'] as Map<String, dynamic>)
+        .containsKey("formdata")) {
+      for (var i in requestInFolder['request']['body']['formdata']) {
+        body.addAll({i['key']: i['type'] == "file" ? i['src'] : i['value']});
+      }
+    }
+    return body;
   }
 
   static List<VariableModel> _getVariables(List vars) {
