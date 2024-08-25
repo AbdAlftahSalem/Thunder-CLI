@@ -30,17 +30,23 @@ class FolderAndFileService {
   }
 
   /// read file content by specific [filePath]
-  static Future readFile(String filePath) async {
+  static Future<String> readFile(String filePath,
+      {bool createFileIfNotFound = true}) async {
     try {
       // reading bindings.dart file
       final file = File(filePath);
 
       return file.readAsStringSync();
     } on PathNotFoundException catch (e) {
-      await CreatePathIfNotFound.createIt(filePath, createFile: true);
-      // reading bindings.dart file
-      final file = File(filePath);
-      return file.readAsStringSync();
+      if (createFileIfNotFound) {
+        await CreatePathIfNotFound.createIt(filePath, createFile: true);
+        // reading bindings.dart file
+        final file = File(filePath);
+        return file.readAsStringSync();
+      } else {
+        print("😢 Collection path is wrong ...\n");
+        return "";
+      }
     }
   }
 }
