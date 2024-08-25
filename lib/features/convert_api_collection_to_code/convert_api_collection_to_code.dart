@@ -1,25 +1,22 @@
-import 'dart:io';
+import 'package:thunder_cli/features/convert_api_collection_to_code/read_file_path_and_data.dart';
 
-import 'package:thunder_cli/core/extensions/string_extensions.dart';
-
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/models/variable_model.dart';
 
 class ConvertApiCollectionToCode {
   static void convertApiCollectionToCode() async {
-    String collectionPath = "";
-    while (collectionPath.isEmpty) {
-      stdout.write("Enter your path for collection : ");
-      collectionPath = (stdin.readLineSync() ?? "")
-          .trim()
-          .checkIfEmptyAndNullAndShowMessage(
-              "😢 Collection path cannot be empty !!");
-      String fileData = await FolderAndFileService.readFile(
-        collectionPath,
-        createFileIfNotFound: false,
-      );
-      if (fileData.isEmpty) {
-        collectionPath = "";
-      }
+    Map<String, dynamic> collectionData =
+        await ReadFilePathAndData.readFilePathAndData();
+    List<VariableModel> variablesModel =
+        _getVariables(collectionData['variable']);
+    print(variablesModel);
+  }
+
+  static List<VariableModel> _getVariables(List vars) {
+    List<VariableModel> variablesModel = [];
+    for (var i in vars) {
+      variablesModel.add(VariableModel.fromMap(i));
     }
+
+    return variablesModel;
   }
 }
