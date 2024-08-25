@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:thunder_cli/core/networking/dio_handler.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/read_file_path_and_data.dart';
 
@@ -12,13 +14,20 @@ class ConvertApiCollectionToCode {
         _getVariables(collectionData['variable']);
 
     for (var folderCollection in collectionData['item']) {
-      for (var requestInFolder in folderCollection['item']){
+      for (var requestInFolder in folderCollection['item']) {
         String requestName = requestInFolder['name'];
-        RequestType requestType = SetupRequestData.getRequestType(requestInFolder['request']['method']);
-        Map<String , dynamic> headers = getHeaders(requestInFolder['request']['header']);
+        RequestType requestType = SetupRequestData.getRequestType(
+            requestInFolder['request']['method']);
+        Map<String, dynamic> headers =
+            getHeaders(requestInFolder['request']['header']);
+        Map<String, dynamic> body = {};
+        if ((requestInFolder['request']['body']['raw']).toString().isNotEmpty &&
+            (requestInFolder['request']['body'] as Map<String, dynamic>)
+                .containsKey("raw")) {
+          body = jsonDecode(requestInFolder['request']['body']['raw']);
+        }
         print(requestName);
-        print(headers);
-        print("*" * 25);
+        print(body);
       }
     }
   }
@@ -32,12 +41,11 @@ class ConvertApiCollectionToCode {
     return variablesModel;
   }
 
-  static Map<String , dynamic> getHeaders(List headersList){
-    Map<String , dynamic> headers = {};
-    for (var i in headersList){
-      headers.addAll({i['key'] : i["value"]});
+  static Map<String, dynamic> getHeaders(List headersList) {
+    Map<String, dynamic> headers = {};
+    for (var i in headersList) {
+      headers.addAll({i['key']: i["value"]});
     }
     return headers;
   }
-
 }
