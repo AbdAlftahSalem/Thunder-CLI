@@ -8,54 +8,89 @@ import '../create_api_model/setup_request_data.dart';
 class ExtractRequestDetails {
   static List<RequestModel> extractRequestDetails(
       {required Map<String, dynamic> collectionData,
-        required List<VariableModel> variablesModel}) {
+      required List<VariableModel> variablesModel}) {
     List<RequestModel> requests = [];
     VariableModel baseUrl = variablesModel.firstWhere(
         (element) => element.toString().toLowerCase().contains("url"));
 
     for (var folderCollection in collectionData['item']) {
-      for (var requestInFolder in folderCollection['item']) {
-        String requestName = requestInFolder['name'];
-        RequestType requestType = SetupRequestData.getRequestType(
-            requestInFolder['request']['method']);
-        Map<String, dynamic> headers =
-            _getHeaders(requestInFolder['request']['header']);
-        Map<String, dynamic> body = _getBody(requestInFolder);
-        String url = (requestInFolder['request']['url']['raw'])
-            .toString()
-            .replaceAll(baseUrl.key, baseUrl.value)
-            .replaceAll("{", "")
-            .replaceAll("}", "")
-            .replaceAll("//", "/");
-
-        RequestModel requestModel = RequestModel(
-          body: body,
-          headers: headers,
-          url: url,
-          requestType: requestType,
-          params: {},
-          modelName: requestName.toString().toLowerCase(),
-          featureName: requestName
-              .toString()
-              .toLowerCase()
-              .replaceAll(" ", "_"),
-        );
+      if (folderCollection is Map) {
+        print(folderCollection);
+        RequestModel requestModel =
+            getDetailOfRequest(folderCollection, baseUrl);
         requests.add(requestModel);
+      } else {
+        for (var requestInFolder in folderCollection['item']) {
+          RequestModel requestModel =
+              getDetailOfRequest(requestInFolder, baseUrl);
+          requests.add(requestModel);
+        }
       }
     }
     return requests;
   }
 
-  static Map<String, dynamic> _getBody(requestInFolder) {
+  static RequestModel getDetailOfRequest(
+      requestInFolder, VariableModel baseUrl) {
+    String requestName = requestInFolder['name'];
+
+    // get request type
+    RequestType requestType =
+        SetupRequestData.getRequestType(requestInFolder['request']['method']);
+
+    // get header
+    Map<String, dynamic> headers =
+        _getHeaders(requestInFolder['request']['header']);
+
+    // get body
+    Map<String, dynamic> body = _getBody(requestInFolder);
+
+    // get auth if found
+    Map<String, dynamic> auth = {};
+    if (requestInFolder['request'].containsKey("auth")) {
+      String authType = requestInFolder['request']['auth']['type'];
+      if (requestInFolder['request']['auth'].containsKey(authType)) {
+        if ((requestInFolder['request']['auth'][authType] as List).isNotEmpty) {
+          String token =
+              requestInFolder['request']['auth'][authType][0]['value'];
+          headers.addAll({"Authorization": "$authType $token"});
+        }
+      }
+    }
+
+    // get url
+    String url = (requestInFolder['request']['url']['raw'])
+        .toString()
+        .replaceAll(baseUrl.key, baseUrl.value)
+        .replaceAll("{", "")
+        .replaceAll("}", "")
+        .replaceAll("//", "/");
+
+    // setup final request
+    RequestModel requestModel = RequestModel(
+      body: body,
+      headers: headers,
+      url: url,
+      requestType: requestType,
+      params: {},
+      modelName: requestName.toString().toLowerCase(),
+      featureName: requestName.toString().toLowerCase().replaceAll(" ", "_"),
+    );
+    return requestModel;
+  }
+
+  static Map<String, dynamic> _getBody(Map<String, dynamic> requestInFolder) {
     Map<String, dynamic> body = {};
-    if ((requestInFolder['request']['body']['raw']).toString().isNotEmpty &&
-        (requestInFolder['request']['body'] as Map<String, dynamic>)
-            .containsKey("raw")) {
-      body = jsonDecode(requestInFolder['request']['body']['raw']);
-    } else if ((requestInFolder['request']['body'] as Map<String, dynamic>)
-        .containsKey("formdata")) {
-      for (var i in requestInFolder['request']['body']['formdata']) {
-        body.addAll({i['key']: i['type'] == "file" ? i['src'] : i['value']});
+    if (requestInFolder['request'].containsKey("body")) {
+      if ((requestInFolder['request']['body']['raw']).toString().isNotEmpty &&
+          (requestInFolder['request']['body'] as Map<String, dynamic>)
+              .containsKey("raw")) {
+        body = jsonDecode(requestInFolder['request']['body']['raw']);
+      } else if ((requestInFolder['request']['body'] as Map<String, dynamic>)
+          .containsKey("formdata")) {
+        for (var i in requestInFolder['request']['body']['formdata']) {
+          body.addAll({i['key']: i['type'] == "file" ? i['src'] : i['value']});
+        }
       }
     }
     return body;

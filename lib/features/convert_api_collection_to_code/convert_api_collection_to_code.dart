@@ -6,10 +6,15 @@ import '../../core/models/variable_model.dart';
 
 class ConvertApiCollectionToCode {
   static void convertApiCollectionToCode() async {
+    // read collection data
     Map<String, dynamic> collectionData =
         await ReadFilePathAndData.readFilePathAndData();
+
+    // extract variables
     List<VariableModel> variablesModel =
         _getVariables(collectionData['variable']);
+
+    // get all requests
     List<RequestModel> request = ExtractRequestDetails.extractRequestDetails(
       collectionData: collectionData,
       variablesModel: variablesModel,
