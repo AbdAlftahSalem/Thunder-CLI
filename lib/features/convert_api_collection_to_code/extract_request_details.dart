@@ -12,12 +12,12 @@ class ExtractRequestDetails {
       {required Map<String, dynamic> collectionData,
       required List<VariableModel> variablesModel}) {
     List<RequestModel> requests = [];
+
     VariableModel baseUrl = variablesModel.firstWhere(
         (element) => element.toString().toLowerCase().contains("url"));
 
-    for (var folderCollection in collectionData['item']) {
-      if (folderCollection is Map) {
-        print(folderCollection);
+    for (Map folderCollection in collectionData['item']) {
+      if (!(folderCollection.containsKey("item"))) {
         RequestModel requestModel =
             getDetailOfRequest(folderCollection, baseUrl, variablesModel);
         requests.add(requestModel);
