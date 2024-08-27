@@ -73,10 +73,9 @@ class ExtractRequestDetails {
     // get url
     String url = (requestInFolder['request']['url']['raw'])
         .toString()
-        .replaceAll(baseUrl.key, baseUrl.value)
+        .replaceAll(baseUrl.key, baseUrl.value.updateSlashInUrl())
         .replaceAll("{", "")
-        .replaceAll("}", "")
-        .replaceAll("//", "/");
+        .replaceAll("}", "");
 
     // setup final request
     RequestModel requestModel = RequestModel(

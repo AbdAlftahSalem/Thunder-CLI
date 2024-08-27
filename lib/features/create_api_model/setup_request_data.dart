@@ -14,7 +14,7 @@ class SetupRequestData {
       requestModel.featureName = (stdin.readLineSync() ?? "")
           .trim()
           .checkIfEmptyAndNullAndShowMessage(
-              "😢 Model Name name cannot be empty !!");
+              "😢 Feature name cannot be empty !!");
     }
 
     while (requestModel.modelName.isEmpty) {

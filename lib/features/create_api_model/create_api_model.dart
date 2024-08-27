@@ -5,9 +5,14 @@ import '../../core/models/request_model.dart';
 import 'build_model_file.dart';
 
 class CreateApiModel {
-  Future<void> createApiModel() async {
+  Future<void> createApiModel({RequestModel? requestModelParameter}) async {
     /// set up model file
-    RequestModel requestModel = SetupRequestData.setupRequestData();
+    late RequestModel requestModel;
+    if (requestModelParameter == null) {
+      requestModel = SetupRequestData.setupRequestData();
+    } else {
+      requestModel = requestModelParameter;
+    }
 
     DioHandler.safeApiCall(
       requestModel.url,

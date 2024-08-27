@@ -40,6 +40,13 @@ extension StringConversion on String {
     }
     return nameList.join(" ");
   }
+
+  String updateSlashInUrl(){
+    if (!endsWith("/")){
+      return '$this/';
+    }
+    return this;
+  }
 }
 
 extension ValidateInputData on String? {
