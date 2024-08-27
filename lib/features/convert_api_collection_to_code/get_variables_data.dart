@@ -1,6 +1,6 @@
 import '../../core/models/variable_model.dart';
 
-class GetVariablesData{
+class GetVariablesData {
   static List<VariableModel> getVariables(List vars) {
     List<VariableModel> variablesCollection = [];
     for (var i in vars) {
@@ -10,7 +10,7 @@ class GetVariablesData{
       print(
           "✅ Finish Read ${variablesCollection.length} variables successfully ...\n");
       for (var element in variablesCollection) {
-        print("${element.key} : ${element.value}");
+        print("${element.key} : ${element.value}\n");
       }
     }
     return variablesCollection;

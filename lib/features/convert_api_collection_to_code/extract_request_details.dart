@@ -29,6 +29,15 @@ class ExtractRequestDetails {
         }
       }
     }
+    if (requests.isNotEmpty) {
+      print("✅ Finish Read ${requests.length} requests successfully ...");
+      for (int i = 0; i < requests.length; ++i) {
+        print("${i + 1 < 10 ? "0" : ""}${i + 1} - ${requests[i].modelName}");
+        print("   - ${requests[i].url}");
+        print(
+            "   - ${requests[i].requestType.toString().split(".")[1].toUpperCase()}\n");
+      }
+    }
     return requests;
   }
 
