@@ -1,3 +1,5 @@
+import 'package:thunder_cli/core/models/variable_model.dart';
+
 import '../consts/const_strings.dart';
 
 extension StringConversion on String {
@@ -21,6 +23,22 @@ extension StringConversion on String {
     if (toLowerCase() == "getx") return ConstStrings.instance.repoGetXUrl;
     if (toLowerCase() == "bloc") return ConstStrings.instance.repoBloCUrl;
     return ConstStrings.instance.repoGetXUrl;
+  }
+
+  /// extract variables [ API collection ]  form string
+  String convertVariableToValue(List<VariableModel> vars) {
+    List<String> nameList = split(" ");
+    for (String i in nameList) {
+      if (i.startsWith("{{") && i.endsWith("}}")) {
+        int index = nameList.indexWhere((element) => element.contains(i));
+        nameList[index] = vars
+            .firstWhere((element) =>
+                element.key.toLowerCase() ==
+                i.replaceAll("{{", "").replaceAll("}}", ""))
+            .value;
+      }
+    }
+    return nameList.join(" ");
   }
 }
 

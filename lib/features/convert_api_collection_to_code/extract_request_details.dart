@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
+
 import '../../core/models/request_model.dart';
 import '../../core/models/variable_model.dart';
 import '../../core/networking/dio_handler.dart';
@@ -17,12 +19,12 @@ class ExtractRequestDetails {
       if (folderCollection is Map) {
         print(folderCollection);
         RequestModel requestModel =
-            getDetailOfRequest(folderCollection, baseUrl);
+            getDetailOfRequest(folderCollection, baseUrl, variablesModel);
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
           RequestModel requestModel =
-              getDetailOfRequest(requestInFolder, baseUrl);
+              getDetailOfRequest(requestInFolder, baseUrl, variablesModel);
           requests.add(requestModel);
         }
       }
@@ -30,8 +32,8 @@ class ExtractRequestDetails {
     return requests;
   }
 
-  static RequestModel getDetailOfRequest(
-      requestInFolder, VariableModel baseUrl) {
+  static RequestModel getDetailOfRequest(requestInFolder, VariableModel baseUrl,
+      List<VariableModel> variablesModel) {
     String requestName = requestInFolder['name'];
 
     // get request type
@@ -40,19 +42,20 @@ class ExtractRequestDetails {
 
     // get header
     Map<String, dynamic> headers =
-        _getHeaders(requestInFolder['request']['header']);
+        _getHeaders(requestInFolder['request']['header'], variablesModel);
 
     // get body
-    Map<String, dynamic> body = _getBody(requestInFolder);
+    Map<String, dynamic> body = _getBody(requestInFolder, variablesModel);
 
     // get auth if found
-    Map<String, dynamic> auth = {};
     if (requestInFolder['request'].containsKey("auth")) {
       String authType = requestInFolder['request']['auth']['type'];
       if (requestInFolder['request']['auth'].containsKey(authType)) {
         if ((requestInFolder['request']['auth'][authType] as List).isNotEmpty) {
-          String token =
-              requestInFolder['request']['auth'][authType][0]['value'];
+          String token = requestInFolder['request']['auth'][authType][0]
+                  ['value']
+              .toString()
+              .convertVariableToValue(variablesModel);
           headers.addAll({"Authorization": "$authType $token"});
         }
       }
@@ -79,7 +82,8 @@ class ExtractRequestDetails {
     return requestModel;
   }
 
-  static Map<String, dynamic> _getBody(Map<String, dynamic> requestInFolder) {
+  static Map<String, dynamic> _getBody(Map<String, dynamic> requestInFolder,
+      List<VariableModel> variablesModel) {
     Map<String, dynamic> body = {};
     if (requestInFolder['request'].containsKey("body")) {
       if ((requestInFolder['request']['body']['raw']).toString().isNotEmpty &&
@@ -89,17 +93,24 @@ class ExtractRequestDetails {
       } else if ((requestInFolder['request']['body'] as Map<String, dynamic>)
           .containsKey("formdata")) {
         for (var i in requestInFolder['request']['body']['formdata']) {
-          body.addAll({i['key']: i['type'] == "file" ? i['src'] : i['value']});
+          body.addAll({
+            i['key']: i['type'] == "file"
+                ? i['src']
+                : i['value'].toString().convertVariableToValue(variablesModel)
+          });
         }
       }
     }
     return body;
   }
 
-  static Map<String, dynamic> _getHeaders(List headersList) {
+  static Map<String, dynamic> _getHeaders(
+      List headersList, List<VariableModel> variablesModel) {
     Map<String, dynamic> headers = {};
     for (var i in headersList) {
-      headers.addAll({i['key']: i["value"]});
+      headers.addAll({
+        i['key']: i["value"].toString().convertVariableToValue(variablesModel)
+      });
     }
     return headers;
   }
