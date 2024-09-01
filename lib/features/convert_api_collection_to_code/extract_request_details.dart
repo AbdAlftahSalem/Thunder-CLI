@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
@@ -12,7 +11,6 @@ class ExtractRequestDetails {
   static List<RequestModel> extractRequestDetails({
     required Map<String, dynamic> collectionData,
     required List<VariableModel> variablesModel,
-    required inputNames,
   }) {
     List<RequestModel> requests = [];
 
@@ -21,13 +19,13 @@ class ExtractRequestDetails {
 
     for (Map folderCollection in collectionData['item']) {
       if (!(folderCollection.containsKey("item"))) {
-        RequestModel requestModel = getDetailOfRequest(
-            folderCollection, baseUrl, variablesModel, inputNames);
+        RequestModel requestModel =
+            getDetailOfRequest(folderCollection, baseUrl, variablesModel);
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
-          RequestModel requestModel = getDetailOfRequest(
-              requestInFolder, baseUrl, variablesModel, inputNames);
+          RequestModel requestModel =
+              getDetailOfRequest(requestInFolder, baseUrl, variablesModel);
           requests.add(requestModel);
         }
       }
@@ -46,7 +44,7 @@ class ExtractRequestDetails {
   }
 
   static RequestModel getDetailOfRequest(requestInFolder, VariableModel baseUrl,
-      List<VariableModel> variablesModel, bool inputNames) {
+      List<VariableModel> variablesModel) {
     String modelName = "";
     String featureName = "";
 
@@ -84,17 +82,15 @@ class ExtractRequestDetails {
         .replaceAll("{", "")
         .replaceAll("}", "");
 
-    if (inputNames) {
-      print("\n\nURL : $url");
-      print("Current model and feature name : $requestName \n");
-      stdout.write("Enter new model name [ By default $requestName ] : ");
-      modelName = stdin.readLineSync() ?? requestName;
-      modelName = modelName.isEmpty ? requestName : modelName;
-
-      stdout.write("Enter new feature name [ By default $modelName ] : ");
-      featureName = stdin.readLineSync() ?? requestName;
-      featureName = featureName.isEmpty ? modelName : featureName;
-    }
+    // print("\n\\Route : $url");
+    // print("Current model and feature name : $requestName");
+    // stdout.write("Enter new model name [ By default $requestName ] : ");
+    // modelName = stdin.readLineSync() ?? requestName;
+    // modelName = modelName.isEmpty ? requestName : modelName;
+    //
+    // stdout.write("Enter new feature name [ By default $modelName ] : ");
+    // featureName = stdin.readLineSync() ?? requestName;
+    // featureName = featureName.isEmpty ? modelName : featureName;
 
     // setup final request
     RequestModel requestModel = RequestModel(
@@ -105,7 +101,8 @@ class ExtractRequestDetails {
       params: {},
       modelName: (modelName.isEmpty ? requestName : modelName)
           .toLowerCase()
-          .replaceAll(" ", "_"),
+          .replaceAll(" ", "_")
+          .replaceAll("-", "_"),
       featureName: (featureName.isEmpty ? requestName : featureName)
           .toLowerCase()
           .replaceAll(" ", "_"),

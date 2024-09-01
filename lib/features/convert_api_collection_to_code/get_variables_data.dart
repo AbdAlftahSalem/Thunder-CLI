@@ -8,7 +8,7 @@ class GetVariablesData {
     }
     if (variablesCollection.isNotEmpty) {
       print(
-          "✅ Finish Read ${variablesCollection.length} variables successfully ...");
+          "✅ Read ${variablesCollection.length} variables from collection ...");
       for (var element in variablesCollection) {
         print("${element.key} : ${element.value}\n");
       }

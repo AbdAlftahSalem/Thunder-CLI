@@ -16,6 +16,8 @@ class FolderPaths {
   String routesFile = 'lib/core/routing/routes.dart';
   String jsonFile = 'lib/thunder.json';
 
+  String apiConstRoutesFile = "lib/helper/constants/api_constants.dart";
+
   // feature files
   String folderInFeatures(String name) => 'lib/feature/$name';
 
