@@ -4,12 +4,17 @@ import 'create_path_if_not_found.dart';
 
 class FolderAndFileService {
   /// create file by specific path [filePath] and content [content]
-  static Future createFile(String filePath, dynamic content) async {
+  static Future createFile(String filePath, dynamic content,
+      {bool showMessageWhenCreate = true}) async {
     try {
       final file = File(filePath);
       file.writeAsStringSync(content);
-    } on PathNotFoundException catch (e) {
-      await CreatePathIfNotFound.createIt(filePath, createFile: true);
+    } on PathNotFoundException {
+      await CreatePathIfNotFound.createIt(
+        filePath,
+        createFile: true,
+        showMessageWhenCreate: showMessageWhenCreate,
+      );
 
       final file = File(filePath);
       file.writeAsStringSync(content);
@@ -24,7 +29,7 @@ class FolderAndFileService {
         directory.createSync(recursive: true);
         print('📂 Create $folderPath folder successfully 🎉 ...');
       }
-    } on PathNotFoundException catch (e) {
+    } on PathNotFoundException {
       await CreatePathIfNotFound.createIt(folderPath);
     }
   }
@@ -37,7 +42,7 @@ class FolderAndFileService {
       final file = File(filePath);
 
       return file.readAsStringSync();
-    } on PathNotFoundException catch (e) {
+    } on PathNotFoundException {
       if (createFileIfNotFound) {
         await CreatePathIfNotFound.createIt(filePath, createFile: true);
         // reading bindings.dart file

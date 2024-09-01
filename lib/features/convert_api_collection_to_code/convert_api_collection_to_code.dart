@@ -5,6 +5,7 @@ import 'package:thunder_cli/features/convert_api_collection_to_code/read_file_pa
 import 'package:thunder_cli/features/convert_api_collection_to_code/set_routes_in_api_const.dart';
 
 import '../../core/models/variable_model.dart';
+import 'build_body_model_file.dart';
 
 class ConvertApiCollectionToCode {
   static void convertApiCollectionToCode() async {
@@ -30,10 +31,8 @@ class ConvertApiCollectionToCode {
           .value,
     );
 
-    // 2-
-
-    // for (var element in request) {
-    //   await CreateApiModel().createApiModel(requestModelParameter: element);
-    // }
+    // 3- Build model for request has body
+    BuildBodyModelFile.buildBodyModelFile(requests);
+    print("\n⚡ Finish Build body models successfully 🎉 ...");
   }
 }

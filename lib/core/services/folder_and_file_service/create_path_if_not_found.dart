@@ -4,7 +4,7 @@ import 'folder_and_file_service.dart';
 
 class CreatePathIfNotFound {
   /// When read or write in files . file must found . this method to create file or folder if not found
-  static createIt(String filePath, {bool createFile = false}) async {
+  static createIt(String filePath, {bool createFile = false, bool showMessageWhenCreate = true}) async {
     List<String> preFolders = filePath.split("/");
     preFolders.removeWhere((element) => element.endsWith(".dart"));
 
@@ -15,7 +15,9 @@ class CreatePathIfNotFound {
 
         if (!(await directory.exists())) {
           await FolderAndFileService.createFolder(path);
-          print('📂 Create $path folder successfully 🎉 ...');
+          if (showMessageWhenCreate) {
+            print('📂 Create $path folder successfully 🎉 ...');
+          }
         }
       }
     }

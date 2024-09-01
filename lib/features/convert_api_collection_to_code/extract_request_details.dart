@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
@@ -82,15 +83,15 @@ class ExtractRequestDetails {
         .replaceAll("{", "")
         .replaceAll("}", "");
 
-    // print("\n\\Route : $url");
-    // print("Current model and feature name : $requestName");
-    // stdout.write("Enter new model name [ By default $requestName ] : ");
-    // modelName = stdin.readLineSync() ?? requestName;
-    // modelName = modelName.isEmpty ? requestName : modelName;
-    //
-    // stdout.write("Enter new feature name [ By default $modelName ] : ");
-    // featureName = stdin.readLineSync() ?? requestName;
-    // featureName = featureName.isEmpty ? modelName : featureName;
+    print("\nRoute : $url");
+    print("Current model and feature name : $requestName");
+    stdout.write("Enter new model name [ By default $requestName ] : ");
+    modelName = stdin.readLineSync() ?? requestName;
+    modelName = modelName.isEmpty ? requestName : modelName;
+
+    stdout.write("Enter new feature name [ By default $modelName ] : ");
+    featureName = stdin.readLineSync() ?? requestName;
+    featureName = featureName.isEmpty ? modelName : featureName;
 
     // setup final request
     RequestModel requestModel = RequestModel(

@@ -14,7 +14,7 @@ class BuildModelFile {
     await FolderAndFileService.createFile(
       FolderPaths.instance
           .modelFile(requestModel.modelName, requestModel.featureName),
-      _convertMapToClassModel(
+      convertMapToClassModel(
         name: requestModel.modelName,
         response: response is Map ? response : response[0],
       ),
@@ -24,7 +24,7 @@ class BuildModelFile {
   }
 
   /// convert API [response] to model class
-  static String _convertMapToClassModel({
+  static String convertMapToClassModel({
     required String name,
     required Map response,
   }) {
@@ -63,7 +63,7 @@ class BuildModelFile {
     // Recursive for each element has value map []
     for (var element in mapKeys) {
       element.forEach((key, value) {
-        classContents += _convertMapToClassModel(name: key, response: value);
+        classContents += convertMapToClassModel(name: key, response: value);
       });
     }
 
