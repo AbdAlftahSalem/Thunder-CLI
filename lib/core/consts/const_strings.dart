@@ -1,3 +1,4 @@
+import '../../features/create_api_model/setup_request_data.dart';
 import '../extensions/string_extensions.dart';
 
 class ConstStrings {
@@ -15,25 +16,25 @@ class ConstStrings {
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
   /// Build Repo class using dioHelper and return Future<ApiResult>
-  String repo(String controllerName) {
-    controllerName = controllerName.toCamelCaseFirstLetterForEachWord();
+  String repo(String repoName,
+      {String repoParameter = '', requestType = 'get', url = "ApiConstants.todosApiUrl"}) {
+    repoName = repoName.toCamelCaseFirstLetterForEachWord();
     return '''
-import '../../../../core/networking/api_call_status.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
-import '../../../../helper/constants/api_constants.dart';
+import '../../../../core/networking/enums_networking.dart';
 
-class ${controllerName}Repo {
+class ${repoName}Repo {
   DioHelper dioHelper;
 
-  ${controllerName}Repo(this.dioHelper);
+  ${repoName}Repo(this.dioHelper);
 
-  Future<ApiResult> get${controllerName}Data() async {
+  Future<ApiResult> $requestType${repoName}Data($repoParameter) async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(
-        ApiConstants.todosApiUrl,
-        RequestType.get,
+        $url,
+        ${SetupRequestData.getRequestType(requestType)},
       );
       apiResult.apiCallStatus = ApiCallStatus.success;
 
