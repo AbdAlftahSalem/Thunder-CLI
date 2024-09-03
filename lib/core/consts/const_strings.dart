@@ -24,8 +24,8 @@ class ConstStrings {
 
     String newRepoParameter =
         repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
-    print("***" * 50);
     newRepoParameter += " ${repoParameter.split(" ").last}";
+
     return '''
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
@@ -58,18 +58,27 @@ class ${repoName}Repo {
   }
 
   /// Build base controller using GetX with main method to get data from API
-  String controllerGetX(String controllerName) {
+  String controllerGetX(String controllerName, {String repoMethodName = "", String bodyModel = ""}) {
     String controllerClassName =
         '${controllerName.toCamelCaseFirstLetterForEachWord()}Controller';
     String repoClassName =
         '${controllerName.toCamelCaseFirstLetterForEachWord()}Repo';
+    String newRepoMethodName = "";
+
+    if (repoMethodName.isEmpty) {
+      newRepoMethodName =
+          "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
+    } else {
+      newRepoMethodName =
+          "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";
+    }
 
     return '''
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../core/networking/api_call_status.dart';
 import '../../../core/networking/api_result.dart';
+import '../../../core/networking/enums_networking.dart';
+${bodyModel.isEmpty ?  "" :"import '../data/models/${controllerName.toLowerCase()}_body_model.dart';"}
 import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
 class $controllerClassName extends GetxController {
@@ -83,8 +92,10 @@ class $controllerClassName extends GetxController {
   getData() async {
     apiResult.apiCallStatus = ApiCallStatus.loading;
     update();
-    apiResult = await ${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data();
+    
+    apiResult = await $newRepoMethodName;
     apiResult.handelRequest(success: (apiResul){}, error: (apiResul){});
+    
     update();
   }
 

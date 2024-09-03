@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
@@ -106,7 +105,8 @@ class ExtractRequestDetails {
           .replaceAll("-", "_"),
       featureName: (featureName.isEmpty ? requestName : featureName)
           .toLowerCase()
-          .replaceAll(" ", "_"),
+          .replaceAll(" ", "_")
+        ..replaceAll("-", "_"),
     );
     return requestModel;
   }

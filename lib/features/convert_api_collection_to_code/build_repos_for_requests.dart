@@ -6,7 +6,7 @@ import '../../core/consts/folder_paths.dart';
 import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class BuildRepoForRequests {
-  static void buildRepoForRequests(List<RequestModel> request) async {
+  static Future<void> buildRepoForRequests(List<RequestModel> request) async {
     for (var request in request) {
       await FolderAndFileService.createFile(
         FolderPaths.instance.repoFile(request.featureName),
@@ -15,7 +15,7 @@ class BuildRepoForRequests {
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
-              ? "${"${request.modelName}_body_model"} login"
+              ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
               : "",
         ),
       );

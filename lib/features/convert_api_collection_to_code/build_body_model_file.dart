@@ -6,14 +6,16 @@ import '../create_api_model/build_model_file.dart';
 class BuildBodyModelFile {
   static void buildBodyModelFile(List<RequestModel> requests) async {
     for (var element in requests) {
+      bool buildBodyModel = false;
       if (element.body.isNotEmpty) {
-        String loginBodyModel = BuildModelFile.convertMapToClassModel(
+
+        String requestBodyModel = BuildModelFile.convertMapToClassModel(
             name: "${element.modelName}_body", response: element.body);
 
         await FolderAndFileService.createFile(
           FolderPaths.instance
               .modelFile("${element.modelName}_body", element.featureName),
-          loginBodyModel,
+          requestBodyModel,
           showMessageWhenCreate: false,
         );
       }
