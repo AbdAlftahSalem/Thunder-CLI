@@ -22,10 +22,6 @@ class ConstStrings {
       url = "ApiConstants.todosApiUrl"}) {
     repoName = repoName.toCamelCaseFirstLetterForEachWord();
 
-    String newRepoParameter =
-        repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
-    newRepoParameter += " ${repoParameter.split(" ").last}";
-
     return '''
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
@@ -38,7 +34,24 @@ class ${repoName}Repo {
 
   ${repoName}Repo(this.dioHelper);
 
-  Future<ApiResult> $requestType${repoName}Data($newRepoParameter) async {
+  ${repoFunction(repoName, url: url, requestType: requestType, repoParameter: repoParameter)}
+}
+
+''';
+  }
+
+  String repoFunction(String repoName,
+      {String repoParameter = '',
+      requestType = 'get',
+      url = "ApiConstants.todosApiUrl"}) {
+    repoName = repoName.toCamelCaseFirstLetterForEachWord();
+
+    String newRepoParameter =
+        repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
+    newRepoParameter += " ${repoParameter.split(" ").last}";
+
+    return """
+Future<ApiResult> $requestType${repoName}Data($newRepoParameter) async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(
@@ -52,13 +65,12 @@ class ${repoName}Repo {
       return ApiResult.error(apiCallStatus: ApiCallStatus.error);
     }
   }
-}
-
-''';
+    """;
   }
 
   /// Build base controller using GetX with main method to get data from API
-  String controllerGetX(String controllerName, {String repoMethodName = "", String bodyModel = ""}) {
+  String controllerGetX(String controllerName,
+      {String repoMethodName = "", String bodyModel = ""}) {
     String controllerClassName =
         '${controllerName.toCamelCaseFirstLetterForEachWord()}Controller';
     String repoClassName =
@@ -78,7 +90,7 @@ import 'package:get/get.dart';
 
 import '../../../core/networking/api_result.dart';
 import '../../../core/networking/enums_networking.dart';
-${bodyModel.isEmpty ?  "" :"import '../data/models/${controllerName.toLowerCase()}_body_model.dart';"}
+${bodyModel.isEmpty ? "" : "import '../data/models/${controllerName.toLowerCase()}_body_model.dart';"}
 import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
 
 class $controllerClassName extends GetxController {
