@@ -17,19 +17,28 @@ class ConstStrings {
 
   /// Build Repo class using dioHelper and return Future<ApiResult>
   String repo(String repoName,
-      {String repoParameter = '', requestType = 'get', url = "ApiConstants.todosApiUrl"}) {
+      {String repoParameter = '',
+      requestType = 'get',
+      url = "ApiConstants.todosApiUrl"}) {
     repoName = repoName.toCamelCaseFirstLetterForEachWord();
+
+    String newRepoParameter =
+        repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
+    print("***" * 50);
+    newRepoParameter += " ${repoParameter.split(" ").last}";
     return '''
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
 import '../../../../core/networking/enums_networking.dart';
+import '../../../../helper/constants/api_constants.dart';
+${repoParameter.isNotEmpty ? "import '../models/${repoParameter.split(" ")[0]}.dart';" : ""}
 
 class ${repoName}Repo {
   DioHelper dioHelper;
 
   ${repoName}Repo(this.dioHelper);
 
-  Future<ApiResult> $requestType${repoName}Data($repoParameter) async {
+  Future<ApiResult> $requestType${repoName}Data($newRepoParameter) async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(
