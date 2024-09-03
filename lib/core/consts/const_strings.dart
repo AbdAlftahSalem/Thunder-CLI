@@ -36,7 +36,6 @@ class ${repoName}Repo {
 
   ${repoFunction(repoName, url: url, requestType: requestType, repoParameter: repoParameter)}
 }
-
 ''';
   }
 
@@ -64,8 +63,7 @@ Future<ApiResult> $requestType${repoName}Data($newRepoParameter) async {
     } catch (e) {
       return ApiResult.error(apiCallStatus: ApiCallStatus.error);
     }
-  }
-    """;
+  }""";
   }
 
   /// Build base controller using GetX with main method to get data from API

@@ -15,7 +15,7 @@ class BuildRepoForRequests {
 
       if (previousRepoData.isEmpty) {
         repoData = ConstStrings.instance.repo(
-          request.modelName,
+          request.varInDartFile,
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
@@ -25,19 +25,18 @@ class BuildRepoForRequests {
       } else {
         repoData = previousRepoData.replaceFirst("""
   }
-}
-""", "");
+}""", "  }\n");
 
         repoData += """
-${ConstStrings.instance.repoFunction(
-          request.modelName,
+  ${ConstStrings.instance.repoFunction(
+          request.featureName,
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
               ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
               : "",
         )}
-        """;
+}\n\n""";
       }
 
       await FolderAndFileService.createFile(

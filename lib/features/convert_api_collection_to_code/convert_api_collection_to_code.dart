@@ -12,6 +12,14 @@ import '../../core/services/folder_and_file_service/folder_and_file_service.dart
 import './build_repos_for_requests.dart';
 import 'build_body_model_file.dart';
 
+/*
+✅ 1- Build api const file ( for all routes in collection )
+✅ 2- Build model body file if request has body data
+✅ 3- Build model for every response request
+4- Build repo file for request ( one repo can have multi repos function ( need name for every function ) )
+5- Build controller file for request ( one controller can have multi function ( need name for every function ) )
+*/
+
 class ConvertApiCollectionToCode {
   static void convertApiCollectionToCode() async {
     // read collection data
@@ -27,7 +35,6 @@ class ConvertApiCollectionToCode {
       collectionData: collectionData,
       variablesModel: variablesModel,
     );
-
     // 1- set routes in const API file
     requests = await SetRoutesInApiConst.setRoutesInApiConst(
       requests,
