@@ -20,7 +20,7 @@ class BuildModelFile {
       ),
     );
 
-    print("⚡ Create ${requestModel.modelName} file successfully ...\n\n");
+    print("✅ Create ${requestModel.modelName} file successfully ...\n\n");
   }
 
   /// convert API [response] to model class

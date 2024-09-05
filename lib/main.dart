@@ -9,9 +9,9 @@ import 'features/create_feature/create_feature.dart';
 
 void main(List<String> arguments) {
   // CommandServices.startCommands(arguments);
-  CreateFeatureFiles().createFiles();
+  // CreateFeatureFiles().createFiles();
 
-  // CreateApiModel().createApiModel();
+  CreateApiModel().createApiModel();
 
   // ConvertApiCollectionToCode.convertApiCollectionToCode();
 
