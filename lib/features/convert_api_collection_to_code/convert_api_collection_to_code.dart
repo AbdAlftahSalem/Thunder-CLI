@@ -7,6 +7,7 @@ import 'package:thunder_cli/features/convert_api_collection_to_code/set_routes_i
 import '../../core/models/variable_model.dart';
 import './build_repos_for_requests.dart';
 import 'build_body_model_file.dart';
+import 'build_controller_for_requests.dart';
 
 /*
 ✅ 1- Build api const file ( for all routes in collection )
@@ -46,9 +47,12 @@ class ConvertApiCollectionToCode {
 
     // 3- Build model for request has body
     BuildBodyModelFile.buildBodyModelFile(requests);
-    print("\n⚡ Finish Build body models successfully 🎉 ...");
+    print("\n✅ Finish Build body models successfully ...");
 
-    // 4 - build repo for every request and controllers
+    // 4 - build repo for every request
     await BuildRepoForRequests.buildRepoForRequests(requests);
+
+    // 5 - build controller for every request
+    await BuildControllerForRequests.buildControllerForRequests(requests);
   }
 }

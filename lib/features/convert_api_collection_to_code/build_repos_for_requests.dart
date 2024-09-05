@@ -7,79 +7,60 @@ import '../../core/services/folder_and_file_service/folder_and_file_service.dart
 
 class BuildRepoForRequests {
   // ToDo : need refactor
-  static Future<void> buildRepoForRequests(List<RequestModel> request) async {
-    for (var request in request) {
-      await buildRepoData(request);
-      await buildController(request);
-    }
-  }
-
-  static Future<void> buildController(RequestModel request) async {
-    String repoName =
-        "${request.requestType.toString().split(".").last}${request.modelName.toCamelCaseFirstLetterForEachWord()}Data";
-    FolderAndFileService.createFile(
-      FolderPaths.instance.controllerFile(request.featureName),
-      ConstStrings.instance.controllerGetX(request.featureName,
-          repoMethodName: repoName,
-          bodyModel: request.body.isEmpty
-              ? ""
-              : "${request.featureName.toCamelCaseFirstLetterForEachWord()}BodyModel()"),
-    );
-    print("✅ Finish build ${request.featureName} controller ...\n");
-  }
-
-  static Future<void> buildRepoData(RequestModel request) async {
-    String previousRepoData = await FolderAndFileService.readFile(
-      FolderPaths.instance.repoFile(request.featureName),
-    );
-    String repoData = "";
-
-    if (previousRepoData.isEmpty) {
-      repoData = ConstStrings.instance.repo(
-        request.featureName,
-        requestType: request.requestType.toString().split(".").last,
-        url: "ApiConstants.${request.varInDartFile}",
-        repoParameter: request.body.isNotEmpty
-            ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
-            : "",
+  static Future<void> buildRepoForRequests(List<RequestModel> requests) async {
+    for (RequestModel request in requests) {
+      String previousRepoData = await FolderAndFileService.readFile(
+        FolderPaths.instance.repoFile(request.featureName),
       );
-    } else {
-      List<String?> importData = RegExp(r'import.*?;')
-          .allMatches(previousRepoData)
-          .map((e) => e.group(0))
-          .toList();
+      String repoData = "";
 
-      if (request.body.isNotEmpty) {
-        importData
-            .add("import '../models/${request.modelName}_body_model.dart';");
-      }
+      if (previousRepoData.isEmpty) {
+        repoData = ConstStrings.instance.repo(
+          request.featureName,
+          requestType: request.requestType.toString().split(".").last,
+          url: "ApiConstants.${request.varInDartFile}",
+          repoParameter: request.body.isNotEmpty
+              ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
+              : "",
+        );
+      } else {
+        List<String?> importData = RegExp(r'import.*?;')
+            .allMatches(previousRepoData)
+            .map((e) => e.group(0))
+            .toList();
 
-      repoData = previousRepoData.replaceFirst("""
+        if (request.body.isNotEmpty) {
+          importData
+              .add("import '../models/${request.modelName}_body_model.dart';");
+        }
+
+        repoData = previousRepoData.replaceFirst("""
       }
     }""", "  }\n");
 
-      repoData += """
+        repoData += """
       ${ConstStrings.instance.repoFunction(
-        request.url,
-        requestType: request.requestType.toString().split(".").last,
-        url: "ApiConstants.${request.varInDartFile}",
-        repoParameter: request.body.isNotEmpty
-            ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
-            : "",
-      )}
+          request.url,
+          requestType: request.requestType.toString().split(".").last,
+          url: "ApiConstants.${request.varInDartFile}",
+          repoParameter: request.body.isNotEmpty
+              ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
+              : "",
+        )}
     }\n\n""";
 
-      List<String> splitRepoData = repoData.split("\n");
-      splitRepoData.removeWhere((element) => element.startsWith("import "));
-      splitRepoData.insertAll(0, Iterable.castFrom(importData));
+        List<String> splitRepoData = repoData.split("\n");
+        splitRepoData.removeWhere((element) => element.startsWith("import "));
+        splitRepoData.insertAll(0, Iterable.castFrom(importData));
 
-      repoData = splitRepoData.join("\n");
+        repoData = splitRepoData.join("\n");
+      }
+
+      await FolderAndFileService.createFile(
+        FolderPaths.instance.repoFile(request.featureName),
+        repoData,
+      );
     }
-
-    await FolderAndFileService.createFile(
-      FolderPaths.instance.repoFile(request.featureName),
-      repoData,
-    );
-    print("\n✅ Build ${request.modelName} Repo successfully ...");
+    print("✅ Build ${requests.length} repo`s successfully ...");
   }
 }
