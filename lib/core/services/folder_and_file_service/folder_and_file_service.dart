@@ -27,7 +27,7 @@ class FolderAndFileService {
       if (folderPath.isNotEmpty) {
         final directory = Directory(folderPath);
         directory.createSync(recursive: true);
-        print('📂 Create $folderPath folder successfully 🎉 ...');
+        // print('📂 Create $folderPath folder successfully 🎉 ...');
       }
     } on PathNotFoundException {
       await CreatePathIfNotFound.createIt(folderPath);

@@ -7,7 +7,7 @@ import '../../core/services/folder_and_file_service/folder_and_file_service.dart
 
 
 class AddInAppRouter {
-  Future<void> addRouteInAppRoute(String featureName) async {
+  static Future<void> addRouteInAppRoute(String featureName) async {
     // reading app_routes.dart file
     String contentFile =
         await FolderAndFileService.readFile(FolderPaths.instance.appRoutesFile);
@@ -27,18 +27,16 @@ class AddInAppRouter {
     // write contentFile to app_routes.dart file
     final file = File(FolderPaths.instance.appRoutesFile);
     file.writeAsStringSync(contentFile);
-
-    print("⚡ Add routes to app_routes.dart file successfully 🎉 ...\n\n");
   }
 
-  List<String?> _getPreviousImports(String contentFile) {
+  static List<String?> _getPreviousImports(String contentFile) {
     return RegExp(r'import.*?;')
         .allMatches(contentFile)
         .map((e) => e.group(0))
         .toList();
   }
 
-  String _updateImportsInContentFile(
+  static String _updateImportsInContentFile(
       List<String?> imports, String featureName) {
     if (imports.isEmpty) {
       return '''
@@ -58,7 +56,7 @@ import 'routes.dart';
     }
   }
 
-  String _updateCodeInContentFile(
+  static String _updateCodeInContentFile(
       RegExpMatch? routesMatch, String featureName) {
     if (routesMatch == null) {
       return '''

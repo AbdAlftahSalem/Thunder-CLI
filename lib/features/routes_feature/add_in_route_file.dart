@@ -27,7 +27,5 @@ class Routes {
     // write content to routes.dart file
     final routesFile = File(FolderPaths.instance.routesFile);
     routesFile.writeAsStringSync(contentFile);
-
-    print("⚡ Add routes to routes.dart file successfully 🎉 ...\n\n");
   }
 }

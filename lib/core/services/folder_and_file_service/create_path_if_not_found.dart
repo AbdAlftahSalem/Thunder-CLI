@@ -16,7 +16,7 @@ class CreatePathIfNotFound {
         if (!(await directory.exists())) {
           await FolderAndFileService.createFolder(path);
           if (showMessageWhenCreate) {
-            print('📂 Create $path folder successfully 🎉 ...');
+            // print('📂 Create $path folder successfully 🎉 ...');
           }
         }
       }
