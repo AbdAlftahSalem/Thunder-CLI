@@ -1,14 +1,10 @@
-import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/core/models/request_model.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/extract_request_details.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/get_variables_data.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/read_file_path_and_data.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/set_routes_in_api_const.dart';
 
-import '../../core/consts/const_strings.dart';
-import '../../core/consts/folder_paths.dart';
 import '../../core/models/variable_model.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 import './build_repos_for_requests.dart';
 import 'build_body_model_file.dart';
 
@@ -16,8 +12,8 @@ import 'build_body_model_file.dart';
 ✅ 1- Build api const file ( for all routes in collection )
 ✅ 2- Build model body file if request has body data
 ✅ 3- Build model for every response request
-4- Build repo file for request ( one repo can have multi repos function ( need name for every function ) )
-5- Build controller file for request ( one controller can have multi function ( need name for every function ) )
+✅ 4- Build repo file for request ( one repo can have multi repos function ( need name for every function ) )
+✅ 5- Build controller file for request ( one controller can have multi function ( need name for every function ) )
 */
 
 class ConvertApiCollectionToCode {
@@ -52,22 +48,7 @@ class ConvertApiCollectionToCode {
     BuildBodyModelFile.buildBodyModelFile(requests);
     print("\n⚡ Finish Build body models successfully 🎉 ...");
 
-    // 4 - build repo for every request
+    // 4 - build repo for every request and controllers
     await BuildRepoForRequests.buildRepoForRequests(requests);
-
-    // 5- Build controllers for all requests
-    // create controller file
-    for (var request in requests) {
-      String name =
-          "${request.requestType.toString().split(".").last}${request.modelName.toCamelCaseFirstLetterForEachWord()}Data";
-      FolderAndFileService.createFile(
-        FolderPaths.instance.controllerFile(request.featureName),
-        ConstStrings.instance.controllerGetX(request.featureName,
-            repoMethodName: name,
-            bodyModel: request.body.isEmpty
-                ? ""
-                : "${request.featureName.toCamelCaseFirstLetterForEachWord()}BodyModel()"),
-      ).then((value) => print("Finish build ${request.featureName} logic\n"));
-    }
   }
 }

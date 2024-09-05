@@ -16,10 +16,12 @@ class ConstStrings {
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";
 
   /// Build Repo class using dioHelper and return Future<ApiResult>
-  String repo(String repoName,
-      {String repoParameter = '',
-      requestType = 'get',
-      url = "ApiConstants.todosApiUrl"}) {
+  String repo(
+    String repoName, {
+    String repoParameter = '',
+    requestType = 'get',
+    url = "ApiConstants.todosApiUrl",
+  }) {
     repoName = repoName.toCamelCaseFirstLetterForEachWord();
 
     return '''
@@ -77,10 +79,10 @@ Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", 
 
     if (repoMethodName.isEmpty) {
       newRepoMethodName =
-          "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
+      "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
     } else {
       newRepoMethodName =
-          "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";
+      "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";
     }
 
     return '''
@@ -118,6 +120,7 @@ class $controllerClassName extends GetxController {
 }
 ''';
   }
+
 
   /// Build View with base code and link with controller to start build UI
   String viewGetX(String viewName) {
