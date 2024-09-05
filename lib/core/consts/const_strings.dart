@@ -41,8 +41,8 @@ class ${repoName}Repo {
 
   String repoFunction(String repoName,
       {String repoParameter = '',
-      requestType = 'get',
-      url = "ApiConstants.todosApiUrl"}) {
+      String requestType = 'get',
+      String url = "ApiConstants.todosApiUrl"}) {
     repoName = repoName.toCamelCaseFirstLetterForEachWord();
 
     String newRepoParameter =
@@ -50,7 +50,7 @@ class ${repoName}Repo {
     newRepoParameter += " ${repoParameter.split(" ").last}";
 
     return """
-Future<ApiResult> $requestType${repoName}Data($newRepoParameter) async {
+Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", "").toCamelCaseFirstLetterForEachWord()}Data($newRepoParameter) async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(

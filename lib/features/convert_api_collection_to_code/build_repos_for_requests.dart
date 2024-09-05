@@ -15,7 +15,7 @@ class BuildRepoForRequests {
 
       if (previousRepoData.isEmpty) {
         repoData = ConstStrings.instance.repo(
-          request.varInDartFile,
+          request.featureName,
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
@@ -29,7 +29,7 @@ class BuildRepoForRequests {
 
         repoData += """
   ${ConstStrings.instance.repoFunction(
-          request.featureName,
+          request.url,
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
@@ -39,6 +39,8 @@ class BuildRepoForRequests {
 }\n\n""";
       }
 
+      print("**" * 50);
+      print(request.featureName);
       await FolderAndFileService.createFile(
         FolderPaths.instance.repoFile(request.featureName),
         repoData,
