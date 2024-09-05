@@ -23,6 +23,16 @@ class BuildRepoForRequests {
               : "",
         );
       } else {
+        List<String?> importData = RegExp(r'import.*?;')
+            .allMatches(previousRepoData)
+            .map((e) => e.group(0))
+            .toList();
+
+        if (request.body.isNotEmpty) {
+          importData
+              .add("import '../models/${request.modelName}_body_model.dart';");
+        }
+
         repoData = previousRepoData.replaceFirst("""
   }
 }""", "  }\n");
@@ -37,6 +47,12 @@ class BuildRepoForRequests {
               : "",
         )}
 }\n\n""";
+
+        List<String> splitRepoData = repoData.split("\n");
+        splitRepoData.removeWhere((element) => element.startsWith("import "));
+        splitRepoData.insertAll(0, Iterable.castFrom(importData));
+
+        repoData = splitRepoData.join("\n");
       }
 
       print("**" * 50);
