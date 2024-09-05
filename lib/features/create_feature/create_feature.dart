@@ -7,7 +7,7 @@ import 'package:thunder_cli/features/create_feature/setup_feature_folders.dart';
 import '../routes_feature/route_feature.dart';
 
 class CreateFeatureFiles {
-  void createFiles() {
+  static void createFiles() {
     stdout.write("Enter your feature name : ");
     String featureName = "";
     while (featureName.isEmpty) {
@@ -20,7 +20,7 @@ class CreateFeatureFiles {
     }
   }
 
-  _generateFiles(String featureName) async {
+   static Future<void> _generateFiles(String featureName) async {
     print("\n******************** $featureName ********************\n");
     // set up modules folder
     await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);

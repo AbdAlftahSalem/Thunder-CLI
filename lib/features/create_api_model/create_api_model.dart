@@ -5,7 +5,7 @@ import '../../core/models/request_model.dart';
 import 'build_model_file.dart';
 
 class CreateApiModel {
-  Future<void> createApiModel({RequestModel? requestModelParameter}) async {
+ static  Future<void> createApiModel({RequestModel? requestModelParameter}) async {
     /// set up model file
     late RequestModel requestModel;
     if (requestModelParameter == null) {

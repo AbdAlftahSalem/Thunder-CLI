@@ -3,7 +3,7 @@ import 'clone_repo_and_setup_project.dart';
 import 'get_project_data.dart';
 
 class InitProject {
-  Future<void> initProject() async {
+  static Future<void> initProject() async {
     try {
       final AppDataModel appInfo = GetProjectData.getProjectData();
 

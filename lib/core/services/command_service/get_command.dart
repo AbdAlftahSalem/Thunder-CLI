@@ -1,4 +1,5 @@
 import 'package:args/args.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/convert_api_collection_to_code.dart';
 
 import '../../../../features/create_api_model/create_api_model.dart';
 import '../../../../features/create_feature/create_feature.dart';
@@ -8,13 +9,15 @@ class GetCommand {
   static void getCommand(ArgResults results, ArgParser parser) {
     if (results['init']) {
       // Initialize the project -> thunder_cli --i
-      InitProject().initProject();
+      InitProject.initProject();
     } else if (results['feature']) {
       // Generate Feature -> thunder_cli --m
-      CreateFeatureFiles().createFiles();
+      CreateFeatureFiles.createFiles();
     } else if (results['model']) {
       // Generate model file for the module -> thunder_cli --model
-      CreateApiModel().createApiModel();
+      CreateApiModel.createApiModel();
+    } else if (results['c_api']) {
+      ConvertApiCollectionToCode.convertApiCollectionToCode();
     } else {
       _showHelpMessage();
     }
@@ -27,12 +30,14 @@ class GetCommand {
         "⚡ Thunder CLI is a tool to create flutter project and auto generate files and folders\n\n";
 
     message += "⚡ Available commands: ";
-    message += "1- thunder_cli --i : Initialize flutter project.";
+    message += "1 - thunder_cli --i : Initialize flutter project.";
     message +=
-        "2- thunder_cli --feature : Create a new feature and handle UI , controllers , repos , DI and routing.";
+        "2 - thunder_cli --feature : Create a new feature and handle UI , controllers , repos , DI and routing.";
     message +=
-        "3- thunder_cli --model : create a new API model with API automatically.";
-    message += "4- thunder_cli --help : Show help message.";
+        "3 - thunder_cli --model : create a new API model with API automatically.";
+    message +=
+        "4 - thunder_cli --c_api : Convert API collection to coe with build repos and controllers .";
+    message += "5 - thunder_cli --help : Show help message.";
 
     print(message);
   }
