@@ -14,7 +14,7 @@ extension StringConversion on String {
       words[i] = word.substring(0, 1).toUpperCase() + word.substring(1);
     }
     }catch(e){
-      print("😢 Thunder get error in $this key");
+      // print("😢 Thunder get error in $this key");
     }
     return words.join();
   }

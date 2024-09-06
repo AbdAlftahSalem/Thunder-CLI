@@ -8,9 +8,10 @@ class GetVariablesData {
     }
     if (variablesCollection.isNotEmpty) {
       print(
-          "✅ Read ${variablesCollection.length} variables from collection ...");
-      for (var element in variablesCollection) {
-        print("${element.key} : ${element.value}\n");
+          "\n\n✅ Read ${variablesCollection.length} variables from collection ...\n");
+      for (int i = 0; i < variablesCollection.length; ++i) {
+        print(
+            "$i - ${variablesCollection[i].key} : ${variablesCollection[i].value}");
       }
     }
     return variablesCollection;

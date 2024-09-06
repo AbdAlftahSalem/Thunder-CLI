@@ -18,34 +18,44 @@ class ExtractRequestDetails {
     VariableModel baseUrl = variablesModel.firstWhere(
         (element) => element.toString().toLowerCase().contains("url"));
 
+    stdout.write(
+        "\n\nDo you want change feature or model name ? [ y | N ] ( Default N ) : ");
+    String changeRepoAndFeatureName = (stdin.readLineSync() ?? "n");
+
+    print(changeRepoAndFeatureName);
     for (Map folderCollection in collectionData['item']) {
       if (!(folderCollection.containsKey("item"))) {
-        RequestModel requestModel =
-            getDetailOfRequest(folderCollection, baseUrl, variablesModel);
+        RequestModel requestModel = getDetailOfRequest(
+            folderCollection,
+            baseUrl,
+            variablesModel,
+            changeRepoAndFeatureName.toLowerCase() == 'y');
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
-          RequestModel requestModel =
-              getDetailOfRequest(requestInFolder, baseUrl, variablesModel);
+          RequestModel requestModel = getDetailOfRequest(
+              requestInFolder,
+              baseUrl,
+              variablesModel,
+              changeRepoAndFeatureName.toLowerCase() == 'y');
           requests.add(requestModel);
         }
       }
     }
     if (requests.isNotEmpty) {
-      print("✅ Finish Read ${requests.length} requests successfully ...");
       for (int i = 0; i < requests.length; ++i) {
         print(
-            "${i + 1 < 10 ? "0" : ""}${i + 1} - ${requests[i].featureName} || ${requests[i].modelName}");
-        print("   - ${requests[i].url}");
+            "${i + 1 < 10 ? "0" : ""}${i + 1} - Feature : ${requests[i].featureName} || Model : ${requests[i].modelName}");
+        print("   - URL :${requests[i].url}");
         print(
-            "   - ${requests[i].requestType.toString().split(".")[1].toUpperCase()}\n");
+            "   - Request method : ${requests[i].requestType.toString().split(".")[1].toUpperCase()}\n");
       }
     }
     return requests;
   }
 
   static RequestModel getDetailOfRequest(requestInFolder, VariableModel baseUrl,
-      List<VariableModel> variablesModel) {
+      List<VariableModel> variablesModel, bool changeRepoAndFeatureName) {
     String modelName = "";
     String featureName = "";
 
@@ -83,15 +93,17 @@ class ExtractRequestDetails {
         .replaceAll("{", "")
         .replaceAll("}", "");
 
-    print("\nRoute : $url");
-    print("Current model and feature name : $requestName");
-    stdout.write("Enter new model name [ By default $requestName ] : ");
-    modelName = stdin.readLineSync() ?? requestName;
-    modelName = modelName.isEmpty ? requestName : modelName;
+    if (changeRepoAndFeatureName) {
+      print("\nRoute : $url");
+      print("Current model and feature name : $requestName");
+      stdout.write("Enter new model name [ By default $requestName ] : ");
+      modelName = stdin.readLineSync() ?? requestName;
+      modelName = modelName.isEmpty ? requestName : modelName;
 
-    stdout.write("Enter new feature name [ By default $modelName ] : ");
-    featureName = stdin.readLineSync() ?? requestName;
-    featureName = featureName.isEmpty ? modelName : featureName;
+      stdout.write("Enter new feature name [ By default $modelName ] : ");
+      featureName = stdin.readLineSync() ?? requestName;
+      featureName = featureName.isEmpty ? modelName : featureName;
+    }
 
     // setup final request
     RequestModel requestModel = RequestModel(

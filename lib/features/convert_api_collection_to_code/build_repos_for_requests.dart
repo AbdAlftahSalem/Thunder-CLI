@@ -61,6 +61,5 @@ class BuildRepoForRequests {
         repoData,
       );
     }
-    print("✅ Build ${requests.length} repo`s successfully ...");
   }
 }

@@ -19,7 +19,6 @@ class BuildControllerForRequests {
                 : "${request.featureName.toCamelCaseFirstLetterForEachWord()}BodyModel()"),
       );
     }
-    print("✅ Build ${requests.length} controller`s successfully ...");
 
   }
 }
