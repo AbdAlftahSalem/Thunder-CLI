@@ -72,6 +72,19 @@ This command will set up the following components for your model:
 - FromJson
 - ToJson
 
+```shell
+thunder --c_api
+```
+
+This command will auto convert api collection to code :
+- Read all variables from collection
+- Extract all request
+- Add all api routes to api_contents.dart
+- Build body model for all requests
+- Build response model for all requests
+- Build repos for all requests
+- Build basic controller for all requests
+
 To show help, use the following command:
 
 ```shell
