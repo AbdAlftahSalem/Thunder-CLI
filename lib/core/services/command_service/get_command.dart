@@ -6,18 +6,18 @@ import '../../../../features/create_feature/create_feature.dart';
 import '../../../../features/init_project/init_project.dart';
 
 class GetCommand {
-  static void getCommand(ArgResults results, ArgParser parser) {
+  static void getCommand(ArgResults results, ArgParser parser) async {
     if (results['init']) {
       // Initialize the project -> thunder_cli --i
-      InitProject.initProject();
+      await InitProject.initProject();
     } else if (results['feature']) {
       // Generate Feature -> thunder_cli --m
-      CreateFeatureFiles.createFiles();
+      await CreateFeatureFiles.createFiles();
     } else if (results['model']) {
       // Generate model file for the module -> thunder_cli --model
-      CreateApiModel.createApiModel();
+      await CreateApiModel.createApiModel();
     } else if (results['c_api']) {
-      ConvertApiCollectionToCode.convertApiCollectionToCode();
+      await ConvertApiCollectionToCode.convertApiCollectionToCode();
     } else {
       _showHelpMessage();
     }

@@ -18,7 +18,7 @@ import 'build_controller_for_requests.dart';
 */
 
 class ConvertApiCollectionToCode {
-  static void convertApiCollectionToCode() async {
+  static Future<void> convertApiCollectionToCode() async {
     // read collection data
     Map<String, dynamic> collectionData =
         await ReadFilePathAndData.readFilePathAndData();

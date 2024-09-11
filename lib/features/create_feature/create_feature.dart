@@ -7,7 +7,7 @@ import 'package:thunder_cli/features/create_feature/setup_feature_folders.dart';
 import '../routes_feature/route_feature.dart';
 
 class CreateFeatureFiles {
-  static void createFiles() {
+  static Future<void> createFiles() async {
     stdout.write("Enter your feature name : ");
     String featureName = "";
     while (featureName.isEmpty) {
@@ -15,12 +15,10 @@ class CreateFeatureFiles {
           .trim()
           .checkIfEmptyAndNullAndShowMessage("😢 Name name cannot be empty !!");
     }
-    if (featureName.isNotEmpty) {
-      _generateFiles(featureName.replaceAll(" ", "_").replaceAll("-", "_"));
-    }
+    await _generateFiles(featureName.replaceAll(" ", "_").replaceAll("-", "_"));
   }
 
-   static Future<void> _generateFiles(String featureName) async {
+  static Future<void> _generateFiles(String featureName) async {
     print("\n******************** $featureName ********************\n");
     // set up modules folder
     await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
@@ -33,8 +31,7 @@ class CreateFeatureFiles {
     print(
         "✅ Add feature in 'app_routes.dart' and 'routes.dart' successfully ...");
 
-    print(
-        "\n⚡ Setup '$featureName' Successfully ...\n");
+    print("\n⚡ Setup '$featureName' Successfully ...\n");
 
     print("  ✅ Add view template .");
     print("  ✅ Add controller and connect with view .");
