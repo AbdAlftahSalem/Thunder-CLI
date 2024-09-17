@@ -1,16 +1,16 @@
 <img src="assets/images/logo.png" width="300"/>
 
-# Flutter GetX MVC Project
+# ⚡ Flutter GetX MVC Project
 
 This project is a Flutter application scaffolded with GetX ( BloC working in it ... ) and follows the MVC (
 Model-View-Controller) architecture.
 
-## How to Use Thunder CLI
+## 💻 How to Use Thunder CLI
 
 To streamline the process of creating project structures and modules, we've developed a command-line tool called Thunder
 CLI. It simplifies the setup of your Flutter project. Below are the available commands and their usage:
 
-## Installation
+## 📌 Installation
 
 To install Thunder CLI, run the following command:
 
@@ -18,7 +18,7 @@ To install Thunder CLI, run the following command:
 dart pub global activate thunder_cli
 ```
 
-## Commands
+## 🧑🏻‍💻 Commands
 
 ## Usage
 
@@ -77,6 +77,7 @@ thunder --c_api
 ```
 
 This command will auto convert api collection to code :
+
 - Read all variables from collection
 - Extract all request
 - Add all api routes to api_contents.dart
@@ -91,7 +92,7 @@ To show help, use the following command:
 thunder --h
 ```
 
-## Project Structure
+## 🏛️ Project Structure
 
 The project structure URL :
 
@@ -101,8 +102,7 @@ https://github.com/abdAlftahSalem/flutter_getx_template.git
 
 [Thunder CLI on pub.dev](https://pub.dev/packages/thunder_cli)
 
-Contact with me
----------------
+## 📨 Contact with me
 
 [Whats App](https://wa.me/00972598045064) ||
 [Telegram](https://t.me/Abd_Alftah_Al_shanti)
