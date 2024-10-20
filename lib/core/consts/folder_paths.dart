@@ -52,4 +52,8 @@ class FolderPaths {
 
   String modelFile(String modelName, String featureName) =>
       'E:/Flutter new/dabdob/lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
+
+  String translationFile(String fileName) =>
+      'E:/Flutter new/dabdob/lib/helper/translations/$fileName.dart';
+
 }

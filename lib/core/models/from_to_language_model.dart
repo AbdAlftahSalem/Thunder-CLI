@@ -9,10 +9,10 @@ class FromToLanguageModel {
 
 class ToLanguages {
   String languageName;
-  String languageDateFileName;
+  String languageDartFileName;
 
   ToLanguages({
     this.languageName = "",
-    this.languageDateFileName = "",
+    this.languageDartFileName = "",
   });
 }

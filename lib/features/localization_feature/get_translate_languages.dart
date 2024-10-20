@@ -33,7 +33,7 @@ class GetTranslateLanguages {
           fromToLanguageModel.toLanguages.add(
             ToLanguages(
               languageName: toLanguage,
-              languageDateFileName: dartFileName,
+              languageDartFileName: dartFileName,
             ),
           );
           stdout.write("\nDo you want add another language ? ( y / N) : ");
