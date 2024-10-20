@@ -6,7 +6,8 @@ import '../../core/models/from_to_language_model.dart';
 
 class GetTranslateLanguages {
   static FromToLanguageModel getTranslateLanguages() {
-    FromToLanguageModel fromToLanguageModel = FromToLanguageModel();
+    FromToLanguageModel fromToLanguageModel = FromToLanguageModel("", []);
+    bool andAnotherLanguage = true;
 
     while (fromToLanguageModel.baseLanguage.isEmpty) {
       stdout.write("Enter base language : ");
@@ -15,15 +16,35 @@ class GetTranslateLanguages {
           .checkIfEmptyAndNullAndShowMessage("😢 Base language is required !!");
     }
 
-    while (fromToLanguageModel.toLanguages.isEmpty) {
-      stdout.write("Enter to language/s and separate between them by (,) : ");
+    while (andAnotherLanguage) {
+      stdout.write("Enter to language : ");
       String toLanguage = (stdin.readLineSync() ?? "")
           .trim()
-          .checkIfEmptyAndNullAndShowMessage("😢 Base language is required !!");
+          .checkIfEmptyAndNullAndShowMessage("😢 To language is required !!");
 
       if (toLanguage.isNotEmpty) {
-        fromToLanguageModel.toLanguages =
-            toLanguage.split(",").map((e) => e.trim()).toList();
+        stdout.write("Enter dart file name for language : ");
+        String dartFileName = (stdin.readLineSync() ?? "")
+            .trim()
+            .checkIfEmptyAndNullAndShowMessage(
+                "😢 Dart file name for language required !!");
+
+        if (dartFileName.isNotEmpty) {
+          fromToLanguageModel.toLanguages.add(
+            ToLanguages(
+              languageName: toLanguage,
+              languageDateFileName: dartFileName,
+            ),
+          );
+          stdout.write("\nDo you want add another language ? ( y / N) : ");
+          String option = (stdin.readLineSync() ?? "")
+              .trim()
+              .checkIfEmptyAndNullAndShowMessage(
+                  "😢 Dart file name for language required !!");
+          if (option.toLowerCase() == "n"){
+            andAnotherLanguage = false;
+          }
+        }
       }
     }
     return fromToLanguageModel;

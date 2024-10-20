@@ -1,9 +1,18 @@
 class FromToLanguageModel {
   String baseLanguage;
-  List<String> toLanguages;
+  List<ToLanguages> toLanguages;
 
-  FromToLanguageModel({
-    this.baseLanguage = "",
-    this.toLanguages = const [],
+  FromToLanguageModel(this.baseLanguage, this.toLanguages);
+
+
+}
+
+class ToLanguages {
+  String languageName;
+  String languageDateFileName;
+
+  ToLanguages({
+    this.languageName = "",
+    this.languageDateFileName = "",
   });
 }
