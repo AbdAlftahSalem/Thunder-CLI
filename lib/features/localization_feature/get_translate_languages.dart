@@ -23,27 +23,15 @@ class GetTranslateLanguages {
           .checkIfEmptyAndNullAndShowMessage("😢 To language is required !!");
 
       if (toLanguage.isNotEmpty) {
-        stdout.write("Enter dart file name for language : ");
-        String dartFileName = (stdin.readLineSync() ?? "")
+        fromToLanguageModel.toLanguages
+            .add(ToLanguages(languageName: toLanguage));
+        stdout.write("\nDo you want add another language ? ( y / N) : ");
+        String option = (stdin.readLineSync() ?? "")
             .trim()
             .checkIfEmptyAndNullAndShowMessage(
                 "😢 Dart file name for language required !!");
-
-        if (dartFileName.isNotEmpty) {
-          fromToLanguageModel.toLanguages.add(
-            ToLanguages(
-              languageName: toLanguage,
-              languageDartFileName: dartFileName,
-            ),
-          );
-          stdout.write("\nDo you want add another language ? ( y / N) : ");
-          String option = (stdin.readLineSync() ?? "")
-              .trim()
-              .checkIfEmptyAndNullAndShowMessage(
-                  "😢 Dart file name for language required !!");
-          if (option.toLowerCase() == "n"){
-            andAnotherLanguage = false;
-          }
+        if (option.toLowerCase() == "n") {
+          andAnotherLanguage = false;
         }
       }
     }

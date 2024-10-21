@@ -8,15 +8,15 @@ class SetupLanguagesFiles {
       FromToLanguageModel fromToLanguageModel) async {
     // setup base language
     await FolderAndFileService.createFile(
-      FolderPaths.instance.translationFile(fromToLanguageModel.baseLanguage),
-      "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${fromToLanguageModel.baseLanguage}Language = {}",
+      FolderPaths.instance.translationFile(fromToLanguageModel.baseLanguage.substring(0,2)),
+      "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${fromToLanguageModel.baseLanguage.substring(0,2)}Language = {};",
     );
 
     // setup to languages
     for (var i in fromToLanguageModel.toLanguages) {
       await FolderAndFileService.createFile(
         FolderPaths.instance.translationFile(i.languageDartFileName),
-        "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${i.languageName}Language = {}",
+        "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${i.languageName}Language = {};",
       );
     }
   }

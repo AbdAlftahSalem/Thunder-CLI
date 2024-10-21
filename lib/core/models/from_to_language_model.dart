@@ -3,16 +3,13 @@ class FromToLanguageModel {
   List<ToLanguages> toLanguages;
 
   FromToLanguageModel(this.baseLanguage, this.toLanguages);
-
-
 }
 
 class ToLanguages {
   String languageName;
   String languageDartFileName;
 
-  ToLanguages({
-    this.languageName = "",
-    this.languageDartFileName = "",
-  });
+  ToLanguages({this.languageName = "", this.languageDartFileName = ""}) {
+    languageDartFileName = languageName.substring(0, 2);
+  }
 }

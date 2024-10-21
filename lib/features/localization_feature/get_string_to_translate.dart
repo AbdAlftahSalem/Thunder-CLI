@@ -30,7 +30,7 @@ class GetStringToTranslate {
         wordsOutputs.add(word);
       }
     }
-    print("🚀 Thunder extract ${wordsOutputs.length} successfully ...\n\n");
+    print("🚀 Thunder extract ${wordsOutputs.length} words successfully ...\n\n");
     return wordsOutputs;
   }
 }

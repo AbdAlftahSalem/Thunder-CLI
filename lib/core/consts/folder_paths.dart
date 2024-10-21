@@ -21,7 +21,8 @@ class FolderPaths {
   String apiConstRoutesFile =
       "E:/Flutter new/dabdob/lib/helper/constants/api_constants.dart";
 
-  String stringConstantPath = "E:/Flutter new/dabdob/lib/helper/constants/strings_constants.dart";
+  String stringConstantPath =
+      "E:/Flutter new/dabdob/lib/helper/constants/strings_constants.dart";
 
   // feature files
   String folderInFeatures(String name) =>
@@ -54,6 +55,5 @@ class FolderPaths {
       'E:/Flutter new/dabdob/lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
 
   String translationFile(String fileName) =>
-      'E:/Flutter new/dabdob/lib/helper/translations/$fileName.dart';
-
+      'lib/helper/translations/${fileName}_translation.dart';
 }
