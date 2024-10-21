@@ -1,3 +1,5 @@
+import 'package:thunder_cli/core/models/from_to_language_model.dart';
+
 import '../../features/create_api_model/setup_request_data.dart';
 import '../extensions/string_extensions.dart';
 
@@ -79,10 +81,10 @@ Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", 
 
     if (repoMethodName.isEmpty) {
       newRepoMethodName =
-      "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
+          "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
     } else {
       newRepoMethodName =
-      "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";
+          "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";
     }
 
     return '''
@@ -120,7 +122,6 @@ class $controllerClassName extends GetxController {
 }
 ''';
   }
-
 
   /// Build View with base code and link with controller to start build UI
   String viewGetX(String viewName) {
@@ -185,5 +186,31 @@ jobs:
           document: \${{ github.workspace }}/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
     """;
+  }
+
+  // set up locale.dart
+  String myLocale(FromToLanguageModel fromToLanguageModel) {
+    String setupLanguages = """
+{
+        '${fromToLanguageModel.baseLanguage.substring(0, 2)}' : ${fromToLanguageModel.baseLanguage.substring(0, 2)}Language,
+        ${fromToLanguageModel.toLanguages.map((e) => "'${e.languageDartFileName}' : ${e.languageName}Language,").toList().join("")}
+      };
+""";
+
+    String setupLanguagesImports = """
+import 'package:get/get.dart';
+import './${fromToLanguageModel.baseLanguage.substring(0, 2)}_translation.dart';
+${fromToLanguageModel.toLanguages.map((e) => "import './${e.languageDartFileName}_translation.dart';").toList().join("\n")}
+""";
+
+    return """
+$setupLanguagesImports
+class MyLocal implements Translations {
+  @override
+  Map<String, Map<String, String>> get keys =>
+      $setupLanguages
+}
+
+""";
   }
 }

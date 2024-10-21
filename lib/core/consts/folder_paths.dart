@@ -56,4 +56,7 @@ class FolderPaths {
 
   String translationFile(String fileName) =>
       'lib/helper/translations/${fileName}_translation.dart';
+
+  String locale()=> "lib/helper/translations/local.dart";
+
 }
