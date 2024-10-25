@@ -1,13 +1,24 @@
 import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
+import '../../core/models/localization_variables_name.dart';
+
 class GetStringToTranslate {
-  static Future<List<String>> getStringToTranslate() async {
+  static Future<LocalizationVariablesNameAndWords> getStringToTranslate() async {
+    LocalizationVariablesNameAndWords localizationVariablesName =
+        LocalizationVariablesNameAndWords();
+
     String stringConstFileContent = await FolderAndFileService.readFile(
         FolderPaths.instance.stringConstantPath,
         createFileIfNotFound: false);
 
-    return _getWordsFromFile(stringConstFileContent);
+    localizationVariablesName.wordsKeys =
+        _getWordsFromFile(stringConstFileContent);
+
+    localizationVariablesName.variables =
+        _getVariablesName(stringConstFileContent);
+
+    return localizationVariablesName;
   }
 
   static List<String> _getWordsFromFile(String fileContent) {
@@ -30,7 +41,27 @@ class GetStringToTranslate {
         wordsOutputs.add(word);
       }
     }
-    print("🚀 Thunder extract ${wordsOutputs.length} words successfully ...\n\n");
+    print(
+        "🚀 Thunder extract ${wordsOutputs.length} words successfully ...\n\n");
     return wordsOutputs;
+  }
+
+  static List<String> _getVariablesName(String fileContent) {
+    List<String> variables = [];
+    List<String> content = fileContent.split("\n");
+
+    for (String element in content) {
+      element = element.trim();
+      if ((element.startsWith("static const") ||
+              element.startsWith("String") ||
+              element.startsWith("final")) &&
+          element.endsWith(";")) {
+        String fullVariable = element.split("=").first;
+        String variableName = fullVariable.split("String").last.trim();
+        variables.add(variableName);
+      }
+    }
+
+    return variables;
   }
 }
