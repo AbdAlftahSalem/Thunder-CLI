@@ -6,11 +6,9 @@ import '../../core/models/translated_words_model.dart';
 class TranslateLanguages {
   static Future translateLanguages(List<String> wordsToTranslate,
       FromToLanguageModel fromToLanguageModel) async {
-    final translator = GoogleTranslator();
-
     // set up multiple lists
     List<String> wordsAdapter = _setupWordsToTranslate(wordsToTranslate);
-      List<TranslatedWordsModel> translatedWords = [];
+    List<TranslatedWordsModel> translatedWords = [];
     TranslatedWordsModel translatedWordsModel = TranslatedWordsModel(
       baseWordsString: wordsAdapter.join(" || "),
       baseWordsList: wordsAdapter,
@@ -33,8 +31,14 @@ class TranslateLanguages {
             .split("||")
             .map((e) => e.trim())
             .toList();
+        translatedWordsModel.translatedWordsList
+            ?.removeWhere((element) => element.isEmpty);
+
         translatedWords.add(translatedWordsModel);
-        print("✅ Translated ${translatedWordsModel.translatedWordsList!.length} words to ${toLanguage.languageName} successfully ...");
+        translatedWordsModel.language = toLanguage.languageName;
+
+        print(
+            "✅ Translated ${translatedWordsModel.translatedWordsList!.length} words to ${toLanguage.languageName} successfully ...");
       }
     }
     return translatedWords;

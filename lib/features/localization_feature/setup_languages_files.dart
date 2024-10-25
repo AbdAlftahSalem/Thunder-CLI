@@ -49,16 +49,14 @@ class SetupLanguagesFiles {
       List<String> variablesName,
       List<String> wordsName,
       bool isBasicLanguage) {
-    if (isBasicLanguage) {
-      return "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${languageName.substring(0, 2)}Language = {\n${_getMapData(variablesName, wordsName)}\n};";
-    }
-
-    return "";
+    return "import '../constants/strings_constants.dart';\n\nfinal Map<String, String> ${languageName.substring(0, 2)}Language = {\n${_getMapData(variablesName, wordsName)}\n};";
   }
 
   static String _getMapData(
       List<String> variablesName, List<String> variablesWords) {
     if (variablesName.length != variablesWords.length) {
+      print(variablesName);
+      print(variablesWords);
       print("😢 Variables name not equal words !!");
       return "";
     }
