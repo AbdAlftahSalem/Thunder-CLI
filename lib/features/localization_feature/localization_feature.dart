@@ -3,9 +3,9 @@ import 'package:thunder_cli/features/localization_feature/get_translate_language
 import 'package:thunder_cli/features/localization_feature/setup_languages_files.dart';
 import 'package:thunder_cli/features/localization_feature/translate_languages.dart';
 
-import '../../core/models/from_to_language_model.dart';
-import '../../core/models/localization_variables_name.dart';
-import '../../core/models/translated_words_model.dart';
+import 'models/from_to_language_model.dart';
+import 'models/localization_variables_name.dart';
+import 'models/translated_words_model.dart';
 
 class LocalizationFeature {
   static void localizationFeature() async {

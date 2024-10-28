@@ -1,7 +1,7 @@
 import 'package:translator/translator.dart';
 
-import '../../core/models/from_to_language_model.dart';
-import '../../core/models/translated_words_model.dart';
+import 'models/from_to_language_model.dart';
+import 'models/translated_words_model.dart';
 
 class TranslateLanguages {
   static Future translateLanguages(List<String> wordsToTranslate,

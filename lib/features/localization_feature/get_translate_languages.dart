@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
-import '../../core/models/from_to_language_model.dart';
+import 'models/from_to_language_model.dart';
 
 class GetTranslateLanguages {
   static FromToLanguageModel getTranslateLanguages() {
