@@ -30,17 +30,17 @@ class LocalizationFeature {
     // 3- setup languages files
     await SetupLanguagesFiles.setupLanguagesFiles(fromToLanguageModel);
 
-    // // 4- Translate words to languages
-    // List<TranslatedWordsModel> translatedWords =
-    //     await TranslateLanguages.translateLanguages(
-    //   localizationVariablesNameAndWords.wordsKeys ?? [],
-    //   fromToLanguageModel,
-    // );
+    // 4- Translate words to languages
+    List<TranslatedWordsModel> translatedWords =
+        await TranslateLanguages.translateLanguages(
+      localizationVariablesNameAndWords.wordsKeys ?? [],
+      fromToLanguageModel,
+    );
 
     // 5- write the translated words in the languages files
     await SetupLanguagesFiles.setupBasicTranslated(
       localizationVariablesNameAndWords,
-      [],
+      translatedWords,
       fromToLanguageModel,
     );
   }
