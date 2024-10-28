@@ -1,0 +1,21 @@
+{
+  "app_name": "test",
+  "package_name": "test.com",
+  "state_management": "GetX",
+  "using_github_action": true,
+  "using_flavors": true,
+  "localization_model": {
+    "baseLanguage": "en",
+    "lastWordTranslated": "Normal date",
+    "toLanguages": [
+      {
+        "languageName": "ar",
+        "languageDartFileName": "ar_translation.dart"
+      },
+      {
+        "languageName": "fr",
+        "languageDartFileName": "fr_translation.dart"
+      }
+    ]
+  }
+}

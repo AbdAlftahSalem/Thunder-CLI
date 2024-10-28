@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
 import 'package:thunder_cli/features/localization_feature/get_string_to_translate.dart';
 import 'package:thunder_cli/features/localization_feature/get_translate_languages.dart';
 import 'package:thunder_cli/features/localization_feature/setup_languages_files.dart';
@@ -9,28 +14,33 @@ import 'models/translated_words_model.dart';
 
 class LocalizationFeature {
   static void localizationFeature() async {
+    AppDataModel appDataModel = AppDataModel.fromJson(jsonDecode(
+        await FolderAndFileService.readFile(
+            "${Directory.current.path}\\thunder.json",
+            createFileIfNotFound: false)));
+
     // 1- get the string write in strings_constants.dart
     LocalizationVariablesNameAndWords localizationVariablesNameAndWords =
-        await GetStringToTranslate.getStringToTranslate();
+        await GetStringToTranslate.getStringToTranslate(appDataModel);
 
     // 2- get from to languages
     FromToLanguageModel fromToLanguageModel =
-        GetTranslateLanguages.getTranslateLanguages();
+        await GetTranslateLanguages.getTranslateLanguages(appDataModel);
 
     // 3- setup languages files
     await SetupLanguagesFiles.setupLanguagesFiles(fromToLanguageModel);
 
-    // 4- Translate words to languages
-    List<TranslatedWordsModel> translatedWords =
-        await TranslateLanguages.translateLanguages(
-      localizationVariablesNameAndWords.wordsKeys ?? [],
-      fromToLanguageModel,
-    );
+    // // 4- Translate words to languages
+    // List<TranslatedWordsModel> translatedWords =
+    //     await TranslateLanguages.translateLanguages(
+    //   localizationVariablesNameAndWords.wordsKeys ?? [],
+    //   fromToLanguageModel,
+    // );
 
     // 5- write the translated words in the languages files
     await SetupLanguagesFiles.setupBasicTranslated(
       localizationVariablesNameAndWords,
-      translatedWords,
+      [],
       fromToLanguageModel,
     );
   }

@@ -11,7 +11,7 @@ import 'open_project_in_vs_code.dart';
 
 class CloneRepoAndSetupProject {
   /// Clone repository from GitHub and create folder and setup main packages. and other main feature
-  static void cloneAndSetupProject(
+  static Future cloneAndSetupProject(
       {required AppDataModel appInfo, required String dirName}) async {
     print("\n\n🔃🔃 Thunder will initialize your app. Please wait for seconds");
 
