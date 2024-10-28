@@ -1,4 +1,4 @@
-import '../../core/models/app_data_model.dart';
+import 'models/app_data_model.dart';
 import 'clone_repo_and_setup_project.dart';
 import 'get_project_data.dart';
 

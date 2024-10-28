@@ -4,7 +4,7 @@ import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/init_project/set_up_github_action.dart';
 import 'package:thunder_cli/features/init_project/setup_flavor.dart';
 
-import '../../core/models/app_data_model.dart';
+import 'models/app_data_model.dart';
 
 class GetProjectData {
   static AppDataModel getProjectData() {

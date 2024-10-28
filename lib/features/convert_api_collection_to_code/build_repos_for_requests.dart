@@ -1,5 +1,5 @@
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
-import 'package:thunder_cli/core/models/request_model.dart';
+import 'models/request_model.dart';
 
 import '../../core/consts/const_strings.dart';
 import '../../core/consts/folder_paths.dart';

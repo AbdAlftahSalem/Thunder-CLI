@@ -1,4 +1,4 @@
-import '../../core/models/variable_model.dart';
+import 'models/variable_model.dart';
 
 class GetVariablesData {
   static List<VariableModel> getVariables(List vars) {

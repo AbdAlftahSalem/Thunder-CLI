@@ -1,13 +1,13 @@
-import 'package:thunder_cli/core/models/request_model.dart';
+import 'models/request_model.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/extract_request_details.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/get_variables_data.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/read_file_path_and_data.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/set_routes_in_api_const.dart';
 
-import '../../core/models/variable_model.dart';
 import './build_repos_for_requests.dart';
 import 'build_body_model_file.dart';
 import 'build_controller_for_requests.dart';
+import 'models/variable_model.dart';
 
 /*
 ✅ 1- Build api const file ( for all routes in collection )

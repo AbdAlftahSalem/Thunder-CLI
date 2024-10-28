@@ -1,7 +1,7 @@
 import 'package:thunder_cli/core/networking/dio_handler.dart';
 import 'package:thunder_cli/features/create_api_model/setup_request_data.dart';
 
-import '../../core/models/request_model.dart';
+import '../convert_api_collection_to_code/models/request_model.dart';
 import 'build_model_file.dart';
 
 class CreateApiModel {

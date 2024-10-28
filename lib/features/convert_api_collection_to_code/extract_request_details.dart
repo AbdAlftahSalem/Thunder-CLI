@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
-import '../../core/models/request_model.dart';
-import '../../core/models/variable_model.dart';
+import 'models/request_model.dart';
 import '../../core/networking/dio_handler.dart';
 import '../create_api_model/setup_request_data.dart';
+import 'models/variable_model.dart';
 
 class ExtractRequestDetails {
   static List<RequestModel> extractRequestDetails({
