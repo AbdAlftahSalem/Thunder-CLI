@@ -12,9 +12,7 @@ class AppDataModel {
     this.usingGitHubAction = true,
     this.usingFlavors = true,
     this.localizationModel,
-  }) {
-    localizationModel = LocalizationModel();
-  }
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -28,6 +26,7 @@ class AppDataModel {
   }
 
   factory AppDataModel.fromJson(Map<String, dynamic> map) {
+    print("HERE : ${map['localization_model']}");
     return AppDataModel(
       appName: map['app_name'] ?? "",
       packageName: map['package_name'] ?? "",
@@ -35,7 +34,7 @@ class AppDataModel {
       usingGitHubAction: map['using_github_action'] ?? "",
       usingFlavors: map['using_flavors'] ?? "",
       localizationModel:
-          LocalizationModel.fromMap(map['localization_model'] ?? {}),
+          LocalizationModel.fromMap(map['localization_model']),
     );
   }
 }
@@ -52,17 +51,17 @@ class LocalizationModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'baseLanguage': baseLanguage,
-      'lastWordTranslated': lastWordTranslated,
-      'toLanguages': (toLanguages ?? []).map((e) => e.toMap()).toList(),
+      'base_language': baseLanguage,
+      'last_word_translated': lastWordTranslated,
+      'to_languages': (toLanguages ?? []).map((e) => e.toMap()).toList(),
     };
   }
 
   factory LocalizationModel.fromMap(Map<String, dynamic> map) {
     return LocalizationModel(
-      baseLanguage: map['baseLanguage'],
-      lastWordTranslated: map['lastWordTranslated'],
-      toLanguages: (map['toLanguages'] as List)
+      baseLanguage: map['base_language'],
+      lastWordTranslated: map['last_word_translated'],
+      toLanguages: (map['to_languages'] as List)
           .map((e) => ToLanguages.fromMap(e))
           .toList(),
     );

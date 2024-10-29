@@ -1,19 +1,24 @@
 import 'package:thunder_cli/core/consts/const_strings.dart';
 import 'package:thunder_cli/core/consts/folder_paths.dart';
+import 'package:thunder_cli/core/extensions/app_data_extesions.dart';
 import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
 
 import 'models/from_to_language_model.dart';
 import 'models/localization_variables_name.dart';
 import 'models/translated_words_model.dart';
 
 class SetupLanguagesFiles {
-  static Future setupLanguagesFiles(
-      FromToLanguageModel fromToLanguageModel) async {}
-
   static Future setupBasicTranslated(
+      AppDataModel appDataModel,
       LocalizationVariablesNameAndWords localizationVariablesNameAndWords,
       List<TranslatedWordsModel> translatedWords,
       FromToLanguageModel fromToLanguageModel) async {
+
+    appDataModel.localizationModel!.lastWordTranslated =
+        (localizationVariablesNameAndWords.wordsKeys ?? [""]).last;
+    await appDataModel.saveModel();
+
     // setup base language
     await FolderAndFileService.createFile(
       FolderPaths.instance

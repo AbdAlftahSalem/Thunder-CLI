@@ -1,5 +1,4 @@
 import 'package:thunder_cli/core/consts/folder_paths.dart';
-import 'package:thunder_cli/core/extensions/app_data_extesions.dart';
 import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
 import '../init_project/models/app_data_model.dart';
@@ -20,10 +19,6 @@ class GetStringToTranslate {
 
     localizationVariablesName.variables =
         _getVariablesName(stringConstFileContent);
-
-    appDataModel.localizationModel!.lastWordTranslated =
-        (localizationVariablesName.wordsKeys ?? [""]).last;
-    await appDataModel.saveModel();
 
     return localizationVariablesName;
   }

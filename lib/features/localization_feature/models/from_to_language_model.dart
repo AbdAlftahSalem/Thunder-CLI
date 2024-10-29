@@ -15,15 +15,20 @@ class ToLanguages {
 
   Map<String, dynamic> toMap() {
     return {
-      'languageName': languageName,
-      'languageDartFileName': languageDartFileName,
+      'language_name': languageName,
+      'language_dart_file_name': languageDartFileName,
     };
   }
 
   factory ToLanguages.fromMap(Map<String, dynamic> map) {
     return ToLanguages(
-      languageName: map['languageName'] as String,
-      languageDartFileName: map['languageDartFileName'] as String,
+      languageName: map['language_name'] as String,
+      languageDartFileName: map['language_dart_file_name'] as String,
     );
+  }
+
+  @override
+  String toString() {
+    return 'language name: $languageName';
   }
 }
