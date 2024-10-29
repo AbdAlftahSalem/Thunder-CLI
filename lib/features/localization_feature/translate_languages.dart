@@ -4,9 +4,18 @@ import 'models/from_to_language_model.dart';
 import 'models/translated_words_model.dart';
 
 class TranslateLanguages {
-  static Future translateLanguages(List<String> wordsToTranslate,
-      FromToLanguageModel fromToLanguageModel) async {
+  static Future translateLanguages(
+      List<String> wordsToTranslate, FromToLanguageModel fromToLanguageModel,
+      {String lastWordTranslated = ""}) async {
     // set up multiple lists
+
+    if (lastWordTranslated.isNotEmpty) {
+      int endIndex = wordsToTranslate
+              .indexWhere((element) => element == lastWordTranslated) +
+          1;
+      wordsToTranslate.removeRange(0, endIndex);
+    }
+    print("LENGTH : ${wordsToTranslate.length}");
     List<String> wordsAdapter = _setupWordsToTranslate(wordsToTranslate);
     List<TranslatedWordsModel> translatedWords = [];
     TranslatedWordsModel translatedWordsModel = TranslatedWordsModel(
