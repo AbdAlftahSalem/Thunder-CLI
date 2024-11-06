@@ -19,7 +19,6 @@ class GetTranslateLanguages {
           (appDataModel.localizationModel!.toLanguages ?? []).isNotEmpty) {
         // get number of newest words
 
-        print("🚀 Thunder was translated words .");
         print(
             "🚀 Base language in '${appDataModel.appName}' application : ${appDataModel.localizationModel!.baseLanguage} ");
         print(

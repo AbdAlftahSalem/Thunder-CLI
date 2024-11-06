@@ -15,7 +15,7 @@ class TranslateLanguages {
           1;
       wordsToTranslate.removeRange(0, endIndex);
     }
-    print("LENGTH : ${wordsToTranslate.length}");
+
     List<String> wordsAdapter = _setupWordsToTranslate(wordsToTranslate);
     List<TranslatedWordsModel> translatedWords = [];
     TranslatedWordsModel translatedWordsModel = TranslatedWordsModel(
@@ -45,9 +45,10 @@ class TranslateLanguages {
 
         translatedWords.add(translatedWordsModel);
         translatedWordsModel.language = toLanguage.languageName;
-
-        print(
-            "✅ Translated ${translatedWordsModel.translatedWordsList!.length} words to ${toLanguage.languageName} successfully ...");
+        if (translatedWord.trim().replaceAll("||", "").isNotEmpty) {
+          print(
+              "✅ Translated ${translatedWordsModel.translatedWordsList!.length} words to ${toLanguage.languageName} successfully ...");
+        }
       }
     }
     return translatedWords;
@@ -79,8 +80,7 @@ class TranslateLanguages {
   }) async {
     // translate code ...
     try {
-      print(content);
-      final translatedWord = await GoogleTranslator().translate(
+      Translation translatedWord = await GoogleTranslator().translate(
         content,
         from: baseLanguage,
         to: toLanguage,
