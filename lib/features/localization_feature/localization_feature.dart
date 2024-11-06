@@ -5,6 +5,7 @@ import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_fil
 import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
 import 'package:thunder_cli/features/localization_feature/get_string_to_translate.dart';
 import 'package:thunder_cli/features/localization_feature/get_translate_languages.dart';
+import 'package:thunder_cli/features/localization_feature/setup_languages_files.dart';
 import 'package:thunder_cli/features/localization_feature/translate_languages.dart';
 
 import 'models/from_to_language_model.dart';
@@ -34,12 +35,13 @@ class LocalizationFeature {
       fromToLanguageModel,
       lastWordTranslated: appDataModel.localizationModel!.lastWordTranslated,
     );
-    // // 4- write the translated words in the languages files
-    // await SetupLanguagesFiles.setupBasicTranslated(
-    //   appDataModel,
-    //   localizationVariablesNameAndWords,
-    //   translatedWords,
-    //   fromToLanguageModel,
-    // );
+
+    // 4- write the translated words in the languages files
+    await SetupLanguagesFiles.setupBasicTranslated(
+      appDataModel,
+      localizationVariablesNameAndWords,
+      translatedWords,
+      fromToLanguageModel,
+    );
   }
 }
