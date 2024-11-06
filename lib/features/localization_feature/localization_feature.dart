@@ -16,8 +16,7 @@ class LocalizationFeature {
   static void localizationFeature() async {
     AppDataModel appDataModel = AppDataModel.fromJson(jsonDecode(
         await FolderAndFileService.readFile(
-            "${Directory.current.path}\\thunder.json",
-            createFileIfNotFound: false)));
+            "${Directory.current.path}\\thunder.json")));
 
     // 1- get the string write in strings_constants.dart
     LocalizationVariablesNameAndWords localizationVariablesNameAndWords =

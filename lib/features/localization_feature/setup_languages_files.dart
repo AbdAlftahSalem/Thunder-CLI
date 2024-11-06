@@ -33,7 +33,7 @@ class SetupLanguagesFiles {
     for (var i in translatedWords) {
       await FolderAndFileService.createFile(
         FolderPaths.instance.translationFile(i.language.substring(0, 2)),
-        _getTranslatedData(
+        await _getTranslatedData(
           i.language,
           localizationVariablesNameAndWords.variables ?? [],
           i.translatedWordsList ?? [],
