@@ -1,5 +1,6 @@
 import 'package:args/args.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/convert_api_collection_to_code.dart';
+import 'package:thunder_cli/features/localization_feature/localization_feature.dart';
 
 import '../../../../features/create_api_model/create_api_model.dart';
 import '../../../../features/create_feature/create_feature.dart';
@@ -16,7 +17,11 @@ class GetCommand {
     } else if (results['model']) {
       // Generate model file for the module -> thunder_cli --model
       await CreateApiModel.createApiModel();
+    } else if (results['localization']) {
+      // Generate locales file and auto translated words in application -> thunder_cli --localization
+      await LocalizationFeature.localizationFeature();
     } else if (results['c_api']) {
+      // convert api collection to code
       await ConvertApiCollectionToCode.convertApiCollectionToCode();
     } else {
       _showHelpMessage();
@@ -37,7 +42,8 @@ class GetCommand {
         "3 - thunder_cli --model : create a new API model with API automatically.";
     message +=
         "4 - thunder_cli --c_api : Convert API collection to coe with build repos and controllers .";
-    message += "5 - thunder_cli --help : Show help message.";
+    message += "5 - thunder_cli --localization : Generate locales file and auto translated words in application";
+    message += "6 - thunder_cli --help : Show help message.";
 
     print(message);
   }
