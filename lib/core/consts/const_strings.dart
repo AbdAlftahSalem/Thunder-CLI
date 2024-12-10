@@ -81,7 +81,7 @@ Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", 
 
     if (repoMethodName.isEmpty) {
       newRepoMethodName =
-          "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.get${controllerName.toCamelCaseFirstLetterForEachWord()}Data()";
+          "${controllerName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo.getTodosApiUrlData()";
     } else {
       newRepoMethodName =
           "${repoClassName.lowerCaseFirstLetter()}.$repoMethodName($bodyModel)";

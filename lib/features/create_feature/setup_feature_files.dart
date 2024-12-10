@@ -48,7 +48,7 @@ class SetupFeatureFiles {
         .map((e) => e.group(0))
         .toList();
 
-    bindingData = bindingData.map((e) => "  $e").toList();
+    bindingData = bindingData.map((e) => "  ${(e ?? "").trim()}").toList();
 
     importData.add(
         "import '../../feature/$className/logic/${className}_controller.dart';");
