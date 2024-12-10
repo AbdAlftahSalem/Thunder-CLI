@@ -14,9 +14,10 @@ class AddInRouteFile {
         .allMatches(contentFile)
         .map((e) => e.group(0))
         .toList();
+    prevRoutes = prevRoutes.map((e) => "  ${(e ?? "").trim()}").toList();
 
     prevRoutes.add(
-        "static const ${featureName.toUpperCase()} = '/${featureName.toLowerCase()}';");
+        "  static const ${featureName.toUpperCase()} = '/${featureName.toLowerCase()}';");
 
     contentFile = """
 class Routes {
