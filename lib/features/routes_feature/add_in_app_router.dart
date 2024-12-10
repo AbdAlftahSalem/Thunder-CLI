@@ -5,7 +5,6 @@ import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import '../../core/consts/folder_paths.dart';
 import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
 
-
 class AddInAppRouter {
   static Future<void> addRouteInAppRoute(String featureName) async {
     // reading app_routes.dart file
@@ -13,7 +12,7 @@ class AddInAppRouter {
         await FolderAndFileService.readFile(FolderPaths.instance.appRoutesFile);
 
     // extract all imports from code
-    final imports = _getPreviousImports(contentFile);
+    List<String?> imports = _getPreviousImports(contentFile);
 
     // extract routes from code
     final routesMatch = RegExp(r'static final routes = \[([\s\S]*?)\];')
@@ -30,10 +29,14 @@ class AddInAppRouter {
   }
 
   static List<String?> _getPreviousImports(String contentFile) {
-    return RegExp(r'import.*?;')
+    List<String?> imports = RegExp(r'import.*?;')
         .allMatches(contentFile)
         .map((e) => e.group(0))
         .toList();
+
+    imports = imports.map((e) => (e ?? "").trim()).toList();
+
+    return imports;
   }
 
   static String _updateImportsInContentFile(
@@ -43,14 +46,13 @@ class AddInAppRouter {
 import 'package:get/get.dart';
 import 'routes.dart';
 
-import '../../features/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
+import '../../feature/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
 
 ''';
     } else {
       return '''
     ${imports.join('\n')}
-import '../../features/${featureName.toLowerCase()}/${featureName.toLowerCase()}_view.dart';
-import 'routes.dart';
+import '../../feature/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
 
 ''';
     }
