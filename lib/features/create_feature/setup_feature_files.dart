@@ -48,6 +48,8 @@ class SetupFeatureFiles {
         .map((e) => e.group(0))
         .toList();
 
+    bindingData = bindingData.map((e) => "  $e").toList();
+
     importData.add(
         "import '../../feature/$className/logic/${className}_controller.dart';");
 
@@ -63,9 +65,9 @@ class SetupFeatureFiles {
       importData.add("import '../networking/base_client.dart';");
     }
     bindingData.add(
-        "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Repo(Get.find<DioHelper>()), , fenix: true);");
+        "  Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Repo(Get.find<DioHelper>()), fenix: true);");
     bindingData.add(
-        "Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord()}Repo>()), , fenix: true);");
+        "  Get.lazyPut(() => ${className.toCamelCaseFirstLetterForEachWord()}Controller(${className.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}Repo : Get.find<${className.toCamelCaseFirstLetterForEachWord()}Repo>()) , fenix: true);");
 
     String newBindingFile = """
 ${importData.join("\n")}
