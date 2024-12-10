@@ -24,8 +24,9 @@ class ConvertApiCollectionToCode {
         await ReadFilePathAndData.readFilePathAndData();
 
     // extract variables
-    List<VariableModel> variablesModel =
-        GetVariablesData.getVariables(collectionData['variable']);
+    List<VariableModel> variablesModel = collectionData.containsKey("variable")
+        ? GetVariablesData.getVariables(collectionData['variable'])
+        : [];
 
     // get all requests
     List<RequestModel> requests = ExtractRequestDetails.extractRequestDetails(

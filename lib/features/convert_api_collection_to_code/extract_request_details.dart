@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 
-import 'models/request_model.dart';
 import '../../core/networking/dio_handler.dart';
 import '../create_api_model/setup_request_data.dart';
+import 'models/request_model.dart';
 import 'models/variable_model.dart';
 
 class ExtractRequestDetails {
@@ -15,8 +15,9 @@ class ExtractRequestDetails {
   }) {
     List<RequestModel> requests = [];
 
-    VariableModel baseUrl = variablesModel.firstWhere(
-        (element) => element.toString().toLowerCase().contains("url"));
+    VariableModel baseUrl = variablesModel
+        .where((element) => element.toString().toLowerCase().contains("url"))
+        .first;
 
     stdout.write(
         "\n\nDo you want change feature or model name ? [ y | N ] ( Default N ) : ");
@@ -33,6 +34,7 @@ class ExtractRequestDetails {
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
+          print(requestInFolder);
           RequestModel requestModel = getDetailOfRequest(
               requestInFolder,
               baseUrl,

@@ -11,7 +11,7 @@ class GetVariablesData {
           "\n\n✅ Read ${variablesCollection.length} variables from collection ...\n");
       for (int i = 0; i < variablesCollection.length; ++i) {
         print(
-            "$i - ${variablesCollection[i].key} : ${variablesCollection[i].value}");
+            "${i + 1} - ${variablesCollection[i].key} : ${variablesCollection[i].value}");
       }
     }
     return variablesCollection;

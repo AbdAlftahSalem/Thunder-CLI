@@ -34,18 +34,23 @@ extension StringConversion on String {
 
   /// extract variables [ API collection ]  form string
   String convertVariableToValue(List<VariableModel> vars) {
-    List<String> nameList = split(" ");
-    for (String i in nameList) {
-      if (i.startsWith("{{") && i.endsWith("}}")) {
-        int index = nameList.indexWhere((element) => element.contains(i));
-        nameList[index] = vars
-            .firstWhere((element) =>
-                element.key.toLowerCase() ==
-                i.replaceAll("{{", "").replaceAll("}}", ""))
-            .value;
+    try {
+      List<String> nameList = split(" ");
+      for (String i in nameList) {
+        if (i.startsWith("{{") && i.endsWith("}}")) {
+          int index = nameList.indexWhere((element) => element.contains(i));
+          nameList[index] = vars
+              .firstWhere((element) =>
+                  element.key.toLowerCase() ==
+                  i.replaceAll("{{", "").replaceAll("}}", ""))
+              .value;
+        }
       }
+      return nameList.join(" ");
+    } catch (e) {
+      print("Variable not found");
+      return "";
     }
-    return nameList.join(" ");
   }
 
   String updateSlashInUrl() {
