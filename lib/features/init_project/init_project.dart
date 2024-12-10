@@ -9,6 +9,8 @@ class InitProject {
     try {
       final AppDataModel appInfo = GetProjectData.getProjectData();
 
+      await appInfo.saveModel();
+
       await CloneRepoAndSetupProject.cloneAndSetupProject(
         dirName: appInfo.appName,
         appInfo: appInfo,

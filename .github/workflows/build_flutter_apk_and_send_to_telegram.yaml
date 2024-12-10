@@ -1,0 +1,29 @@
+name: Build Flutter APK and send it to telegram ...
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_apk:
+    name: Build Flutter (Android APK)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v2
+      - run: flutter pub get
+      - name: Build Universal APK
+        run: flutter build apk --release --split-per-abi --tree-shake-icons
+      - name: send apk as a message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.MESSAGEID }}
+          token: ${{ secrets.BOTTOKEN }}
+          message: |
+            New Version Below . The apk commit is : ${{ github.event.inputs.message }}
+          document: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+
+    

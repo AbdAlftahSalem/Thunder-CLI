@@ -135,7 +135,7 @@ import '../../../helper/widgets/custom_widgets/custom_text.dart';
 
 import '../logic/${viewName.toLowerCase()}_controller.dart';
 
-class ${viewClassName}View extends GetView<${viewClassName}Controller> {
+class ${viewClassName}View extends StatelessWidget {
   const ${viewClassName}View({super.key});
 
   @override

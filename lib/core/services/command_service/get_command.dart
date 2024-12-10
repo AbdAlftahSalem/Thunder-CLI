@@ -42,7 +42,8 @@ class GetCommand {
         "3 - thunder_cli --model : create a new API model with API automatically.";
     message +=
         "4 - thunder_cli --c_api : Convert API collection to coe with build repos and controllers .";
-    message += "5 - thunder_cli --localization : Generate locales file and auto translated words in application";
+    message +=
+        "5 - thunder_cli --localization : Generate locales file and auto translated words in application";
     message += "6 - thunder_cli --help : Show help message.";
 
     print(message);

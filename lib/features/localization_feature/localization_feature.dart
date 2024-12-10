@@ -13,7 +13,7 @@ import 'models/localization_variables_name.dart';
 import 'models/translated_words_model.dart';
 
 class LocalizationFeature {
-  static Future<void> localizationFeature() async {
+  static Future localizationFeature() async {
     AppDataModel appDataModel = AppDataModel.fromJson(jsonDecode(
         await FolderAndFileService.readFile(
             "${Directory.current.path}\\thunder.json")));

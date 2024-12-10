@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class FolderPaths {
   //  *******  app files and folders path  *******
 
@@ -31,7 +33,8 @@ class FolderPaths {
   String logicFolder(String name) =>
       "E:/Flutter new/dabdob/lib/feature/$name/logic";
 
-  String uiFolder(String name) => "E:/Flutter new/dabdob/lib/feature/$name/ui";
+  String uiFolder(String name) =>
+      "E:/Flutter new/dabdob/lib/feature/$name/ui";
 
   String dataFolder(String name) =>
       "E:/Flutter new/dabdob/lib/feature/$name/data";
@@ -55,8 +58,7 @@ class FolderPaths {
       'E:/Flutter new/dabdob/lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
 
   String translationFile(String fileName) =>
-      'lib/helper/translations/${fileName}_translation.dart';
+      'E:/Flutter new/dabdob/lib/helper/translations/${fileName}_translation.dart';
 
-  String locale()=> "lib/helper/translations/local.dart";
-
+  String locale() => "E:/Flutter new/dabdob/lib/helper/translations/local.dart";
 }

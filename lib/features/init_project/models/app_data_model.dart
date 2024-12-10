@@ -26,16 +26,22 @@ class AppDataModel {
   }
 
   factory AppDataModel.fromJson(Map<String, dynamic> map) {
-    print("HERE : ${map['localization_model']}");
     return AppDataModel(
       appName: map['app_name'] ?? "",
       packageName: map['package_name'] ?? "",
       stateManagement: map['state_management'] ?? "",
       usingGitHubAction: map['using_github_action'] ?? "",
       usingFlavors: map['using_flavors'] ?? "",
-      localizationModel:
-          LocalizationModel.fromMap(map['localization_model']),
+      localizationModel: map['localization_model'] == null
+          ? LocalizationModel(
+              toLanguages: [], baseLanguage: "", lastWordTranslated: "")
+          : LocalizationModel.fromMap(map['localization_model']),
     );
+  }
+
+  @override
+  String toString() {
+    return 'AppDataModel{appName: $appName, packageName: $packageName, stateManagement: $stateManagement, usingGitHubAction: $usingGitHubAction, usingFlavors: $usingFlavors, localizationModel: $localizationModel}';
   }
 }
 
@@ -65,5 +71,10 @@ class LocalizationModel {
           .map((e) => ToLanguages.fromMap(e))
           .toList(),
     );
+  }
+
+  @override
+  String toString() {
+    return 'LocalizationModel{baseLanguage: $baseLanguage, lastWordTranslated: $lastWordTranslated, toLanguages: $toLanguages}';
   }
 }
