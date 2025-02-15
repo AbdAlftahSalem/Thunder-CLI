@@ -51,10 +51,10 @@ class SetupFeatureFiles {
     bindingData = bindingData.map((e) => "  ${(e ?? "").trim()}").toList();
 
     importData.add(
-        "import '../../feature/$className/logic/${className}_controller.dart';");
+        "import '../../app/controllers/${className}_controller.dart';");
 
     importData.add(
-        "import '../../feature/$className/data/repo/${className}_repo.dart';");
+        "import '../../app/repos/${className}_repo.dart';");
 
     if (bindingData.isEmpty) {
       // main binding in file

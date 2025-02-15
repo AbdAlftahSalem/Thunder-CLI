@@ -93,7 +93,7 @@ import 'package:get/get.dart';
 import '../../../core/networking/api_result.dart';
 import '../../../core/networking/enums_networking.dart';
 ${bodyModel.isEmpty ? "" : "import '../data/models/${controllerName.toLowerCase()}_body_model.dart';"}
-import '../data/repo/${controllerName.toLowerCase()}_repo.dart';
+import '../repos/${controllerName.toLowerCase()}_repo.dart';
 
 class $controllerClassName extends GetxController {
   $repoClassName ${repoClassName.lowerCaseFirstLetter()};
@@ -133,7 +133,7 @@ import 'package:get/get.dart';
 
 import '../../../helper/widgets/custom_widgets/custom_text.dart';
 
-import '../logic/${viewName.toLowerCase()}_controller.dart';
+import '../controllers/${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends StatelessWidget {
   const ${viewClassName}View({super.key});
