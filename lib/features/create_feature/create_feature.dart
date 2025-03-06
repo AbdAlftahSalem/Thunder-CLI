@@ -20,9 +20,9 @@ class CreateFeatureFiles {
 
   static Future<void> _generateFiles(String featureName) async {
     print("\n******************** $featureName ********************\n");
-    // set up modules folder
-    await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
-    print("✅ Setup 'Folders' and 'Sub Folders' successfully ...");
+    // // set up modules folder
+    // await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
+    // print("✅ Setup 'Folders' and 'Sub Folders' successfully ...");
 
     await SetupFeatureFiles.setupFeatureFiles(featureName);
     print("✅ Setup 'Files' successfully ...");

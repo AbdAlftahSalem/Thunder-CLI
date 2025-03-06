@@ -8,45 +8,38 @@ class FolderPaths {
 
   FolderPaths._internal();
 
-  String featureFolder = 'lib/feature';
-  String bindingsFile = 'lib/core/bindings/bindings_app.dart';
+  String featureFolder = 'E:/Flutter new/juser/lib/feature';
+  String bindingsFile = 'E:/Flutter new/juser/lib/core/bindings/bindings_app.dart';
 
   // routes files
-  String appRoutesFile = 'lib/core/routing/app_routes.dart';
-  String routesFile = 'lib/core/routing/routes.dart';
-  String jsonFile = 'lib/thunder.json';
+  String appRoutesFile = 'E:/Flutter new/juser/lib/core/routing/app_routes.dart';
+  String repoFolder = 'E:/Flutter new/juser/lib/app/repos';
+  String modelsFolder = 'E:/Flutter new/juser/lib/app/models';
+  String uiFolder = 'E:/Flutter new/juser/lib/app/ui';
+  String controllersFolder = 'E:/Flutter new/juser/lib/app/controllers';
 
-  String apiConstRoutesFile = "lib/helper/constants/api_constants.dart";
+  String routesFile = 'E:/Flutter new/juser/lib/core/routing/routes.dart';
+  String jsonFile = 'E:/Flutter new/juser/lib/thunder.json';
 
-  String stringConstantPath = "lib/helper/constants/strings_constants.dart";
+  String apiConstRoutesFile = "E:/Flutter new/juser/lib/helper/constants/api_constants.dart";
+
+  String stringConstantPath = "E:/Flutter new/juser/lib/helper/constants/strings_constants.dart";
 
   // feature files
-  String folderInFeatures(String name) => 'lib/feature/$name';
-
-  String logicFolder(String name) => "lib/feature/$name/logic";
-
-  String uiFolder(String name) => "lib/feature/$name/ui";
-
-  String dataFolder(String name) => "lib/feature/$name/data";
-
-  String modelsFolder(String name) => "lib/feature/$name/data/models";
-
-  String repoFolder(String name) => "lib/feature/$name/data/repo";
-
   String repoFile(String name) =>
-      'lib/feature/$name/data/repo/${name.toLowerCase()}_repo.dart';
+      '$repoFolder/${name.toLowerCase()}_repo.dart';
 
   String controllerFile(String name) =>
-      'lib/feature/$name/logic/${name.toLowerCase()}_controller.dart';
+      '$controllersFolder/${name.toLowerCase()}_controller.dart';
 
   String viewFile(String name) =>
-      'lib/feature/$name/ui/${name.toLowerCase()}_view.dart';
+      '$uiFolder/${name.toLowerCase()}_view.dart';
 
   String modelFile(String modelName, String featureName) =>
-      'lib/feature/${featureName.toLowerCase()}/data/models/${modelName.toLowerCase()}_model.dart';
+      '$modelsFolder/models/${modelName.toLowerCase()}_model.dart';
 
   String translationFile(String fileName) =>
-      'lib/helper/translations/${fileName}_translation.dart';
+      'E:/Flutter new/juser/lib/helper/translations/${fileName}_translation.dart';
 
-  String locale() => "lib/helper/translations/local.dart";
+  String locale() => "E:/Flutter new/juser/lib/helper/translations/local.dart";
 }

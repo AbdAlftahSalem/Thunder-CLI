@@ -46,13 +46,13 @@ class AddInAppRouter {
 import 'package:get/get.dart';
 import 'routes.dart';
 
-import '../../feature/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
+import '../../app/ui/${featureName.toLowerCase()}_view.dart';
 
 ''';
     } else {
       return '''
     ${imports.join('\n')}
-import '../../feature/${featureName.toLowerCase()}/ui/${featureName.toLowerCase()}_view.dart';
+import '../../app/ui/${featureName.toLowerCase()}_view.dart';
 
 ''';
     }
