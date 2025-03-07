@@ -14,9 +14,7 @@ class SetupLanguagesFiles {
       LocalizationVariablesNameAndWords localizationVariablesNameAndWords,
       List<TranslatedWordsModel> translatedWords,
       FromToLanguageModel fromToLanguageModel) async {
-    if (appDataModel.localizationModel!.baseLanguage.isNotEmpty) {
-      print("Thuneder was transalt");
-    }
+    if (appDataModel.localizationModel!.baseLanguage.isNotEmpty) {}
 
     // setup base language
     await FolderAndFileService.createFile(
@@ -48,7 +46,7 @@ class SetupLanguagesFiles {
 
     appDataModel.localizationModel!.lastWordTranslated =
         (localizationVariablesNameAndWords.wordsKeys ?? [""]).last;
-    await appDataModel.saveModel();
+    // await appDataModel.saveModel();
   }
 
   static Future<String> _getTranslatedData(

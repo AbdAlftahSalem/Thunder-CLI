@@ -63,7 +63,7 @@ class GetTranslateLanguages {
     appDataModel.localizationModel?.toLanguages =
         fromToLanguageModel.toLanguages;
     print(appDataModel.toJson());
-    await appDataModel.saveModel();
+    // await appDataModel.saveModel();
 
     return fromToLanguageModel;
   }

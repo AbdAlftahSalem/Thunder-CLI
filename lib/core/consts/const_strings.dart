@@ -30,7 +30,7 @@ class ConstStrings {
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/base_client.dart';
 import '../../../../core/networking/enums_networking.dart';
-import '../../../../helper/constants/api_constants.dart';
+import '../../helper/constants/api_constants.dart';
 ${repoParameter.isNotEmpty ? "import '../models/${repoParameter.split(" ")[0]}.dart';" : ""}
 
 class ${repoName}Repo {
@@ -93,14 +93,14 @@ import 'package:get/get.dart';
 import '../../../core/networking/api_result.dart';
 import '../../../core/networking/enums_networking.dart';
 ${bodyModel.isEmpty ? "" : "import '../data/models/${controllerName.toLowerCase()}_body_model.dart';"}
-import '../repos/${controllerName.toLowerCase()}_repo.dart';
+import '../repositories/${controllerName.toLowerCase()}_repo.dart';
 
 class $controllerClassName extends GetxController {
   $repoClassName ${repoClassName.lowerCaseFirstLetter()};
   
   $controllerClassName({required this.${repoClassName.lowerCaseFirstLetter()}});
   
-  late ApiResult apiResult;
+  ApiResult apiResult = ApiResult();
 
   // getting data from api
   getData() async {

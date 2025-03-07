@@ -9,14 +9,14 @@ class InitProject {
     try {
       final AppDataModel appInfo = GetProjectData.getProjectData();
 
-      await appInfo.saveModel();
+      // await appInfo.saveModel();
 
       await CloneRepoAndSetupProject.cloneAndSetupProject(
         dirName: appInfo.appName,
         appInfo: appInfo,
       );
 
-      await appInfo.saveModel();
+      // await appInfo.saveModel();
     } catch (e) {
       print('😅 An error occurred: $e');
     }
