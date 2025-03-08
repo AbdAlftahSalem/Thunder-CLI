@@ -54,7 +54,7 @@ class SetupFeatureFiles {
         "import '../../app/controllers/${className}_controller.dart';");
 
     importData.add(
-        "import '../../app/repos/${className}_repo.dart';");
+        "import '../../app/repositories/${className}_repo.dart';");
 
     if (bindingData.isEmpty) {
       // main binding in file
