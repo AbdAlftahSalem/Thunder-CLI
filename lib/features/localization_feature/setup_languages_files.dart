@@ -1,4 +1,3 @@
-import 'package:thunder_cli/core/extensions/app_data_extesions.dart';
 import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
 
 import '../../core/consts/const_strings.dart';
@@ -43,10 +42,6 @@ class SetupLanguagesFiles {
     // set locale.dart
     await FolderAndFileService.createFile(FolderPaths.instance.locale(),
         ConstStrings.instance.myLocale(fromToLanguageModel));
-
-    appDataModel.localizationModel!.lastWordTranslated =
-        (localizationVariablesNameAndWords.wordsKeys ?? [""]).last;
-    // await appDataModel.saveModel();
   }
 
   static Future<String> _getTranslatedData(

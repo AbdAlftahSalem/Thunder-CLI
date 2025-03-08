@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:thunder_cli/core/extensions/app_data_extesions.dart';
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
 
@@ -62,8 +61,6 @@ class GetTranslateLanguages {
         fromToLanguageModel.baseLanguage;
     appDataModel.localizationModel?.toLanguages =
         fromToLanguageModel.toLanguages;
-    print(appDataModel.toJson());
-    // await appDataModel.saveModel();
 
     return fromToLanguageModel;
   }

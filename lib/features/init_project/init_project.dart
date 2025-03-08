@@ -1,4 +1,4 @@
-import 'package:thunder_cli/core/extensions/app_data_extesions.dart';
+import 'package:thunder_cli/core/extensions/app_data_extension.dart';
 
 import 'clone_repo_and_setup_project.dart';
 import 'get_project_data.dart';
@@ -9,14 +9,11 @@ class InitProject {
     try {
       final AppDataModel appInfo = GetProjectData.getProjectData();
 
-      // await appInfo.saveModel();
-
       await CloneRepoAndSetupProject.cloneAndSetupProject(
         dirName: appInfo.appName,
         appInfo: appInfo,
       );
 
-      // await appInfo.saveModel();
     } catch (e) {
       print('😅 An error occurred: $e');
     }
