@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:thunder_cli/core/networking/dio_handler.dart';
 import 'package:thunder_cli/features/create_api_model/setup_request_data.dart';
 
@@ -5,15 +7,16 @@ import '../convert_api_collection_to_code/models/request_model.dart';
 import 'build_model_file.dart';
 
 class CreateApiModel {
- static  Future<void> createApiModel({RequestModel? requestModelParameter}) async {
+  static Future<void> createApiModel(
+      {RequestModel? requestModelParameter}) async {
     /// set up model file
-    late RequestModel requestModel;
+    RequestModel? requestModel;
     if (requestModelParameter == null) {
       requestModel = SetupRequestData.setupRequestData();
     } else {
       requestModel = requestModelParameter;
     }
-
+    
     DioHandler.safeApiCall(
       requestModel.url,
       requestModel.requestType ?? RequestType.get,
@@ -23,7 +26,7 @@ class CreateApiModel {
       onSuccess: (res) {
         if (res.data is Map || res.data is List) {
           BuildModelFile.buildModelFile(
-            requestModel: requestModel,
+            requestModel: requestModel!,
             response: res.data,
           );
         } else {
