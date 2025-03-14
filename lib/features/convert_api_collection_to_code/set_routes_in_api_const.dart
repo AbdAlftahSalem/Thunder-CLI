@@ -28,11 +28,11 @@ class SetRoutesInApiConst {
 
   static String _getVariableValue(String url, String baseUrl) {
     String newUrl = url.replaceAll(baseUrl, "");
-    if (baseUrl.endsWith("/")) {
-      newUrl = newUrl.replaceFirst("/", "");
-    }
+    // if (baseUrl.endsWith("/")) {
+    //   newUrl = newUrl.replaceFirst("/", "");
+    // }
 
-    return '\${baseUrl}${newUrl.replaceAll(baseUrl, "")}';
+    return newUrl.replaceFirst("/", "");
   }
 
   static String _setupAllRoutesDartFile(

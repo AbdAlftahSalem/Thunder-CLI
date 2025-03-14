@@ -32,35 +32,37 @@ class ConvertApiCollectionToCode {
       collectionData: collectionData,
       variablesModel: variablesModel,
     );
+
     // 1- set routes in const API file
     requests = await SetRoutesInApiConst.setRoutesInApiConst(
       requests,
       variablesModel
-          .firstWhere((element) => element.key.toLowerCase().contains("url"))
-          .value,
+          .where((element) => element.toString().toLowerCase().contains("url"))
+          .firstOrNull?.value ?? VariableModel.defaultBaseUrl().value,
     );
 
-    // 2- Build model for request has body
-    BuildBodyModelFile.buildBodyModelFile(requests);
-    print("\n✅ Finish Build body models successfully ...");
 
-    // 3- build response model for every request
-    // for (var element in requests) {
-    //   await CreateApiModel().createApiModel(requestModelParameter: element);
-    // }
-
-    // 4 - build repo for every request
-    await BuildRepoForRequests.buildRepoForRequests(requests);
-
-    // 5 - build controller for every request
-    await BuildControllerForRequests.buildControllerForRequests(requests);
-
-    print("\n✅ Finish read variables from collection successfully ...");
-    print("\n✅ Finish extract requests from collection successfully ...");
-    print("\n✅ Finish add routes in api_constants.dart ...");
-    print("\n✅ Finish build body model for request has body ...");
-    print("\n✅ Finish build response model ...");
-    print("\n✅ Finish build repos ...");
-    print("\n✅ Finish build controllers ...");
+    // // 2- Build model for request has body
+    // BuildBodyModelFile.buildBodyModelFile(requests);
+    // print("\n✅ Finish Build body models successfully ...");
+    //
+    // // 3- build response model for every request
+    // // for (var element in requests) {
+    // //   await CreateApiModel().createApiModel(requestModelParameter: element);
+    // // }
+    //
+    // // 4 - build repo for every request
+    // await BuildRepoForRequests.buildRepoForRequests(requests);
+    //
+    // // 5 - build controller for every request
+    // await BuildControllerForRequests.buildControllerForRequests(requests);
+    //
+    // print("\n✅ Finish read variables from collection successfully ...");
+    // print("\n✅ Finish extract requests from collection successfully ...");
+    // print("\n✅ Finish add routes in api_constants.dart ...");
+    // print("\n✅ Finish build body model for request has body ...");
+    // print("\n✅ Finish build response model ...");
+    // print("\n✅ Finish build repos ...");
+    // print("\n✅ Finish build controllers ...");
   }
 }

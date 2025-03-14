@@ -14,6 +14,13 @@ class VariableModel {
     );
   }
 
+  factory VariableModel.defaultBaseUrl() {
+    return VariableModel(
+      key: "base_url",
+      value: "http://localhost:8000",
+    );
+  }
+
   @override
   String toString() {
     return 'VariableModel{key: $key, value: $value}';

@@ -14,29 +14,27 @@ class ExtractRequestDetails {
   }) {
     List<RequestModel> requests = [];
 
-    VariableModel baseUrl = variablesModel
+    VariableModel? baseUrl = variablesModel
         .where((element) => element.toString().toLowerCase().contains("url"))
-        .first;
+        .firstOrNull;
 
     stdout.write(
         "\n\nDo you want change feature or model name ? [ y | N ] ( Default N ) : ");
     String changeRepoAndFeatureName = (stdin.readLineSync() ?? "n");
 
-    print(changeRepoAndFeatureName);
     for (Map folderCollection in collectionData['item']) {
       if (!(folderCollection.containsKey("item"))) {
         RequestModel requestModel = getDetailOfRequest(
             folderCollection,
-            baseUrl,
+            baseUrl ?? VariableModel.defaultBaseUrl(),
             variablesModel,
             changeRepoAndFeatureName.toLowerCase() == 'y');
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
-          print(requestInFolder);
           RequestModel requestModel = getDetailOfRequest(
               requestInFolder,
-              baseUrl,
+              baseUrl ?? VariableModel.defaultBaseUrl(),
               variablesModel,
               changeRepoAndFeatureName.toLowerCase() == 'y');
           requests.add(requestModel);
@@ -148,9 +146,9 @@ class ExtractRequestDetails {
   }
 
   static Map<String, dynamic> _getHeaders(
-      List headersList, List<VariableModel> variablesModel) {
+      List? headersList, List<VariableModel> variablesModel) {
     Map<String, dynamic> headers = {};
-    for (var i in headersList) {
+    for (var i in headersList ?? []) {
       headers.addAll({
         i['key']: i["value"].toString().convertVariableToValue(variablesModel)
       });
