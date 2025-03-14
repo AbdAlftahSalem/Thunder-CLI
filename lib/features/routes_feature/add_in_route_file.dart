@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../../core/consts/folder_paths.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/core/consts/folder_paths.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInRouteFile {
   /// Add feature route in Route file
@@ -23,7 +23,7 @@ class AddInRouteFile {
 class Routes {
   ${prevRoutes.join("\n")}
 }
-    """;
+""";
 
     // write content to routes.dart file
     final routesFile = File(FolderPaths.instance.routesFile);

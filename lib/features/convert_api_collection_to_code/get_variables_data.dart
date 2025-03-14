@@ -1,4 +1,4 @@
-import 'models/variable_model.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/models/variable_model.dart';
 
 class GetVariablesData {
   static List<VariableModel> getVariables(List vars) {

@@ -1,10 +1,9 @@
 import 'package:args/args.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/convert_api_collection_to_code.dart';
+import 'package:thunder_cli/features/create_api_model/create_api_model.dart';
+import 'package:thunder_cli/features/create_feature/create_feature.dart';
+import 'package:thunder_cli/features/init_project/init_project.dart';
 import 'package:thunder_cli/features/localization_feature/localization_feature.dart';
-
-import '../../../../features/create_api_model/create_api_model.dart';
-import '../../../../features/create_feature/create_feature.dart';
-import '../../../../features/init_project/init_project.dart';
 
 class GetCommand {
   static void getCommand(ArgResults results, ArgParser parser) async {

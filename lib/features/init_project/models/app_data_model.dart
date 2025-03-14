@@ -1,4 +1,4 @@
-import '../../localization_feature/models/from_to_language_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/from_to_language_model.dart';
 
 class AppDataModel {
   String appName, packageName, stateManagement;

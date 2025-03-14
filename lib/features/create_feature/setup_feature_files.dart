@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:thunder_cli/core/consts/const_strings.dart';
+import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
-
-import '../../core/consts/const_strings.dart';
-import '../../core/consts/folder_paths.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetupFeatureFiles {
   static Future<void> setupFeatureFiles(String featureName) async {
@@ -50,11 +49,10 @@ class SetupFeatureFiles {
 
     bindingData = bindingData.map((e) => "  ${(e ?? "").trim()}").toList();
 
-    importData.add(
-        "import '../../app/controllers/${className}_controller.dart';");
+    importData
+        .add("import '../../app/controllers/${className}_controller.dart';");
 
-    importData.add(
-        "import '../../app/repositories/${className}_repo.dart';");
+    importData.add("import '../../app/repositories/${className}_repo.dart';");
 
     if (bindingData.isEmpty) {
       // main binding in file

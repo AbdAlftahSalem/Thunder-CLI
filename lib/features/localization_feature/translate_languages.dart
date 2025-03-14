@@ -1,7 +1,6 @@
+import 'package:thunder_cli/features/localization_feature/models/from_to_language_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/translated_words_model.dart';
 import 'package:translator/translator.dart';
-
-import 'models/from_to_language_model.dart';
-import 'models/translated_words_model.dart';
 
 class TranslateLanguages {
   static Future translateLanguages(

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/from_to_language_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/localization_variables_name.dart';
 
-import 'models/from_to_language_model.dart';
-import 'models/localization_variables_name.dart';
 
 class GetTranslateLanguages {
   static Future<FromToLanguageModel> getTranslateLanguages(

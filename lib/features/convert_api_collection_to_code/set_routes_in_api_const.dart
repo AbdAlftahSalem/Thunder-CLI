@@ -1,8 +1,7 @@
 import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
-
-import 'models/request_model.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/models/request_model.dart';
 
 class SetRoutesInApiConst {
   static Future<List<RequestModel>> setRoutesInApiConst(

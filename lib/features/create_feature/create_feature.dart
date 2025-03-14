@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/create_feature/setup_feature_files.dart';
-import 'package:thunder_cli/features/create_feature/setup_feature_folders.dart';
-
-import '../routes_feature/route_feature.dart';
+import 'package:thunder_cli/features/routes_feature/route_feature.dart';
 
 class CreateFeatureFiles {
   static Future<void> createFiles() async {

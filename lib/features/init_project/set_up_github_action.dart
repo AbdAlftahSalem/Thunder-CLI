@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../../core/consts/const_strings.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/core/consts/const_strings.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class SetUpGithubAction {
   static Future<void> setUpGithubAction() async {

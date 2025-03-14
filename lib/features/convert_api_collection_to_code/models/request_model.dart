@@ -1,4 +1,4 @@
-import '../../../core/networking/dio_handler.dart';
+import 'package:thunder_cli/core/networking/dio_handler.dart';
 
 class RequestModel {
   String modelName, featureName, url, varInDartFile;

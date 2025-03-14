@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../core/services/cmd_service/run_in_cmd.dart';
+import 'package:thunder_cli/core/services/cmd_service/run_in_cmd.dart';
 
 class PublishProjectToGithub {
   static Future<void> publishProjectToGithub() async {

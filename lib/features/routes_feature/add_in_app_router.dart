@@ -1,9 +1,8 @@
 import 'dart:io';
 
+import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
-
-import '../../core/consts/folder_paths.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 
 class AddInAppRouter {
   static Future<void> addRouteInAppRoute(String featureName) async {

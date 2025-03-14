@@ -1,5 +1,5 @@
-import '../../features/convert_api_collection_to_code/models/variable_model.dart';
-import '../consts/const_strings.dart';
+import 'package:thunder_cli/core/consts/const_strings.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/models/variable_model.dart';
 
 extension StringConversion on String {
   /// convert String with lower case to upper case word . Ex : contact_us => ContactUs

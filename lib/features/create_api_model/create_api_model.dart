@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:thunder_cli/core/networking/dio_handler.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/models/request_model.dart';
+import 'package:thunder_cli/features/create_api_model/build_model_file.dart';
 import 'package:thunder_cli/features/create_api_model/setup_request_data.dart';
-
-import '../convert_api_collection_to_code/models/request_model.dart';
-import 'build_model_file.dart';
 
 class CreateApiModel {
   static Future<void> createApiModel(
@@ -16,7 +13,7 @@ class CreateApiModel {
     } else {
       requestModel = requestModelParameter;
     }
-    
+
     DioHandler.safeApiCall(
       requestModel.url,
       requestModel.requestType ?? RequestType.get,

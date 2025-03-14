@@ -1,8 +1,7 @@
 import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
-
-import '../init_project/models/app_data_model.dart';
-import 'models/localization_variables_name.dart';
+import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/localization_variables_name.dart';
 
 class GetStringToTranslate {
   static Future<LocalizationVariablesNameAndWords> getStringToTranslate(

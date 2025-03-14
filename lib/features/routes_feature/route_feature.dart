@@ -1,5 +1,5 @@
-import 'add_in_app_router.dart';
-import 'add_in_route_file.dart';
+import 'package:thunder_cli/features/routes_feature/add_in_app_router.dart';
+import 'package:thunder_cli/features/routes_feature/add_in_route_file.dart';
 
 class RouteFeature {
   /// Setup route file and folder and add route feature in files [featureName]

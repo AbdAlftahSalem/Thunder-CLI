@@ -1,11 +1,10 @@
+import 'package:thunder_cli/core/consts/const_strings.dart';
+import 'package:thunder_cli/core/consts/folder_paths.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
 import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
-
-import '../../core/consts/const_strings.dart';
-import '../../core/consts/folder_paths.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
-import 'models/from_to_language_model.dart';
-import 'models/localization_variables_name.dart';
-import 'models/translated_words_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/from_to_language_model.dart';
+import 'package:thunder_cli/features/localization_feature/models/localization_variables_name.dart';
+import 'package:thunder_cli/features/localization_feature/models/translated_words_model.dart';
 
 class SetupLanguagesFiles {
   static Future setupBasicTranslated(

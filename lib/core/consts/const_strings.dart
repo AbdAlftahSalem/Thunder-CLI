@@ -1,7 +1,6 @@
+import 'package:thunder_cli/core/extensions/string_extensions.dart';
+import 'package:thunder_cli/features/create_api_model/setup_request_data.dart';
 import 'package:thunder_cli/features/localization_feature/models/from_to_language_model.dart';
-
-import '../../features/create_api_model/setup_request_data.dart';
-import '../extensions/string_extensions.dart';
 
 class ConstStrings {
   // create singleton for ConstStrings

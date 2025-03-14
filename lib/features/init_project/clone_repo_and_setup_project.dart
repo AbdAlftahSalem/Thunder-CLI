@@ -1,13 +1,13 @@
 import 'dart:io';
 
+import 'package:thunder_cli/core/consts/folder_paths.dart';
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
+import 'package:thunder_cli/core/services/cmd_service/run_in_cmd.dart';
+import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_file_service.dart';
+import 'package:thunder_cli/features/init_project/models/app_data_model.dart';
+import 'package:thunder_cli/features/init_project/open_project_in_vs_code.dart';
 import 'package:thunder_cli/features/init_project/publish_project_to_github.dart';
 
-import '../../core/consts/folder_paths.dart';
-import 'models/app_data_model.dart';
-import '../../core/services/cmd_service/run_in_cmd.dart';
-import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
-import 'open_project_in_vs_code.dart';
 
 class CloneRepoAndSetupProject {
   /// Clone repository from GitHub and create folder and setup main packages. and other main feature
