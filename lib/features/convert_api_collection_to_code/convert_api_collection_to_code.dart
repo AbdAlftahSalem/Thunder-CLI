@@ -1,4 +1,5 @@
 import 'package:thunder_cli/features/convert_api_collection_to_code/build_body_model_file.dart';
+import 'package:thunder_cli/features/convert_api_collection_to_code/build_controller_for_requests.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/build_repos_for_requests.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/extract_request_details.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/get_variables_data.dart';
@@ -55,15 +56,15 @@ class ConvertApiCollectionToCode {
     // 4 - build repo for every request
     await BuildRepoForRequests.buildRepoForRequests(requests);
     //
-    // // 5 - build controller for every request
-    // await BuildControllerForRequests.buildControllerForRequests(requests);
-    //
-    // print("\n✅ Finish read variables from collection successfully ...");
-    // print("\n✅ Finish extract requests from collection successfully ...");
-    // print("\n✅ Finish add routes in api_constants.dart ...");
-    // print("\n✅ Finish build body model for request has body ...");
-    // print("\n✅ Finish build response model ...");
-    // print("\n✅ Finish build repos ...");
-    // print("\n✅ Finish build controllers ...");
+    // 5 - build controller for every request
+    await BuildControllerForRequests.buildControllerForRequests(requests);
+
+    print("\n✅ Finish read variables from collection successfully ...");
+    print("\n✅ Finish extract requests from collection successfully ...");
+    print("\n✅ Finish add routes in api_constants.dart ...");
+    print("\n✅ Finish build body model for request has body ...");
+    print("\n✅ Finish build response model ...");
+    print("\n✅ Finish build repos ...");
+    print("\n✅ Finish build controllers ...");
   }
 }

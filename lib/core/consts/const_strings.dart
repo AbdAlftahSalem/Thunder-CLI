@@ -42,18 +42,18 @@ class ${repoName}Repo {
 ''';
   }
 
-  String repoFunction(String repoName,
+  String repoFunction(String functionName,
       {String repoParameter = '',
-      String requestType = 'get',
-      String url = "ApiConstants.todosApiUrl"}) {
-    repoName = repoName.toCamelCaseFirstLetterForEachWord();
+        String requestType = 'get',
+        String url = "ApiConstants.todosApiUrl"}) {
+    functionName = functionName.toCamelCaseFirstLetterForEachWord();
 
     String newRepoParameter =
-        repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
-    newRepoParameter += " ${repoParameter.split(" ").last}";
+    repoParameter.split(" ")[0].toCamelCaseFirstLetterForEachWord();
+    newRepoParameter += repoParameter.isNotEmpty ? " ${repoParameter.split(" ").last}" : "";
 
     return """
-Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", "").toCamelCaseFirstLetterForEachWord()}Data($newRepoParameter) async {
+  Future<ApiResult> ${url.split("/").last.replaceAll("ApiConstants.", "").toCamelCaseFirstLetterForEachWord()}($newRepoParameter) async {
     ApiResult apiResult = ApiResult();
     try {
       apiResult = await dioHelper.safeApiCall(
@@ -66,8 +66,10 @@ Future<ApiResult> $requestType${url.split("/").last.replaceAll("ApiConstants.", 
     } catch (e) {
       return ApiResult.error(apiCallStatus: ApiCallStatus.error);
     }
-  }""";
   }
+  """;
+  }
+
 
   /// Build base controller using GetX with main method to get data from API
   String controllerGetX(String controllerName,

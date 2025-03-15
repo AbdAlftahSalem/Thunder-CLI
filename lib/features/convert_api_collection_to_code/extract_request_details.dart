@@ -41,7 +41,7 @@ class ExtractRequestDetails {
             baseUrl,
             variablesModel,
             changeRepoAndFeatureName.toLowerCase() == 'y',
-            requestInFolder['name'],
+            folderCollection['name'],
           );
           requests.add(requestModel);
         }

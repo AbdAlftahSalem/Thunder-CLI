@@ -6,57 +6,65 @@ import 'package:thunder_cli/features/convert_api_collection_to_code/models/reque
 
 class BuildRepoForRequests {
   static Future<void> buildRepoForRequests(List<RequestModel> requests) async {
-    for (RequestModel request in requests) {
-      String previousRepoData = await FolderAndFileService.readFile(
-        FolderPaths.instance.repoFile(request.featureName.replaceAll("-", "_")),
-      );
-      String repoData = "";
+    Map<String, List<RequestModel>> requestsByFolder = {};
 
-      if (previousRepoData.isEmpty) {
-        repoData = ConstStrings.instance.repo(
-          request.featureName.replaceAll("-", "_"),
+    // Group requests by featureName (folder)
+    for (RequestModel request in requests) {
+      requestsByFolder.putIfAbsent(request.repoName, () => []).add(request);
+    }
+
+    // Generate a repository class for each folder
+    for (var folderName in requestsByFolder.keys) {
+      List<RequestModel> folderRequests = requestsByFolder[folderName]!;
+
+      String className =
+          "${folderName.toCamelCaseFirstLetterForEachWord()}Repo";
+      List<String> importData = [
+        "import '../../core/networking/api_result.dart';"
+            "import '../../core/networking/base_client.dart';"
+            "import '../../core/networking/enums_networking.dart';"
+            "import '../../helper/constants/api_constants.dart';"
+      ];
+
+      String repoFunctions = "";
+
+      for (RequestModel request in folderRequests) {
+        if (request.body.isNotEmpty) {
+          String modelImport =
+              "import '../models/${request.modelName}_body_model.dart';";
+          if (!importData.contains(modelImport)) {
+            importData.add(modelImport);
+          }
+        }
+
+        repoFunctions += ConstStrings.instance.repoFunction(
+          request.url.split("/").last.replaceAll("ApiConstants.", ""),
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
               ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
               : "",
         );
-      } else {
-        List<String?> importData = RegExp(r'import.*?;')
-            .allMatches(previousRepoData)
-            .map((e) => e.group(0))
-            .toList();
-
-        if (request.body.isNotEmpty) {
-          importData
-              .add("import '../models/${request.modelName}_body_model.dart';");
-        }
-
-        repoData = previousRepoData.replaceFirst("""
-      }
-    }""", "  }\n");
-
-        repoData += """
-      ${ConstStrings.instance.repoFunction(
-          request.url,
-          requestType: request.requestType.toString().split(".").last,
-          url: "ApiConstants.${request.varInDartFile}",
-          repoParameter: request.body.isNotEmpty
-              ? "${"${request.modelName}_body_model"} ${request.modelName.toCamelCaseFirstLetterForEachWord().lowerCaseFirstLetter()}"
-              : "",
-        )}
-    }\n\n""";
-
-        List<String> splitRepoData = repoData.split("\n");
-        splitRepoData.removeWhere((element) => element.startsWith("import "));
-        splitRepoData.insertAll(0, Iterable.castFrom(importData));
-
-        repoData = splitRepoData.join("\n");
+        repoFunctions += "\n\n";
       }
 
+      // Generate the full class
+      String repoClass = """
+${importData.join("\n")}
+
+class $className {
+  DioHelper dioHelper;
+
+  $className(this.dioHelper);
+
+  $repoFunctions
+}
+""";
+
+      // Write to file
       await FolderAndFileService.createFile(
-        FolderPaths.instance.repoFile(request.featureName),
-        repoData,
+        FolderPaths.instance.repoFile(folderName),
+        repoClass,
       );
     }
   }
