@@ -8,16 +8,16 @@ import 'package:thunder_cli/features/localization_feature/localization_feature.d
 class GetCommand {
   static void getCommand(ArgResults results, ArgParser parser) async {
     if (results['init']) {
-      // Initialize the project -> thunder_cli --i
+      // Initialize the project -> thunder --i
       await InitProject.initProject();
     } else if (results['feature']) {
-      // Generate Feature -> thunder_cli --m
+      // Generate Feature -> thunder --m
       await CreateFeatureFiles.createFiles();
     } else if (results['model']) {
-      // Generate model file for the module -> thunder_cli --model
+      // Generate model file for the module -> thunder --model
       await CreateApiModel.createApiModel();
     } else if (results['localization']) {
-      // Generate locales file and auto translated words in application -> thunder_cli --localization
+      // Generate locales file and auto translated words in application -> thunder --localization
       await LocalizationFeature.localizationFeature();
     } else if (results['c_api']) {
       // convert api collection to code
@@ -27,23 +27,23 @@ class GetCommand {
     }
   }
 
-  /// Show help message -> thunder_cli --h
+  /// Show help message -> thunder --h
   static void _showHelpMessage() {
     String message = "⚡ Welcome to Thunder CLI 🚀🚀\n";
     message +=
         "⚡ Thunder CLI is a tool to create flutter project and auto generate files and folders\n\n";
 
     message += "⚡ Available commands: ";
-    message += "1 - thunder_cli --i : Initialize flutter project.";
+    message += "1 - thunder --i : Initialize flutter project.";
     message +=
-        "2 - thunder_cli --feature : Create a new feature and handle UI , controllers , repos , DI and routing.";
+        "2 - thunder --feature : Create a new feature and handle UI , controllers , repos , DI and routing.";
     message +=
-        "3 - thunder_cli --model : create a new API model with API automatically.";
+        "3 - thunder --model : create a new API model with API automatically.";
     message +=
-        "4 - thunder_cli --c_api : Convert API collection to coe with build repos and controllers .";
+        "4 - thunder --c_api : Convert API collection to coe with build repos and controllers .";
     message +=
-        "5 - thunder_cli --localization : Generate locales file and auto translated words in application";
-    message += "6 - thunder_cli --help : Show help message.";
+        "5 - thunder --localization : Generate locales file and auto translated words in application";
+    message += "6 - thunder --help : Show help message.";
 
     print(message);
   }

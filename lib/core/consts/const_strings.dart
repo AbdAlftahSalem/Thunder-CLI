@@ -14,7 +14,7 @@ class ConstStrings {
       "https://github.com/AbdAlftahSalem/Flutter-GetX-Template.git";
 
   String repoBloCUrl =
-      "https://github.com/abdAlftahSalem/flutter_getx_template.git";
+      "https://github.com/AbdAlftahSalem/Flutter-GetX-Template.git";
 
   /// Build Repo class using dioHelper and return Future<ApiResult>
   String repo(

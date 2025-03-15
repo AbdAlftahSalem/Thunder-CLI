@@ -13,15 +13,15 @@ class GetProjectData {
 
     setupPackageName(appDataModel);
 
-    setupStateManagement(appDataModel);
+    // setupStateManagement(appDataModel);
 
-    setupGithubAction(appDataModel);
+    // setupGithubAction(appDataModel);
 
-    if (appDataModel.usingGitHubAction) SetUpGithubAction.setUpGithubAction();
+    // if (appDataModel.usingGitHubAction) SetUpGithubAction.setUpGithubAction();
 
-    setupFlavors(appDataModel);
+    // setupFlavors(appDataModel);
 
-    if (appDataModel.usingFlavors) SetupFlavor.setupFlavor();
+    // if (appDataModel.usingFlavors) SetupFlavor.setupFlavor();
 
     return appDataModel;
   }
