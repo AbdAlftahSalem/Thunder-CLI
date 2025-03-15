@@ -12,3 +12,6 @@
 
 ## 2.3.4
 - Fix bug when clone repository
+
+## 2.3.4+1
+- Fix bug when clone repository
