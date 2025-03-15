@@ -1,6 +1,6 @@
 name: thunder_cli
 description: This project is a Flutter application scaffolded with GetX and follows the MVC (Model-View-Controller) architecture.
-version: 2.3.4+2
+version: 2.3.4+1
 repository: https://github.com/AbdAlftahSalem/Thunder-CLI
 homepage: https://github.com/AbdAlftahSalem/Thunder-CLI
 
