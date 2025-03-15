@@ -11,7 +11,7 @@ class ConstStrings {
   ConstStrings._internal();
 
   String repoGetXUrl =
-      "https://github.com/abdAlftahSalem/flutter_getx_template.git";
+      "https://github.com/AbdAlftahSalem/Flutter-GetX-Template.git";
 
   String repoBloCUrl =
       "https://github.com/abdAlftahSalem/flutter_getx_template.git";

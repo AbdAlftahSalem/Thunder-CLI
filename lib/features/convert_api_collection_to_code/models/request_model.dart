@@ -1,7 +1,7 @@
 import 'package:thunder_cli/core/networking/dio_handler.dart';
 
 class RequestModel {
-  String modelName, featureName, url, varInDartFile;
+  String modelName, featureName, url, varInDartFile, repoName;
   RequestType? requestType;
   Map<String, dynamic> body, headers, params;
 
@@ -10,6 +10,7 @@ class RequestModel {
     this.featureName = '',
     this.url = '',
     this.varInDartFile = '',
+    this.repoName = '',
     this.requestType,
     this.body = const {},
     this.headers = const {},
@@ -26,6 +27,7 @@ class RequestModel {
       'headers': headers,
       'params': params,
       'featureName': featureName,
+      'repoName': repoName,
     };
   }
 
@@ -39,6 +41,7 @@ class RequestModel {
       headers: map['headers'],
       params: map['params'],
       featureName: map['featureName'],
+      repoName: map['repoName'],
     );
   }
 

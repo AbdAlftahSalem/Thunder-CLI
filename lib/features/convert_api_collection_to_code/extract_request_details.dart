@@ -14,9 +14,11 @@ class ExtractRequestDetails {
   }) {
     List<RequestModel> requests = [];
 
-    VariableModel? baseUrl = variablesModel
-        .where((element) => element.toString().toLowerCase().contains("url"))
-        .firstOrNull;
+    VariableModel baseUrl = variablesModel
+            .where(
+                (element) => element.toString().toLowerCase().contains("url"))
+            .firstOrNull ??
+        VariableModel.defaultBaseUrl();
 
     stdout.write(
         "\n\nDo you want change feature or model name ? [ y | N ] ( Default N ) : ");
@@ -25,18 +27,22 @@ class ExtractRequestDetails {
     for (Map folderCollection in collectionData['item']) {
       if (!(folderCollection.containsKey("item"))) {
         RequestModel requestModel = getDetailOfRequest(
-            folderCollection,
-            baseUrl ?? VariableModel.defaultBaseUrl(),
-            variablesModel,
-            changeRepoAndFeatureName.toLowerCase() == 'y');
+          folderCollection,
+          baseUrl,
+          variablesModel,
+          changeRepoAndFeatureName.toLowerCase() == 'y',
+          folderCollection['name'],
+        );
         requests.add(requestModel);
       } else {
         for (var requestInFolder in folderCollection['item']) {
           RequestModel requestModel = getDetailOfRequest(
-              requestInFolder,
-              baseUrl ?? VariableModel.defaultBaseUrl(),
-              variablesModel,
-              changeRepoAndFeatureName.toLowerCase() == 'y');
+            requestInFolder,
+            baseUrl,
+            variablesModel,
+            changeRepoAndFeatureName.toLowerCase() == 'y',
+            requestInFolder['name'],
+          );
           requests.add(requestModel);
         }
       }
@@ -53,8 +59,12 @@ class ExtractRequestDetails {
     return requests;
   }
 
-  static RequestModel getDetailOfRequest(requestInFolder, VariableModel baseUrl,
-      List<VariableModel> variablesModel, bool changeRepoAndFeatureName) {
+  static RequestModel getDetailOfRequest(
+      requestInFolder,
+      VariableModel baseUrl,
+      List<VariableModel> variablesModel,
+      bool changeRepoAndFeatureName,
+      String repoName) {
     String modelName = "";
     String featureName = "";
 
@@ -118,6 +128,8 @@ class ExtractRequestDetails {
       featureName: (featureName.isEmpty ? requestName : featureName)
           .toLowerCase()
           .replaceAll(" ", "_")
+        ..replaceAll("-", "_"),
+      repoName: repoName.toLowerCase().replaceAll(" ", "_")
         ..replaceAll("-", "_"),
     );
     return requestModel;

@@ -1,5 +1,4 @@
 import 'package:thunder_cli/features/convert_api_collection_to_code/build_body_model_file.dart';
-import 'package:thunder_cli/features/convert_api_collection_to_code/build_controller_for_requests.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/build_repos_for_requests.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/extract_request_details.dart';
 import 'package:thunder_cli/features/convert_api_collection_to_code/get_variables_data.dart';
@@ -37,22 +36,24 @@ class ConvertApiCollectionToCode {
     requests = await SetRoutesInApiConst.setRoutesInApiConst(
       requests,
       variablesModel
-          .where((element) => element.toString().toLowerCase().contains("url"))
-          .firstOrNull?.value ?? VariableModel.defaultBaseUrl().value,
+              .where(
+                  (element) => element.toString().toLowerCase().contains("url"))
+              .firstOrNull
+              ?.value ??
+          VariableModel.defaultBaseUrl().value,
     );
 
+    // 2- Build model for request has body
+    BuildBodyModelFile.buildBodyModelFile(requests);
+    print("\n✅ Finish Build body models successfully ...");
 
-    // // 2- Build model for request has body
-    // BuildBodyModelFile.buildBodyModelFile(requests);
-    // print("\n✅ Finish Build body models successfully ...");
-    //
     // // 3- build response model for every request
-    // // for (var element in requests) {
-    // //   await CreateApiModel().createApiModel(requestModelParameter: element);
-    // // }
-    //
-    // // 4 - build repo for every request
-    // await BuildRepoForRequests.buildRepoForRequests(requests);
+    // for (var element in requests) {
+    //   await CreateApiModel.createApiModel(requestModelParameter: element);
+    // }
+
+    // 4 - build repo for every request
+    await BuildRepoForRequests.buildRepoForRequests(requests);
     //
     // // 5 - build controller for every request
     // await BuildControllerForRequests.buildControllerForRequests(requests);

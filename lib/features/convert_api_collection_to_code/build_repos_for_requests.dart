@@ -5,17 +5,16 @@ import 'package:thunder_cli/core/services/folder_and_file_service/folder_and_fil
 import 'package:thunder_cli/features/convert_api_collection_to_code/models/request_model.dart';
 
 class BuildRepoForRequests {
-  // ToDo : need refactor
   static Future<void> buildRepoForRequests(List<RequestModel> requests) async {
     for (RequestModel request in requests) {
       String previousRepoData = await FolderAndFileService.readFile(
-        FolderPaths.instance.repoFile(request.featureName),
+        FolderPaths.instance.repoFile(request.featureName.replaceAll("-", "_")),
       );
       String repoData = "";
 
       if (previousRepoData.isEmpty) {
         repoData = ConstStrings.instance.repo(
-          request.featureName,
+          request.featureName.replaceAll("-", "_"),
           requestType: request.requestType.toString().split(".").last,
           url: "ApiConstants.${request.varInDartFile}",
           repoParameter: request.body.isNotEmpty
