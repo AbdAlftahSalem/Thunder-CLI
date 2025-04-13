@@ -57,7 +57,7 @@ class ConvertApiCollectionToCode {
     await BuildRepoForRequests.buildRepoForRequests(requests);
     //
     // 5 - build controller for every request
-    await BuildControllerForRequests.buildControllerForRequests(requests);
+    await BuildControllerForRequests.buildControllersForRequests(requests);
 
     print("\n✅ Finish read variables from collection successfully ...");
     print("\n✅ Finish extract requests from collection successfully ...");

@@ -134,7 +134,7 @@ import 'package:get/get.dart';
 
 import '../../../helper/widgets/custom_widgets/custom_text.dart';
 
-import '../controllers/${viewName.toLowerCase()}_controller.dart';
+import '${viewName.toLowerCase()}_controller.dart';
 
 class ${viewClassName}View extends StatelessWidget {
   const ${viewClassName}View({super.key});

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:thunder_cli/core/extensions/string_extensions.dart';
 import 'package:thunder_cli/features/create_feature/setup_feature_files.dart';
+import 'package:thunder_cli/features/create_feature/setup_feature_folders.dart';
 import 'package:thunder_cli/features/routes_feature/route_feature.dart';
 
 class CreateFeatureFiles {
@@ -19,8 +20,8 @@ class CreateFeatureFiles {
   static Future<void> _generateFiles(String featureName) async {
     print("\n******************** $featureName ********************\n");
     // // set up modules folder
-    // await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
-    // print("✅ Setup 'Folders' and 'Sub Folders' successfully ...");
+    await SetupFeatureFolders.setupFeatureFolders(featureName: featureName);
+    print("✅ Setup 'Folders' and 'Sub Folders' successfully ...");
 
     await SetupFeatureFiles.setupFeatureFiles(featureName);
     print("✅ Setup 'Files' successfully ...");

@@ -50,7 +50,7 @@ class SetupFeatureFiles {
     bindingData = bindingData.map((e) => "  ${(e ?? "").trim()}").toList();
 
     importData
-        .add("import '../../app/controllers/${className}_controller.dart';");
+        .add("import '../../app/features/${className}_controller.dart';");
 
     importData.add("import '../../app/repositories/${className}_repo.dart';");
 
