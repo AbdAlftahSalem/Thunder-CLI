@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "Demo API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://dummyjson.com"
+    },
+    {
+      "key": "token",
+      "value": "abc"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"emilys\",\n  \"password\": \"emilyspass\",\n  \"expiresInMins\": 30\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "ok",
+              "code": 200,
+              "body": "{\"id\":1,\"username\":\"emilys\",\"email\":\"e@x.com\",\"accessToken\":\"t\",\"refreshToken\":\"r\",\"gender\":\"female\"}"
+            }
+          ]
+        },
+        {
+          "name": "Current user",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}"
+                }
+              ]
+            },
+            "url": "{{base_url}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products?limit=10&skip=0",
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "ok",
+              "body": "{\"products\":[{\"id\":1,\"title\":\"Phone\",\"price\":9.99,\"rating\":4,\"tags\":[\"a\",\"b\"],\"dimensions\":{\"width\":1.2,\"height\":3},\"reviews\":[{\"rating\":5,\"comment\":\"ok\"}]},{\"id\":2,\"title\":\"X\",\"price\":10,\"rating\":4.5,\"brand\":\"Apple\"}],\"total\":194}"
+            }
+          ]
+        },
+        {
+          "name": "Get product",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products/:id",
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add product",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "BMW",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/x.png"
+                }
+              ]
+            },
+            "url": "{{base_url}}/products/add"
+          }
+        },
+        {
+          "name": "Delete product",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/products/{{productId}}"
+          }
+        },
+        {
+          "name": "Sub",
+          "item": [
+            {
+              "name": "Search",
+              "request": {
+                "method": "GET",
+                "url": "{{base_url}}/products/search?q=phone"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "health check",
+      "request": {
+        "method": "GET",
+        "url": "https://dummyjson.com/test"
+      }
+    }
+  ]
+}
