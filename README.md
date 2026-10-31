@@ -5,8 +5,8 @@
 <h1 align="center">⚡ Thunder CLI</h1>
 
 <p align="center">
-  Create Flutter apps with <b>GetX + MVC</b> in seconds, then generate features, API models,
-  Postman collection code and translations from the command line.
+  Create Flutter apps with <b>GetX</b>, <b>BLoC</b> or <b>Cubit</b> in seconds, then generate features,
+  API models, Postman collection code and translations from the command line.
 </p>
 
 <p align="center">
@@ -22,13 +22,22 @@
 
 | Command | What you get |
 | --- | --- |
-| `thunder init` | A new Flutter app with GetX, Dio, routing, bindings, theme, translations and a home screen |
-| `thunder feature <name>` | View + controller + repository + API endpoint + binding + route |
+| `thunder init` | A new Flutter app (GetX, BLoC or Cubit) with networking, services, middleware, DI, routing, localization, theme and sample features |
+| `thunder feature <name>` | View + controller / bloc / cubit + repository + API endpoint + DI + route |
 | `thunder model` | A model class (`fromJson` / `toJson`) from an API response or a JSON file |
-| `thunder c_api` | API constants, body/response models, repositories and controllers from a Postman collection |
-| `thunder localization` | Your texts translated to any language and wired into GetX translations |
+| `thunder c_api` | API constants, body/response models, repositories and controllers / blocs / cubits from a Postman collection |
+| `thunder localization` | Your texts translated to any language and wired into the app |
 
-Everything Thunder generates compiles and passes `flutter analyze` on the current Flutter stable.
+Everything Thunder generates compiles and passes `flutter analyze` on the current Flutter stable,
+for all three state managements (checked on every change by `tool/e2e.sh`).
+
+| | GetX | BLoC | Cubit |
+| --- | --- | --- | --- |
+| State | `GetxController` | `Bloc` + events + state | `Cubit` + state |
+| DI | `Get.lazyPut` (`bindings_app.dart`) | `get_it` (`injection.dart`) | `get_it` (`injection.dart`) |
+| Routing | `GetPage` | `go_router` | `go_router` |
+| Middleware | `GetMiddleware` | `go_router` redirect guard | `go_router` redirect guard |
+| Template | [`getx` branch](https://github.com/AbdAlftahSalem/Thunder-Template/tree/getx) | [`bloc` branch](https://github.com/AbdAlftahSalem/Thunder-Template/tree/bloc) | [`cubit` branch](https://github.com/AbdAlftahSalem/Thunder-Template/tree/cubit) |
 
 ## 📌 Installation
 
@@ -46,12 +55,35 @@ thunder version
 
 ## 🚀 Quick start
 
+**GetX**
+
 ```bash
-thunder init shop_app --org com.company
+thunder init shop_app --org com.company --state getx
 cd shop_app
-thunder feature product_details
+thunder feature product_details     # controller + view + repo, Get.toNamed(Routes.PRODUCT_DETAILS)
 flutter run
 ```
+
+**BLoC**
+
+```bash
+thunder init shop_app --org com.company --state bloc
+cd shop_app
+thunder feature product_details     # bloc + event + state + view + repo, context.push(Routes.PRODUCT_DETAILS)
+flutter run
+```
+
+**Cubit**
+
+```bash
+thunder init shop_app --org com.company --state cubit
+cd shop_app
+thunder feature product_details     # cubit + state + view + repo, context.push(Routes.PRODUCT_DETAILS)
+flutter run
+```
+
+Leave out `--state` and Thunder asks (GetX is the default). The choice is saved in `thunder.json`,
+so every later command generates code for the right style.
 
 ## 🧑🏻‍💻 Commands
 
@@ -60,42 +92,53 @@ Pass the options to skip the questions, and add `-y` (`--yes`) to never be asked
 
 ### `thunder init [name]`
 
-Creates the project with `flutter create`, adds `get` and `dio`, and writes the Thunder structure.
+Runs `flutter create` (platform folders and application id), then puts the template for your state management on
+top of it: `lib/`, `test/`, `assets/`, `pubspec.yaml` and `analysis_options.yaml`, renamed to your app.
+The templates live in [Thunder-Template](https://github.com/AbdAlftahSalem/Thunder-Template) (one branch per style);
+when there is no internet Thunder uses the copy bundled with it.
 
 ```bash
-thunder init shop_app --org com.company
-thunder init shop_app --org com.company --title "Shop" --platforms android,ios --remote https://github.com/me/shop_app.git
+thunder init shop_app --org com.company --state bloc
+thunder init shop_app --org com.company --state getx --title "Shop" --platforms android,ios --remote https://github.com/me/shop_app.git
+thunder init shop_app --template https://github.com/me/my_template#main   # your own template
 ```
 
 | Option | Description |
 | --- | --- |
+| `--state`, `-s` | `getx`, `bloc` or `cubit` (asked when missing, default `getx`) |
 | `--org` | Organization in reverse domain notation (`com.company` → app id `com.company.shop_app`) |
 | `--title` | App title (default: from the name, `Shop App`) |
 | `--path` | Folder to create the project in (default: the name) |
 | `--platforms` | Platforms for `flutter create` (default: all) |
+| `--template` | Your own template: GitHub URL (add `#branch`), git URL, `.zip` URL or a local folder |
+| `--offline` | Use the template bundled with Thunder (no download) |
 | `--[no-]git` | Create a git repository with a first commit (default: on) |
 | `--remote` | Push the first commit to this GitHub repository |
 | `--[no-]github-action` | Add a workflow that builds the APK and sends it to Telegram |
 | `--[no-]vscode` | Open the project in VS Code |
 
-What you get:
+What you get (BLoC shown; GetX uses `bindings/` and `app_routes.dart`, Cubit uses `cubit/` folders):
 
 ```
 lib/
-├── main.dart                      GetMaterialApp with routes, bindings, theme, translations
+├── main.dart                         MaterialApp.router + SettingsBloc (theme & language)
 ├── core/
-│   ├── bindings/bindings_app.dart dependency injection (Get.lazyPut)
-│   ├── networking/                DioHelper.safeApiCall → ApiResult, ApiCallStatus, RequestType
-│   ├── routing/                   routes.dart + app_routes.dart (GetPage list)
-│   └── theme/app_theme.dart       light & dark Material 3 themes
+│   ├── di/injection.dart             get_it: sl<HomeRepo>()
+│   ├── config/app_config.dart        app name + environment (--dart-define=ENV=prod)
+│   ├── middlewares/auth_guard.dart   route guard
+│   ├── networking/                   DioHelper (token interceptor) → ApiResult, ApiCallStatus, RequestType
+│   ├── routing/                      routes.dart + app_router.dart
+│   ├── services/                     StorageService, ThemeService, LocalizationService
+│   └── theme/app_theme.dart          Material 3 light & dark themes
 ├── helper/
-│   ├── constants/                 api_constants.dart, strings_constants.dart
-│   ├── translations/              en_translation.dart, local.dart
-│   └── widgets/custom_widgets/    custom_text.dart
+│   ├── constants/                    api_constants.dart (BASE_URL), strings_constants.dart
+│   ├── translations/                 en + ar, local.dart
+│   └── widgets/                      CustomText, CustomButton, ApiStateWidget
 └── app/
-    ├── features/home/             home_view.dart, home_controller.dart
-    ├── repositories/              home_repo.dart
-    └── models/
+    ├── features/home/                home_view.dart + bloc/ (a list loaded from an API)
+    ├── features/settings/            dark mode + language switch, saved locally
+    ├── repositories/home_repo.dart
+    └── models/todo_model.dart
 ```
 
 ### `thunder feature <name>`
@@ -103,6 +146,8 @@ lib/
 ```bash
 thunder feature product_details
 ```
+
+GetX:
 
 ```
 ✅ Create lib/app/features/product_details/product_details_controller.dart
@@ -112,8 +157,35 @@ thunder feature product_details
 ✅ Add '/product_details' to routes.dart and app_routes.dart
 ```
 
-Open it with `Get.toNamed(Routes.PRODUCT_DETAILS)`. The controller loads `ApiConstants.productDetails`
-on start and the view shows loading / error / empty / data states. Existing files are kept; use `--force` to overwrite.
+BLoC:
+
+```
+✅ Create lib/app/features/product_details/bloc/product_details_bloc.dart
+✅ Create lib/app/features/product_details/bloc/product_details_event.dart
+✅ Create lib/app/features/product_details/bloc/product_details_state.dart
+✅ Create lib/app/features/product_details/product_details_view.dart
+✅ Create lib/app/repositories/product_details_repo.dart
+✅ Register 'product_details' in injection.dart
+✅ Add '/product_details' to routes.dart and app_router.dart
+```
+
+Cubit:
+
+```
+✅ Create lib/app/features/product_details/cubit/product_details_cubit.dart
+✅ Create lib/app/features/product_details/cubit/product_details_state.dart
+✅ Create lib/app/features/product_details/product_details_view.dart
+✅ Create lib/app/repositories/product_details_repo.dart
+✅ Register 'product_details' in injection.dart
+✅ Add '/product_details' to routes.dart and app_router.dart
+```
+
+The new page loads `ApiConstants.productDetails` when it opens and shows loading / error / empty / data states.
+Open it with `Get.toNamed(Routes.PRODUCT_DETAILS)` (GetX) or `context.push(Routes.PRODUCT_DETAILS)` (BLoC / Cubit).
+Existing files are kept; use `--force` to overwrite.
+
+Thunder finds the style in `thunder.json`. In a project without it (for example one made with **Use this template**),
+it looks at the files: `lib/core/di/injection.dart` means BLoC (or Cubit when there are `cubit/` folders), otherwise GetX.
 
 ### `thunder model`
 
@@ -163,16 +235,18 @@ thunder c_api --collection my_api.postman_collection.json
 ```
 
 ```
-✅ Read 2 variables and 8 requests
+✅ Read 2 variables and 8 requests (BLoC project)
 ✅ Add 8 routes to api_constants.dart
 ✅ Build 4 models
-✅ Build 3 repositories and controllers: auth, products, general
+✅ Build 3 repositories and blocs: auth, products, general
 
-   POST   auth/login     →  AuthController.login()
-   GET    products/{id}  →  ProductsController.getProduct()
+   POST   auth/login     →  AuthBloc ← LoginRequested
+   GET    products/{id}  →  ProductsBloc ← GetProductRequested
 ```
 
-- One repository + controller per top-level folder (requests outside folders go to `general`).
+- One repository per top-level folder (requests outside folders go to `general`), plus a controller (GetX),
+  a bloc with one event per request (BLoC) or a cubit with one method per request (Cubit).
+- Typed responses are kept in the bloc / cubit state (`state.loginResponse`).
 - The base URL variable (`{{base_url}}`) becomes `ApiConstants.baseUrl`.
 - Path variables (`:id`, `{{id}}`) become method parameters.
 - JSON bodies become body models; saved example responses become typed response models.
@@ -197,14 +271,17 @@ Then:
 thunder localization --from en --to ar,fr
 ```
 
-Thunder writes `ar_translation.dart`, `fr_translation.dart` and registers them in `local.dart`.
-Use the texts with `Text(StringsConstants.home.tr)` and switch language with `Get.updateLocale(const Locale('ar'))`.
+Thunder writes `ar_translation.dart`, `fr_translation.dart`, registers them in `local.dart` and adds them to
+`LocalizationService.supportedLocales`. Use the texts with `Text(StringsConstants.home.tr)` in every style.
+Switch language with `LocalizationService.changeLocale('ar')` (GetX) or the settings bloc / cubit
+(`SettingsLanguageChanged('ar')` / `changeLanguage('ar')`); the template's settings page already does it.
 Run the command again after adding texts: only the new ones are translated. Translations come from Google Translate,
 so review them before you ship.
 
 ## 🔁 Upgrading from 2.x
 
 The old flags still work (`thunder --init`, `--feature`, `--model`, `--c_api`, `--localization`, `--help`).
+Projects made with 2.x are GetX projects, and Thunder treats them that way.
 
 In a project created with 2.x, Thunder adds new routes and bindings after your existing ones when it cannot find
 its `// thunder:` markers. The generated code expects the 3.0 networking files (`lib/core/networking/`:
@@ -216,7 +293,11 @@ its `// thunder:` markers. The generated code expects the 3.0 networking files (
 ```bash
 dart pub get
 dart test            # unit tests
-./tool/e2e.sh        # creates an app, runs every command, then flutter analyze + flutter test
+./tool/e2e.sh        # for getx, bloc and cubit: creates an app, runs every command,
+                     # then flutter analyze + flutter test
+
+# after changing the Thunder-Template branches, refresh the offline copy:
+dart run tool/bundle_templates.dart <getx-dir> <bloc-dir> <cubit-dir>
 ```
 
 ## 🤝 Contributing

@@ -48,7 +48,11 @@ class LocalizationFiles {
 
   /// Content of `local.dart` with every language in [languages] plus the
   /// languages already registered in the [existing] file.
-  static String localFile(List<String> languages, {String existing = ''}) {
+  ///
+  /// GetX projects ([getx]) implement GetX `Translations`; BLoC / Cubit
+  /// projects get a plain class read by the `.tr` extension.
+  static String localFile(List<String> languages,
+      {String existing = '', bool getx = true}) {
     final all = <String>[
       ...RegExp(r"^import '(\w+)_translation\.dart';", multiLine: true)
           .allMatches(existing)
@@ -59,19 +63,24 @@ class LocalizationFiles {
         all.add(language.toSnakeCase());
       }
     }
-    final b = StringBuffer()
-      ..writeln("import 'package:get/get.dart';")
-      ..writeln();
+    final b = StringBuffer();
+    if (getx) {
+      b
+        ..writeln("import 'package:get/get.dart';")
+        ..writeln();
+    }
     for (final l in all) {
       b.writeln("import '${l}_translation.dart';");
     }
     b
       ..writeln()
+      ..writeln(getx
+          ? '/// GetX translations. `thunder localization` adds new languages here.'
+          : '/// Translations of every language. `thunder localization` adds new languages here.')
       ..writeln(
-          '/// GetX translations. `thunder localization` adds new languages here.')
-      ..writeln('class MyLocal implements Translations {')
-      ..writeln('  @override')
-      ..writeln('  Map<String, Map<String, String>> get keys => {');
+          getx ? 'class MyLocal implements Translations {' : 'class MyLocal {');
+    if (getx) b.writeln('  @override');
+    b.writeln('  Map<String, Map<String, String>> get keys => {');
     for (final l in all) {
       b.writeln("        '${_localeKey(l)}': ${variableName(l)},");
     }
@@ -79,6 +88,28 @@ class LocalizationFiles {
       ..writeln('      };')
       ..writeln('}');
     return b.toString();
+  }
+
+  /// Languages registered in an existing `local.dart`.
+  static List<String> languagesIn(String localContent) =>
+      RegExp(r"^import '(\w+)_translation\.dart';", multiLine: true)
+          .allMatches(localContent)
+          .map((m) => m[1]!)
+          .toList();
+
+  /// Replaces `supportedLocales = [...]` in `localization_service.dart` with
+  /// [languages]. Returns [content] unchanged when there is no such list.
+  static String updateSupportedLocales(String content, List<String> languages) {
+    final list = RegExp(r'static const supportedLocales = \[[^\]]*\];');
+    if (!list.hasMatch(content)) return content;
+    final locales = languages.map((l) {
+      final parts = l.split('_');
+      return parts.length == 1
+          ? "Locale('${parts[0]}')"
+          : "Locale('${parts[0]}', '${parts[1].toUpperCase()}')";
+    }).join(', ');
+    return content.replaceFirst(
+        list, 'static const supportedLocales = [$locales];');
   }
 
   /// GetX locale key: `zh_cn` => `zh_CN`, `ar` => `ar`.

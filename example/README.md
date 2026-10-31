@@ -7,11 +7,19 @@
 
 ```bash
 dart pub global activate thunder_cli
-thunder init demo_app --org com.example -y
+
+# pick one: getx, bloc or cubit
+thunder init demo_app --org com.example --state cubit -y
 cd demo_app
 thunder feature profile
-thunder model --name todo --json path/to/todo.json
+thunder model --name task --json path/to/todo.json
 thunder c_api --collection path/to/demo.postman_collection.json
-thunder localization --from en --to ar
+thunder localization --from en --to ar,fr
 flutter run
 ```
+
+| `--state` | `thunder feature profile` creates |
+| --- | --- |
+| `getx` | `profile_controller.dart`, `profile_view.dart`, `profile_repo.dart` |
+| `bloc` | `bloc/profile_bloc.dart`, `bloc/profile_event.dart`, `bloc/profile_state.dart`, `profile_view.dart`, `profile_repo.dart` |
+| `cubit` | `cubit/profile_cubit.dart`, `cubit/profile_state.dart`, `profile_view.dart`, `profile_repo.dart` |

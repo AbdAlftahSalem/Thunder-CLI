@@ -51,6 +51,27 @@ class CommandServices {
             help: 'Organization in reverse domain notation.',
             defaultsTo: null,
             valueHelp: 'com.example')
+        ..addOption('state',
+            abbr: 's',
+            help:
+                'State management of the project (asked when missing, default: getx).',
+            allowed: [
+              'getx',
+              'bloc',
+              'cubit'
+            ],
+            allowedHelp: {
+              'getx': 'GetX controllers, bindings and GetPage routes.',
+              'bloc': 'flutter_bloc Bloc + events + state, get_it, go_router.',
+              'cubit': 'flutter_bloc Cubit + state, get_it, go_router.',
+            })
+        ..addOption('template',
+            help:
+                'Custom template: GitHub URL (add #branch), git URL, .zip URL or folder '
+                '(default: github.com/AbdAlftahSalem/Thunder-Template, branch = --state).')
+        ..addFlag('offline',
+            negatable: false,
+            help: 'Use the template bundled with Thunder (no download).')
         ..addOption('title',
             help: 'App title shown to users (default: from the name).')
         ..addOption('path',
@@ -87,7 +108,9 @@ class CommandServices {
         ..addOption('body', help: 'Request body as JSON.')
         ..addOption('headers', help: 'Request headers as JSON.')
         ..addOption('json',
-            help: 'Build the model from a local JSON file instead of a url.'),
+            help: 'Build the model from a local JSON file instead of a url.')
+        ..addFlag('force',
+            abbr: 'f', negatable: false, help: 'Overwrite an existing model.'),
     );
     parser.addCommand(
       'c_api',
@@ -169,7 +192,7 @@ class CommandServices {
         .map((line) => '      $line')
         .join('\n');
     return '''
-⚡ Thunder CLI $thunderVersion — Flutter project generator (GetX + MVC)
+⚡ Thunder CLI $thunderVersion — Flutter project generator (GetX · BLoC · Cubit)
 
 Usage: thunder <command> [options]
 
@@ -177,16 +200,16 @@ Commands:
   init [name]          Create a new Flutter project with the Thunder structure.
 ${options('init')}
 
-  feature <name>       Create a feature: view, controller, repository, binding and route.
+  feature <name>       Create a feature: view, controller / bloc / cubit, repository, DI and route.
 ${options('feature')}
 
   model [name]         Create a model (fromJson / toJson) from an API response or a JSON file.
 ${options('model')}
 
-  c_api [collection]   Convert a Postman collection to API constants, models, repositories and controllers.
+  c_api [collection]   Convert a Postman collection to API constants, models, repositories and controllers / blocs / cubits.
 ${options('c_api')}
 
-  localization         Translate the texts in strings_constants.dart and set up GetX translations.
+  localization         Translate the texts in strings_constants.dart and set up the translations.
 ${options('localization')}
 
   help                 Show this message.
@@ -196,7 +219,7 @@ Global options:
   -y, --yes            Never ask questions: use the options and defaults.
 
 Examples:
-  thunder init my_app --org com.company
+  thunder init my_app --org com.company --state bloc
   thunder feature profile
   thunder model --name post --url https://jsonplaceholder.typicode.com/posts
   thunder c_api --collection my_api.postman_collection.json

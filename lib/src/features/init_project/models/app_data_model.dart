@@ -1,3 +1,5 @@
+import '../../../core/consts/state_management.dart';
+
 /// Everything `thunder init` needs to create a project.
 class AppDataModel {
   /// Package name of the app, in snake_case (`my_app`).
@@ -28,6 +30,16 @@ class AppDataModel {
   /// Open the project in VS Code at the end.
   bool openInVSCode;
 
+  /// State management of the project.
+  StateManagement stateManagement;
+
+  /// Custom template (GitHub URL, git URL, zip URL or folder). `null` uses
+  /// the official Thunder-Template branch for [stateManagement].
+  String? template;
+
+  /// Use the template bundled with Thunder instead of downloading it.
+  bool offline;
+
   /// Creates the model.
   AppDataModel({
     this.appName = '',
@@ -39,6 +51,9 @@ class AppDataModel {
     this.initGit = true,
     this.remoteUrl = '',
     this.openInVSCode = false,
+    this.stateManagement = StateManagement.getx,
+    this.template,
+    this.offline = false,
   });
 
   /// The application id (Android package name / iOS bundle id).
@@ -46,6 +61,6 @@ class AppDataModel {
 
   @override
   String toString() {
-    return 'AppDataModel{appName: $appName, organization: $organization, title: $title, directory: $directory}';
+    return 'AppDataModel{appName: $appName, organization: $organization, title: $title, state: ${stateManagement.name}}';
   }
 }

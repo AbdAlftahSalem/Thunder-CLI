@@ -1,7 +1,7 @@
 // Thunder CLI is used from the terminal:
 //
 //   dart pub global activate thunder_cli
-//   thunder init my_app --org com.company
+//   thunder init my_app --org com.company --state bloc   (getx | bloc | cubit)
 //   cd my_app
 //   thunder feature profile
 //   thunder model --name post --url https://jsonplaceholder.typicode.com/posts
@@ -43,4 +43,10 @@ void main() {
     request.constantName = request.name.toDartIdentifier();
   }
   print(ApiCodeGenerator.repo('products', collection.requests, 'my_app'));
+
+  // The same folder as a Cubit (one method per request).
+  print(ApiCodeGenerator.cubit('products', collection.requests, 'my_app'));
+
+  // The files of a BLoC feature.
+  print(BlocStrings.instance.bloc('profile', packageName: 'my_app'));
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+import '../../core/consts/state_management.dart';
 import '../../core/extensions/string_extensions.dart';
 import '../../core/services/console_service/console.dart';
 import 'models/app_data_model.dart';
@@ -53,6 +54,17 @@ class GetProjectData {
       org = org.substring(0, org.length - appDataModel.appName.length - 1);
     }
     appDataModel.organization = org;
+
+    final stateArg = args['state'] as String?;
+    final state = StateManagement.tryParse(stateArg ??
+        Console.ask('State management [ getx / bloc / cubit ]',
+            defaultValue: 'getx'));
+    if (state == null) {
+      throw ArgumentError('State management must be getx, bloc or cubit');
+    }
+    appDataModel.stateManagement = state;
+    appDataModel.template = args['template'] as String?;
+    appDataModel.offline = args['offline'] as bool;
 
     appDataModel.title = (args['title'] as String?) ??
         appDataModel.appName.words

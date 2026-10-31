@@ -1,4 +1,4 @@
-import '../../core/consts/folder_paths.dart';
+import '../../core/consts/state_management.dart';
 import '../../core/extensions/string_extensions.dart';
 import '../../core/services/format_service/format_service.dart';
 import '../../core/services/console_service/console.dart';
@@ -41,20 +41,22 @@ class CreateFeatureFiles {
       {bool force = false, bool quiet = false}) async {
     if (!quiet) {
       Console.info(
-          "\n******************** $featureName ********************\n");
+          "\n******************** $featureName (${project.stateManagement.label}) ********************\n");
     }
 
     await SetupFeatureFiles.setupFeatureFiles(project, featureName,
         force: force, quiet: quiet);
 
     await RouteFeature.setRoutes(project, featureName);
-    await FormatService.format(project,
-        [FolderPaths.instance.routesFile, FolderPaths.instance.appRoutesFile]);
+    await FormatService.format(project, RouteFeature.files(project));
     if (!quiet) {
-      Console.success("Add '/$featureName' to routes.dart and app_routes.dart");
+      Console.success(
+          "Add '/$featureName' to ${RouteFeature.files(project).map((f) => f.split('/').last).join(' and ')}");
       Console.info("\n⚡ Setup '$featureName' successfully 🎉");
-      Console.info(
-          "   Open it with: Get.toNamed(Routes.${featureName.toConstantCase()})\n");
+      final route = 'Routes.${featureName.toConstantCase()}';
+      Console.info(project.stateManagement == StateManagement.getx
+          ? '   Open it with: Get.toNamed($route)\n'
+          : '   Open it with: context.push($route)\n');
     }
   }
 }

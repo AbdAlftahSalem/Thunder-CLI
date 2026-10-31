@@ -39,7 +39,7 @@ class InitProject {
 
     Console.info('''
 
-⚡ Init app successfully 🎉
+⚡ ${appInfo.title} is ready (${appInfo.stateManagement.label}) 🎉
 
   cd ${appInfo.directory}
   flutter run

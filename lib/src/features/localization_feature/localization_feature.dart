@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:args/args.dart';
 
 import '../../core/consts/folder_paths.dart';
+import '../../core/consts/state_management.dart';
 import '../../core/services/console_service/console.dart';
 import '../../core/services/folder_and_file_service/folder_and_file_service.dart';
+import '../../core/services/format_service/format_service.dart';
 import '../../core/services/project_service/project_service.dart';
 import 'localization_files.dart';
 import 'translate_languages.dart';
@@ -101,8 +103,24 @@ class LocalizationFeature {
     final languages = [base, ...targets];
     final localContent =
         await FolderAndFileService.readFile(project.path(_paths.locale()));
-    await FolderAndFileService.createFile(project.path(_paths.locale()),
-        LocalizationFiles.localFile(languages, existing: localContent));
+    final newLocal = LocalizationFiles.localFile(languages,
+        existing: localContent,
+        getx: project.stateManagement == StateManagement.getx);
+    await FolderAndFileService.createFile(
+        project.path(_paths.locale()), newLocal);
+
+    // keep supportedLocales (MaterialApp / LocalizationService) in sync
+    final serviceFile = project.path(_paths.localizationServiceFile);
+    final service = await FolderAndFileService.readFile(serviceFile);
+    if (service.isNotEmpty) {
+      final updated = LocalizationFiles.updateSupportedLocales(
+          service, LocalizationFiles.languagesIn(newLocal));
+      if (updated != service) {
+        await FolderAndFileService.createFile(serviceFile, updated);
+      }
+    }
+    await FormatService.format(
+        project, [_paths.locale(), _paths.localizationServiceFile]);
 
     settings['localization'] = {'base_language': base, 'to_languages': targets};
     await FolderAndFileService.createFile(project.path(_paths.thunderJsonFile),

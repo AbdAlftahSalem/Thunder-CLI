@@ -59,6 +59,11 @@ class CreateApiModel {
 
     final path = FolderPaths.instance.modelFile(
         name.replaceAll(RegExp(r'_?model$', caseSensitive: false), ''));
+    if (FolderAndFileService.exists(project.path(path)) &&
+        !(args['force'] as bool)) {
+      Console.error('$path already exists (use --force to overwrite)');
+      return 1;
+    }
     await FolderAndFileService.createFile(project.path(path), code);
     await FormatService.format(project, [path]);
     Console.success('Create $path');

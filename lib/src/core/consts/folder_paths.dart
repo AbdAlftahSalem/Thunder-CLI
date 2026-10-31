@@ -8,16 +8,18 @@ import '../extensions/string_extensions.dart';
 /// lib/
 /// ├── main.dart
 /// ├── core/
-/// │   ├── bindings/bindings_app.dart      (dependency injection)
+/// │   ├── bindings/bindings_app.dart      (GetX dependency injection)
+/// │   ├── di/injection.dart               (BLoC / Cubit: get_it)
 /// │   ├── networking/                     (DioHelper, ApiResult, enums)
-/// │   ├── routing/routes.dart, app_routes.dart
+/// │   ├── routing/routes.dart, app_routes.dart (GetX) or app_router.dart (go_router)
 /// │   └── theme/app_theme.dart
 /// ├── helper/
 /// │   ├── constants/api_constants.dart, strings_constants.dart
 /// │   ├── translations/                   (GetX translations)
 /// │   └── widgets/custom_widgets/custom_text.dart
 /// └── app/
-///     ├── features/<feature>/<feature>_view.dart, <feature>_controller.dart
+///     ├── features/<feature>/<feature>_view.dart + <feature>_controller.dart (GetX)
+///     │                      or bloc/<feature>_bloc|event|state.dart, cubit/<feature>_cubit|state.dart
 ///     ├── repositories/<feature>_repo.dart
 ///     └── models/<name>_model.dart
 /// ```
@@ -31,6 +33,10 @@ class FolderPaths {
 
   // core
   String bindingsFile = 'lib/core/bindings/bindings_app.dart';
+  String diFile = 'lib/core/di/injection.dart';
+  String appRouterFile = 'lib/core/routing/app_router.dart';
+  String localizationServiceFile =
+      'lib/core/services/localization_service.dart';
   String baseClientFile = 'lib/core/networking/base_client.dart';
   String apiResultFile = 'lib/core/networking/api_result.dart';
   String enumsNetworkingFile = 'lib/core/networking/enums_networking.dart';
@@ -67,6 +73,19 @@ class FolderPaths {
 
   String viewFile(String name) =>
       '${featureDir(name)}/${name.toSnakeCase()}_view.dart';
+
+  String blocFile(String name) =>
+      '${featureDir(name)}/bloc/${name.toSnakeCase()}_bloc.dart';
+
+  String eventFile(String name) =>
+      '${featureDir(name)}/bloc/${name.toSnakeCase()}_event.dart';
+
+  String cubitFile(String name) =>
+      '${featureDir(name)}/cubit/${name.toSnakeCase()}_cubit.dart';
+
+  /// `bloc/<name>_state.dart` or `cubit/<name>_state.dart`.
+  String stateFile(String name, {required bool cubit}) =>
+      '${featureDir(name)}/${cubit ? 'cubit' : 'bloc'}/${name.toSnakeCase()}_state.dart';
 
   String repoFile(String name) => '$repoFolder/${name.toSnakeCase()}_repo.dart';
 

@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+
+import '../../consts/state_management.dart';
 
 /// Information about the Flutter project Thunder is running in.
 class ProjectService {
@@ -59,6 +62,32 @@ class ProjectService {
       return null;
     }
     return project;
+  }
+
+  /// State management of the project: from `thunder.json` (written by
+  /// `thunder init`), otherwise detected from the project files.
+  StateManagement get stateManagement {
+    final settings = File(path('thunder.json'));
+    if (settings.existsSync()) {
+      try {
+        final json = jsonDecode(settings.readAsStringSync());
+        final saved = StateManagement.tryParse(
+            json is Map ? json['state_management']?.toString() : null);
+        if (saved != null) return saved;
+      } on FormatException {
+        // fall back to detection
+      }
+    }
+    if (File(path('lib/core/di/injection.dart')).existsSync() ||
+        File(path('lib/core/routing/app_router.dart')).existsSync()) {
+      final features = Directory(path('lib/app/features'));
+      final hasCubit = features.existsSync() &&
+          features
+              .listSync(recursive: true)
+              .any((e) => e is Directory && p.basename(e.path) == 'cubit');
+      return hasCubit ? StateManagement.cubit : StateManagement.bloc;
+    }
+    return StateManagement.getx;
   }
 
   /// Absolute path of a file inside the project.

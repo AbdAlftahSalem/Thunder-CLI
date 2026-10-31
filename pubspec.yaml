@@ -16,6 +16,7 @@ environment:
   sdk: ^3.4.0
 
 dependencies:
+  archive: ^4.0.0
   args: ^2.5.0
   dio: ^5.7.0
   path: ^1.9.0
