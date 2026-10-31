@@ -10,7 +10,7 @@ import 'open_project_in_vs_code.dart';
 import 'publish_project_to_github.dart';
 import 'set_up_github_action.dart';
 
-/// `thunder init`: creates a new Flutter project with GetX + MVC.
+/// `thunder init`: creates a new Flutter project (GetX, BLoC or Cubit).
 class InitProject {
   /// Runs the command. Returns the process exit code.
   static Future<int> initProject(ArgResults args) async {

@@ -1,7 +1,7 @@
 name: thunder_cli
 description: >-
-  Create Flutter apps with GetX + MVC in seconds and generate features, API
-  models, Postman collection code and translations from the command line.
+  Create Flutter apps with GetX, BLoC or Cubit in seconds and generate
+  features, API models, Postman collection code and translations.
 version: 3.0.0
 repository: https://github.com/AbdAlftahSalem/Thunder-CLI
 issue_tracker: https://github.com/AbdAlftahSalem/Thunder-CLI/issues
@@ -9,6 +9,7 @@ topics:
   - cli
   - flutter
   - getx
+  - bloc
   - code-generation
   - scaffolding
 
